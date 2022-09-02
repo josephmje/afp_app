@@ -16,15 +16,12 @@ Including another URLconf
 # Use static() to add URL mapping to serve static files during development (only)
 from django.conf import settings
 from django.conf.urls.static import static
-
 from django.contrib import admin
 
 # Use include() to add URLS from the catalog application and authentication system
 from django.urls import include, path
 from django.views.generic import RedirectView
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('afp_app.urls')),
 ]

@@ -116,7 +116,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # AUTHENTICATION
 
-AUTH_USER_MODEL = "afp_app.accounts.CustomUser"
+AUTH_USER_MODEL = "accounts.CustomUser"
 
 # PASSWORDS
 

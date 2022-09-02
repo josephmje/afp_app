@@ -58,7 +58,7 @@ python manage.py createsuperuser
   - Promotion: is_physician
   - Research: all
     - Grants: all
-    - Grant Review: is_physician
+    - Grant Reviews: is_physician
     - Editorial Boards: is_physician
     - Publications: all
   - Education: is_physician
