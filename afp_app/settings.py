@@ -53,6 +53,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "crispy_forms",
+    "djmoney",
 ]
 
 LOCAL_APPS = [
@@ -97,6 +98,10 @@ TEMPLATES = [
         },
     },
 ]
+
+# FIXTURES
+
+FIXTURES_DIR = BASE_DIR / "afp_app" / "claims" / "fixtures"
 
 # DATABASES
 

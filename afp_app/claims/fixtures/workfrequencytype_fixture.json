@@ -1,0 +1,90 @@
+[
+  {
+    "model": "claims.WorkFrequencyType",
+    "pk": 1,
+    "fields": {
+      "name": "Less than half a day a week - NO CREDIT",
+      "days_equal": 0
+    }
+  },
+  {
+    "model": "claims.WorkFrequencyType",
+    "pk": 2,
+    "fields": {
+      "name": "Half day",
+      "days_equal": 0.5
+    }
+  },
+  {
+    "model": "claims.WorkFrequencyType",
+    "pk": 3,
+    "fields": {
+      "name": "Two half days (full day)",
+      "days_equal": 1
+    }
+  },
+  {
+    "model": "claims.WorkFrequencyType",
+    "pk": 4,
+    "fields": {
+      "name": "Three half days",
+      "days_equal": 1.5
+    }
+  },
+  {
+    "model": "claims.WorkFrequencyType",
+    "pk": 5,
+    "fields": {
+      "name": "Four half days (two full days)",
+      "days_equal": 2
+    }
+  },
+  {
+    "model": "claims.WorkFrequencyType",
+    "pk": 6,
+    "fields": {
+      "name": "Five half days",
+      "days_equal": 2.5
+    }
+  },
+  {
+    "model": "claims.WorkFrequencyType",
+    "pk": 7,
+    "fields": {
+      "name": "Six half days (three full days)",
+      "days_equal": 3
+    }
+  },
+  {
+    "model": "claims.WorkFrequencyType",
+    "pk": 8,
+    "fields": {
+      "name": "Seven half days",
+      "days_equal": 3.5
+    }
+  },
+  {
+    "model": "claims.WorkFrequencyType",
+    "pk": 9,
+    "fields": {
+      "name": "Eight half days (four full days)",
+      "days_equal": 4
+    }
+  },
+  {
+    "model": "claims.WorkFrequencyType",
+    "pk": 10,
+    "fields": {
+      "name": "Nine half days",
+      "days_equal": 4.5
+    }
+  },
+  {
+    "model": "claims.WorkFrequencyType",
+    "pk": 11,
+    "fields": {
+      "name": "Ten half days (five full days)",
+      "days_equal": 5
+    }
+  }
+]

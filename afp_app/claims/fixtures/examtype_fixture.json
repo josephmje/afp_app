@@ -1,0 +1,82 @@
+[
+    {
+        "model": "claims.ExamType",
+        "pk": 1,
+        "fields": {
+            "name": "STACER",
+            "weight": 150
+        }
+    },
+    {
+        "model": "claims.ExamType",
+        "pk": 2,
+        "fields": {
+            "name": "OSCE/SAQ Marker",
+            "weight": 150
+        }
+    },
+    {
+        "model": "claims.ExamType",
+        "pk": 3,
+        "fields": {
+            "name": "Graduate degree defense exam (SGS)",
+            "weight": 150
+        }
+    },
+    {
+        "model": "claims.ExamType",
+        "pk": 4,
+        "fields": {
+            "name": "Departmental oral",
+            "weight": 150
+        }
+    },
+    {
+        "model": "claims.ExamType",
+        "pk": 5,
+        "fields": {
+            "name": "Mock oral",
+            "weight": 150
+        }
+    },
+    {
+        "model": "claims.ExamType",
+        "pk": 6,
+        "fields": {
+            "name": "UofT medical student admission interviewer or file reviewer",
+            "weight": 75
+        }
+    },
+    {
+        "model": "claims.ExamType",
+        "pk": 7,
+        "fields": {
+            "name": "Royal College OSCE",
+            "weight": 150
+        }
+    },
+    {
+        "model": "claims.ExamType",
+        "pk": 8,
+        "fields": {
+            "name": "CaRMS interviewer or file reviewer",
+            "weight": 75
+        }
+    },
+    {
+        "model": "claims.ExamType",
+        "pk": 9,
+        "fields": {
+            "name": "Subspecialty post graduate admissions interviewer",
+            "weight": 75
+        }
+    },
+    {
+        "model": "claims.ExamType",
+        "pk": 10,
+        "fields": {
+            "name": "Other - NOT PAID",
+            "weight": 0
+        }
+    }
+]

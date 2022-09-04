@@ -3,6 +3,10 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+STR_SHORT = 10
+STR_MED = 50
+STR_LONG = 100
+STR_LONGEST = 255
 
 class CustomUserManager(UserManager):
     def get_by_natural_key(self, username):
@@ -15,7 +19,7 @@ class Division(models.Model):
 
     name = models.CharField(
         "Clinical Division",
-        max_length=50,
+        max_length=STR_MED,
         help_text="Enter clinical division.",
     )
 
@@ -28,7 +32,7 @@ class Rank(models.Model):
 
     name = models.CharField(
         "Rank",
-        max_length=25,
+        max_length=STR_MED,
         help_text="Enter academic rank.",
     )
 
@@ -46,11 +50,11 @@ class UserManagerActive(models.Manager):
 class CustomUser(AbstractUser):
     """Model extending Django's `AbstractUser` class."""
 
-    first_name = models.CharField(_("first name"), max_length=50)
+    first_name = models.CharField(_("first name"), max_length=STR_MED)
     middle_name = models.CharField(
-        _("middle name"), max_length=50, blank=True, null=True
+        _("middle name"), max_length=STR_MED, blank=True, null=True
     )
-    last_name = models.CharField(_("last name"), max_length=50)
+    last_name = models.CharField(_("last name"), max_length=STR_MED)
     email = models.EmailField(_("email address"), unique=True)
     is_physician = models.BooleanField(default=True)
     is_scientist = models.BooleanField(default=False)

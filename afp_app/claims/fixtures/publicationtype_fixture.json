@@ -1,0 +1,42 @@
+[
+  {
+    "model": "claims.PublicationType",
+    "pk": 1,
+    "fields": {
+      "name": "Journal Article",
+      "weight": 1
+    }
+  },
+  {
+    "model": "claims.PublicationType",
+    "pk": 2,
+    "fields": {
+      "name": "Conference Abstract",
+      "weight": 0.5
+    }
+  },
+  {
+    "model": "claims.PublicationType",
+    "pk": 3,
+    "fields": {
+      "name": "Edited Book",
+      "weight": 800
+    }
+  },
+  {
+    "model": "claims.PublicationType",
+    "pk": 4,
+    "fields": {
+      "name": "Authored Book",
+      "weight": 800
+    }
+  },
+  {
+    "model": "claims.PublicationType",
+    "pk": 5,
+    "fields": {
+      "name": "Chapter",
+      "weight": 400
+    }
+  }
+]

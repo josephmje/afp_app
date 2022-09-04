@@ -1,0 +1,58 @@
+[
+  {
+    "model": "claims.GrantRole",
+    "pk": 1,
+    "fields": {
+      "name": "Principal Investigator",
+      "weight": 3
+    }
+  },
+  {
+    "model": "claims.GrantRole",
+    "pk": 2,
+    "fields": {
+      "name": "Co-Principal Investigator",
+      "weight": 3
+    }
+  },
+  {
+    "model": "claims.GrantRole",
+    "pk": 3,
+    "fields": {
+      "name": "Co-Investigator",
+      "weight": 1
+    }
+  },
+  {
+    "model": "claims.GrantRole",
+    "pk": 4,
+    "fields": {
+      "name": "Collaborator",
+      "weight": 0
+    }
+  },
+  {
+    "model": "claims.GrantRole",
+    "pk": 5,
+    "fields": {
+      "name": "Team Grant Leader",
+      "weight": 4
+    }
+  },
+  {
+    "model": "claims.GrantRole",
+    "pk": 6,
+    "fields": {
+      "name": "Qualified Investigator",
+      "weight": 1
+    }
+  },
+  {
+    "model": "claims.GrantRole",
+    "pk": 7,
+    "fields": {
+      "name": "CIHR Foundation Grant PI",
+      "weight": 7
+    }
+  }
+]

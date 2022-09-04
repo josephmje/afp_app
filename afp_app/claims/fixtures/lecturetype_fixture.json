@@ -1,0 +1,74 @@
+[
+  {
+    "model": "claims.LectureType",
+    "pk": 1,
+    "fields": {
+      "name": "Postgraduate Core Lecture",
+      "weight": 150
+    }
+  },
+  {
+    "model": "claims.LectureType",
+    "pk": 2,
+    "fields": {
+      "name": "Other Postgraduate Lecture",
+      "weight": 75
+    }
+  },
+  {
+    "model": "claims.LectureType",
+    "pk": 3,
+    "fields": {
+      "name": "Mandatory Medical Student Lecture",
+      "weight": 150
+    }
+  },
+  {
+    "model": "claims.LectureType",
+    "pk": 4,
+    "fields": {
+      "name": "Elective Medical Student Lecture",
+      "weight": 75
+    }
+  },
+  {
+    "model": "claims.LectureType",
+    "pk": 5,
+    "fields": {
+      "name": "UofT Numbered Course",
+      "weight": 150
+    }
+  },
+  {
+    "model": "claims.LectureType",
+    "pk": 6,
+    "fields": {
+      "name": "Accredited CME",
+      "weight": 75
+    }
+  },
+  {
+    "model": "claims.LectureType",
+    "pk": 7,
+    "fields": {
+      "name": "Grand Rounds at CAMH",
+      "weight": 150
+    }
+  },
+  {
+    "model": "claims.LectureType",
+    "pk": 8,
+    "fields": {
+      "name": "Community Lecture",
+      "weight": 37.5
+    }
+  },
+  {
+    "model": "claims.LectureType",
+    "pk": 9,
+    "fields": {
+      "name": "Other Lecture",
+      "weight": 37.5
+    }
+  }
+]

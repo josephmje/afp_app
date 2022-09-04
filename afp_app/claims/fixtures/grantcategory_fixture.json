@@ -1,0 +1,26 @@
+[
+  {
+    "model": "claims.GrantCategory",
+    "pk": 1,
+    "fields": {
+      "name": "CIHR/NIH/HHMI/BWF/NHRDP/NCI grant or similar",
+      "weight": 3
+    }
+  },
+  {
+    "model": "claims.GrantCategory",
+    "pk": 2,
+    "fields": {
+      "name": "OMHF/CPRF/STANLEY/NARSAD grant or similar",
+      "weight": 2
+    }
+  },
+  {
+    "model": "claims.GrantCategory",
+    "pk": 3,
+    "fields": {
+      "name": "other granting agency",
+      "weight": 1
+    }
+  }
+]

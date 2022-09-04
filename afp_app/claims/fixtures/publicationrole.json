@@ -1,0 +1,42 @@
+[
+  {
+    "model": "claims.PublicationRole",
+    "pk": 1,
+    "fields": {
+      "name": "First Author",
+      "weight": 4
+    }
+  },
+  {
+    "model": "claims.PublicationRole",
+    "pk": 2,
+    "fields": {
+      "name": "Second Author",
+      "weight": 2
+    }
+  },
+  {
+    "model": "claims.PublicationRole",
+    "pk": 3,
+    "fields": {
+      "name": "Senior Author (last)",
+      "weight": 3
+    }
+  },
+  {
+    "model": "claims.PublicationRole",
+    "pk": 4,
+    "fields": {
+      "name": "Contributing Author",
+      "weight": 1
+    }
+  },
+  {
+    "model": "claims.PublicationRole",
+    "pk": 5,
+    "fields": {
+      "name": "Shared Senior Author",
+      "weight": 1.5
+    }
+  }
+]

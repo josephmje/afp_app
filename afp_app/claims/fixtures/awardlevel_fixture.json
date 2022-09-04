@@ -1,0 +1,50 @@
+[
+  {
+    "model": "claims.AwardLevel",
+    "pk": 1,
+    "fields": {
+      "name": "Local",
+      "value": 400
+    }
+  },
+  {
+    "model": "claims.awardlevel",
+    "pk": 2,
+    "fields": {
+      "name": "Hospital",
+      "value": 400
+    }
+  },
+  {
+    "model": "claims.AwardLevel",
+    "pk": 3,
+    "fields": {
+      "name": "University",
+      "value": 400
+    }
+  },
+  {
+    "model": "claims.AwardLevel",
+    "pk": 4,
+    "fields": {
+      "name": "Provincial",
+      "value": 800
+    }
+  },
+  {
+    "model": "claims.AwardLevel",
+    "pk": 5,
+    "fields": {
+      "name": "National",
+      "value": 800
+    }
+  },
+  {
+    "model": "claims.AwardLevel",
+    "pk": 6,
+    "fields": {
+      "name": "International",
+      "value": 800
+    }
+  }
+]

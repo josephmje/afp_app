@@ -1,0 +1,51 @@
+[
+  {
+    "model": "claims.GrantAgencyType",
+    "pk": 1,
+    "fields": {
+      "name": "Federal Agency"
+    }
+  },
+  {
+    "model": "claims.GrantAgencyType",
+    "pk": 2,
+    "fields": {
+      "name": "Provincial Agency"
+    }
+  },
+  {
+    "model": "claims.GrantAgencyType",
+    "pk": 3,
+    "fields": {
+      "name": "Industry Agency"
+    }
+  },
+  {
+    "model": "claims.GrantAgencyType",
+    "pk": 4,
+    "fields": {
+      "name": "US Agency"
+    }
+  },
+  {
+    "model": "claims.GrantAgencyType",
+    "pk": 5,
+    "fields": {
+      "name": "International Agency"
+    }
+  },
+  {
+    "model": "claims.GrantAgencyType",
+    "pk": 6,
+    "fields": {
+      "name": "University or Hospital"
+    }
+  },
+  {
+    "model": "claims.GrantAgencyType",
+    "pk": 7,
+    "fields": {
+      "name": "Miscellaneous Agency"
+    }
+  }
+]
