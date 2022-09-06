@@ -8,6 +8,7 @@ STR_MED = 50
 STR_LONG = 100
 STR_LONGEST = 255
 
+
 class CustomUserManager(UserManager):
     def get_by_natural_key(self, username):
         case_insensitive_username_field = f"{self.model.USERNAME_FIELD}__iexact"

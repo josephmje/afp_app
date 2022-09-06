@@ -8,10 +8,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 
 # GENERAL
 
@@ -19,7 +20,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-*tn5zjlfjn9dhq1e23ea)p89%jc2=ld*^m-i(jj^02v+d-w_ac"
+SECRET_KEY = (
+    "django-insecure-*tn5zjlfjn9dhq1e23ea)p89%jc2=ld*^m-i(jj^02v+d-w_ac"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -53,6 +56,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "crispy_forms",
+    "crispy_bootstrap5",
     "djmoney",
 ]
 
@@ -86,7 +90,7 @@ WSGI_APPLICATION = "afp_app.wsgi.application"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [str(BASE_DIR / "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -99,9 +103,13 @@ TEMPLATES = [
     },
 ]
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 # FIXTURES
 
-FIXTURES_DIR = BASE_DIR / "afp_app" / "claims" / "fixtures"
+FIXTURES_DIR = BASE_DIR / "claims" / "fixtures"
 
 # DATABASES
 
@@ -149,4 +157,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = "static/"
+# STATIC_ROOT = BASE_DIR / "static"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
 LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/accounts/login"
