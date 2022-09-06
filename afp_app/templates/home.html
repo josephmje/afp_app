@@ -1,0 +1,13 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Home{%endblock %}
+
+{% block content %}
+<h1>Home Page</h1>
+<p>Welcome to the AFP Claims Portal.</p>
+
+<p>The database has the following record counts:</p>
+<ul>
+  <li><strong>Awards:</strong> {{ num_awards }}</li>
+</ul>
+{% endblock %}
