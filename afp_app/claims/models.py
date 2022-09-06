@@ -308,6 +308,9 @@ class CommitteeWork(UserBaseModel):
     name = models.CharField(max_length=STR_LONG)
     hours = models.IntegerField()
 
+    class Meta:
+        verbose_name_plural = "Committee work"
+
 
 class LectureType(models.Model):
     name = models.CharField(

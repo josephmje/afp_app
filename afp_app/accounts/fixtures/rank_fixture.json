@@ -1,0 +1,30 @@
+[
+  {
+    "model": "accounts.Rank",
+    "pk": 1,
+    "fields": {
+      "name": "Lecturer"
+    }
+  },
+  {
+    "model": "accounts.Rank",
+    "pk": 2,
+    "fields": {
+      "name": "Assistant Professor"
+    }
+  },
+  {
+    "model": "accounts.Rank",
+    "pk": 3,
+    "fields": {
+      "name": "Associate Professor"
+    }
+  },
+  {
+    "model": "accounts.Rank",
+    "pk": 4,
+    "fields": {
+      "name": "Full Professor"
+    }
+  }
+]

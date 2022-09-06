@@ -20,15 +20,12 @@ Creating an app within the project:
 cd afp_app
 mkdir -p afp_app/accounts
 python manage.py startapp accounts afp_app/accounts
+
+mkdir -p afp_app/claims
+python manage.py startapp claims afp_app/claims
 ```
 
 Set up the database:
-
-```bash
-python manage.py migrate
-```
-
-Activate database models:
 
 ```bash
 python manage.py makemigrations
@@ -41,6 +38,13 @@ Create admin user:
 python manage.py createsuperuser
 ```
 
+## External Libraries
+
+- Bootstrap
+- datatables
+- jquery
+- FontAwesome
+
 ## User Permissions
 
 - is_superuser: Michael
@@ -50,25 +54,38 @@ python manage.py createsuperuser
 
 ## Navbar
 
-- LH
-
-  - CAMH Logo: all
-  - Home: all
-  - Awards: is_physician
-  - Promotion: is_physician
-  - Research: all
-    - Grants: all
-    - Grant Reviews: is_physician
-    - Publications: all
-    - Editorial Boards: is_physician
-  - Education: is_physician
-    - Committee Work
-    - Lectures
-    - Exams
-    - Supervision
-
 - RH
   - Admin: is_admin
   - Help: all
   - Profile: all
   - Logout: all
+
+## To Do
+
+- learn [flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/#flexbox-background) for site layout
+- upload file doesn't capture files yet
+- instructions stating to use either file upload or URL for verification
+- simple forms
+  - Award
+  - Promotion
+    - needs to update user profile as well
+    - selection list shouldn't include Lecturer
+  - GrantReview
+    - branching logic for `is_member`, `num_days`
+  - EditorialBoard
+  - CommitteeWork
+  - Lectures
+- inline formsets
+  - Grant
+    - external tables include GrantAgency, GrantLink
+    - tagging system for investigators and roles
+  - Publication
+    - branching logic depending on publication type
+    - query Journal table
+    - external tables include PublicationLink
+    - tagging system for authors
+  - Exam
+    - external tables include Student
+  - Supervision
+    - external tables include Student
+    - limit choices based on student type

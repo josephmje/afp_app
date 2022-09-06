@@ -11,6 +11,16 @@ all : commands
 commands : Makefile
 	@sed -n 's/^## //p' $<
 
+run:
+    ${MANAGE} runserver
+
+migrate:
+    ${MANAGE} makemigrations
+    ${MANAGE} migrate
+
+superuser:
+    ${MANAGE} createsuperuser
+
 ## test         : run all tests.
 test :
 	${MANAGE} test

@@ -11,7 +11,9 @@ STR_LONGEST = 255
 
 class CustomUserManager(UserManager):
     def get_by_natural_key(self, username):
-        case_insensitive_username_field = f"{self.model.USERNAME_FIELD}__iexact"
+        case_insensitive_username_field = (
+            f"{self.model.USERNAME_FIELD}__iexact"
+        )
         return self.get(**{case_insensitive_username_field: username})
 
 
@@ -44,7 +46,9 @@ class Rank(models.Model):
 class UserManagerActive(models.Manager):
     def get_queryset(self):
         return (
-            super(UserManagerActive, self).get_queryset().filter(is_active=True)
+            super(UserManagerActive, self)
+            .get_queryset()
+            .filter(is_active=True)
         )
 
 
@@ -59,10 +63,11 @@ class CustomUser(AbstractUser):
     email = models.EmailField(_("email address"), unique=True)
     is_physician = models.BooleanField(default=True)
     is_scientist = models.BooleanField(default=False)
-    user_division = models.ForeignKey(
+    division = models.ForeignKey(
         "division", on_delete=models.SET_NULL, null=True
     )
-    user_rank = models.ForeignKey("rank", on_delete=models.SET_NULL, null=True)
+    other_division = models.CharField(max_length=STR_MED, null=True)
+    rank = models.ForeignKey("rank", on_delete=models.SET_NULL, null=True)
     archived_at = models.DateTimeField(blank=True, null=True)
 
     objects = CustomUserManager()

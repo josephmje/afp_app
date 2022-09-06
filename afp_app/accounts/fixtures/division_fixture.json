@@ -1,0 +1,58 @@
+[
+  {
+    "model": "accounts.Division",
+    "pk": 1,
+    "fields": {
+      "name": "Addictions"
+    }
+  },
+  {
+    "model": "accounts.Division",
+    "pk": 2,
+    "fields": {
+      "name": "Adult Neurodevelopmental and Geriatric Psychiatry"
+    }
+  },
+  {
+    "model": "accounts.Division",
+    "pk": 3,
+    "fields": {
+      "name": "Child and Youth Psychiatry"
+    }
+  },
+  {
+    "model": "accounts.Division",
+    "pk": 4,
+    "fields": {
+      "name": "Forensic Psychiatry"
+    }
+  },
+  {
+    "model": "accounts.Division",
+    "pk": 5,
+    "fields": {
+      "name": "General and Health Systems Psychiatry"
+    }
+  },
+  {
+    "model": "accounts.Division",
+    "pk": 6,
+    "fields": {
+      "name": "Psychology"
+    }
+  },
+  {
+    "model": "accounts.Division",
+    "pk": 7,
+    "fields": {
+      "name": "Schizophrenia"
+    }
+  },
+  {
+    "model": "accounts.Division",
+    "pk": 8,
+    "fields": {
+      "name": "Other"
+    }
+  }
+]

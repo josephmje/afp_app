@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import DetailView, ListView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 
 from afp_app.claims.models import Award
-from afp_app.claims.forms import AwardForm
+from afp_app.claims.forms import AwardForm, PromotionForm
 
 
 @login_required(login_url="/accounts/login")
@@ -41,8 +41,29 @@ def create_award(request):
             award = form.save(commit=False)
             award.user_id = request.user
             award.save()
-            return redirect("/home")
+            return redirect("/")
     else:
         form = AwardForm()
 
-    return render(request, "award/create_award.html", {"form": form})
+    return render(request, "claims/awards/add_award.html", {"form": form})
+
+
+@login_required(login_url="/accounts/login")
+def update_award(request, pk):
+    award = Award.objects.get(id=pk)
+    form = AwardForm(instance=award)
+
+    if request.method == "POST":
+        form = AwardForm(request.POST, instance=award)
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+    else:
+        form = AwardForm()
+
+    return render(request, "claims/awards/add_award.html", {"form": form})
+
+
+def delete_award(request, pk):
+    context = {}
+    return render(request, "claims/awards/delete.html", context)

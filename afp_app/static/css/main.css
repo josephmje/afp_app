@@ -10,13 +10,10 @@
     /* Darker purple for highlight on hover etc. */
     --theme-light: #904B9C;
     /* Lighter purple from CAMH palette */
-    --alt-theme-main: #00A39B;
+    --alt-theme-main: #007681;
     /* CAMH teal */
     --alt-theme-light: #7DCBD5;
     /* Lighter teal from CAMH palette */
-    --bootstrap-success: #5CB85C;
-    --bootstrap-warning: #F0AD4E;
-    --bootstrap-danger: #D9534F;
 }
 
 .logo {
