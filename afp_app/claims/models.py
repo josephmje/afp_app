@@ -1,3 +1,5 @@
+import uuid
+
 from afp_app.accounts.models import CustomUser, Rank
 from afp_app.claims.mixins import (
     CreatedUpdatedMixin,
@@ -32,6 +34,12 @@ class BaseModel(CreatedUpdatedMixin, VerificationMixin, EligibilityMixin):
 
 
 class UserBaseModel(BaseModel):
+    uid = models.UUIDField(
+        unique=True,
+        editable=False,
+        default=uuid.uuid4,
+        verbose_name="Public identifier",
+    )
     user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     class Meta:
@@ -78,6 +86,11 @@ class Award(UserBaseModel):
 
     def __str__(self):
         return self.name
+
+    @property
+    def point_value(self):
+        if self.cash_prize == True:
+            return 0
 
 
 class Promotion(UserBaseModel):
@@ -126,7 +139,9 @@ class GrantAgency(models.Model):
 
 
 class Grant(BaseModel):
-    amount = MoneyField(max_digits=14, decimal_places=2, default_currency="CAD")
+    amount = MoneyField(
+        max_digits=14, decimal_places=2, default_currency="CAD"
+    )
     name = models.CharField(max_length=STR_LONGEST)
     agency = models.ForeignKey(GrantAgency, on_delete=models.PROTECT)
     other_grant_agency = models.CharField(max_length=STR_MED)
@@ -243,7 +258,9 @@ class Publication(BaseModel):
     )
     volume = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
     issue = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
-    start_page = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
+    start_page = models.CharField(
+        max_length=STR_LONGEST, blank=True, null=True
+    )
     end_page = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
     pub_month = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
     pub_year = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
