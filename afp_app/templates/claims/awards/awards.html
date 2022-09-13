@@ -9,7 +9,7 @@
   <i class="fas fa-plus"></i>
 </a>
 
-<table id="awards" class="display" style="width:100%">
+<table class="table table-condensed table-hover table-striped" id="tbl_awards">
   <thead>
     <tr>
       <th style="width: 20%;">Award</th>
@@ -17,8 +17,8 @@
       <th style="width: 15%;">Level</th>
       <th style="width: 5%;">Cash Prize</th>
       <th style="width: 25%;">Comments</th>
-      <th style="width: 25%;">Edit</th>
-      <th style="width: 25%;">Delete</th>
+      <th style="width: 5%;">Edit</th>
+      <th style="width: 5%;">Delete</th>
     </tr>
   </thead>
   {% for award in awards %}
@@ -29,18 +29,25 @@
     <td>{{ award.cash_prize }}</td>
     <td>{{ award.comments }}</td>
     <td>
-      <a href="/award/{{ award.id }}" class="btn btn-secondary" title="Edit award">
+      <a href="/award/{{ award.uuid }}" class="btn btn-secondary" title="Edit award">
         <i class="fas fa-pen"></i>
       </a>
     </td>
     <td>
-      <a href="/delete_award/{{ award.id }}" class="btn btn-secondary" title="Delete award">
+      <a href="/delete_award/{{ award.uuid }}" class="btn btn-secondary" title="Delete award">
         <i class="fas fa-trash-alt"></i>
       </a>
     </td>
   </tr>
   {% endfor %}
 </table>
+
+<!-- Turns on the DataTables plugin for the awards table -->
+<script>
+  $(document).ready(function () {
+    $("#tbl_awards").DataTable();
+  })
+</script>
 
 {% endblock %}
 
