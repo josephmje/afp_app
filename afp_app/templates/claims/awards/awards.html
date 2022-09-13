@@ -1,0 +1,46 @@
+{% extends "base_generic.html" %}
+
+{% block title %} Awards {% endblock title %}
+
+{% block content %}
+<br><br>
+
+<a href="/add_award" class="btn btn-secondary" style="width: 40px;" title="Add award">
+  <i class="fas fa-plus"></i>
+</a>
+
+<table id="awards" class="display" style="width:100%">
+  <thead>
+    <tr>
+      <th style="width: 20%;">Award</th>
+      <th style="width: 20%;">Organization</th>
+      <th style="width: 15%;">Level</th>
+      <th style="width: 5%;">Cash Prize</th>
+      <th style="width: 25%;">Comments</th>
+      <th style="width: 25%;">Edit</th>
+      <th style="width: 25%;">Delete</th>
+    </tr>
+  </thead>
+  {% for award in awards %}
+  <tr>
+    <td>{{ award.name }}</td>
+    <td>{{ award.organization }}</td>
+    <td>{{ award.award_level }}</td>
+    <td>{{ award.cash_prize }}</td>
+    <td>{{ award.comments }}</td>
+    <td>
+      <a href="/award/{{ award.id }}" class="btn btn-secondary" title="Edit award">
+        <i class="fas fa-pen"></i>
+      </a>
+    </td>
+    <td>
+      <a href="/delete_award/{{ award.id }}" class="btn btn-secondary" title="Delete award">
+        <i class="fas fa-trash-alt"></i>
+      </a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
+

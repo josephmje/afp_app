@@ -10,7 +10,9 @@ class CreatedUpdatedMixin(models.Model):
     """
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    # created_user =
     modified_at = models.DateTimeField(auto_now=True)
+    # modified_user =
 
     class Meta:
         abstract = True
@@ -33,11 +35,16 @@ class VerificationMixin(models.Model):
         abstract = True
 
 
-class EligibilityMixin(models.Model):
+class AdminMixin(models.Model):
     """
     This mixin provides fields for conveying the eligibility of
     a claim and reviewer decision comments.
     """
+
+    class EntryType(models.IntegerChoices):
+        SELF_REPORT = 1, _("Self-report")
+        REGISTRY = 2, _("Data entered from registry")
+        USER_EDIT = 3, _("Data entered and edited by physician")
 
     class EligibilityStatus(models.IntegerChoices):
         DOUBLE_CHECK = -2, _("To confirm")
@@ -45,6 +52,7 @@ class EligibilityMixin(models.Model):
         INELIGIBLE = 0, _("Ineligible")
         ELIGIBLE = 1, _("Eligible")
 
+    entry_type = models.IntegerField(choices=EntryType.choices, default=1)
     eligible = models.IntegerField(
         choices=EligibilityStatus.choices, default=-1
     )

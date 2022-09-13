@@ -3,7 +3,7 @@ import uuid
 from afp_app.accounts.models import CustomUser, Rank
 from afp_app.claims.mixins import (
     CreatedUpdatedMixin,
-    EligibilityMixin,
+    AdminMixin,
     VerificationMixin,
 )
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -18,28 +18,24 @@ STR_LONG = 100
 STR_LONGEST = 255
 
 
-class BaseModel(CreatedUpdatedMixin, VerificationMixin, EligibilityMixin):
+class BaseModel(CreatedUpdatedMixin, VerificationMixin, AdminMixin):
     """Model representing a base class."""
 
-    class EntryType(models.IntegerChoices):
-        SELF_REPORT = 1, _("Self-report")
-        REGISTRY = 2, _("Data entered from registry")
-        USER_EDIT = 3, _("Data entered and edited by physician")
-
-    comments = models.TextField(blank=True, null=True)
-    entry_type = models.IntegerField(choices=EntryType.choices, default=1)
-
-    class Meta:
-        abstract = True
-
-
-class UserBaseModel(BaseModel):
     uid = models.UUIDField(
         unique=True,
         editable=False,
         default=uuid.uuid4,
         verbose_name="Public identifier",
     )
+    comments = models.TextField(blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
+
+class UserBaseModel(BaseModel):
+    """Model extending the base class to log the user."""
+
     user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     class Meta:
@@ -48,9 +44,7 @@ class UserBaseModel(BaseModel):
 
 class AwardLevel(models.Model):
     """
-    Model representing an award level (e.g. Local, Hospital,
-    University, Provincial, National, International)
-    and it's associated point value.
+    Model representing an award level and it's associated point value.
     """
 
     name = models.CharField(

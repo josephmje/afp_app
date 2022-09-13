@@ -1,87 +1,89 @@
 {% load static %}
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img
-        class="logo"
-        src="{% static 'images/camh_logo_white.png' %}"
-        alt=""
-      />
-    </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      {% if user.is_authenticated %}
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Awards</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Promotion</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Research
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Grants</a></li>
-            <li><a class="dropdown-item" href="#">Grant Reviews</a></li>
-            <li><a class="dropdown-item" href="#">Publications</a></li>
-            <li><a class="dropdown-item" href="#">Editorial Boards</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Education
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Committee Work</a></li>
-            <li><a class="dropdown-item" href="#">Lectures</a></li>
-            <li><a class="dropdown-item" href="#">Exams</a></li>
-            <li><a class="dropdown-item" href="#">Supervision</a></li>
-          </ul>
-        </li>
-      </ul>
-      {% endif %}
-    </div>
-    <div>
-      <ul class="navbar-nav">
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img
+          class="logo"
+          src="{% static 'images/camh_logo_white.png' %}"
+          alt=""
+        />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         {% if user.is_authenticated %}
-        <span class="navbar-text">Loggin in as {{ user.username }} | </span>
-        <li class="nav-item">
-          <a class="nav-link" href="/accounts/logout">Logout</a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="/accounts/login">Login</a>
-        </li>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'award_list' %}">Awards</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Promotion</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Research
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Grants</a></li>
+              <li><a class="dropdown-item" href="#">Grant Reviews</a></li>
+              <li><a class="dropdown-item" href="#">Publications</a></li>
+              <li><a class="dropdown-item" href="#">Editorial Boards</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Education
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Committee Work</a></li>
+              <li><a class="dropdown-item" href="#">Lectures</a></li>
+              <li><a class="dropdown-item" href="#">Exams</a></li>
+              <li><a class="dropdown-item" href="#">Supervision</a></li>
+            </ul>
+          </li>
+        </ul>
         {% endif %}
-      </ul>
+      </div>
+      <div>
+        <ul class="navbar-nav">
+          {% if user.is_authenticated %}
+          <span class="navbar-text">Loggin in as {{ user.username }} | </span>
+          <li class="nav-item">
+            <a class="nav-link" href="/accounts/logout">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/accounts/login">Login</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</header>
