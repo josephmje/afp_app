@@ -1,3 +1,4 @@
+from afp_app.accounts.models import CustomUser
 from afp_app.claims.models import (
     Award,
     Promotion,
@@ -10,6 +11,20 @@ from afp_app.claims.models import (
     Supervision,
 )
 from django import forms
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = [
+            "first_name",
+            "middle_name",
+            "last_name",
+            "email",
+            "division",
+            "other_division",
+            "rank",
+        ]
 
 
 class AwardForm(forms.ModelForm):

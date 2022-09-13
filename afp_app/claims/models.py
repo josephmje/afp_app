@@ -21,11 +21,10 @@ STR_LONGEST = 255
 class BaseModel(CreatedUpdatedMixin, VerificationMixin, AdminMixin):
     """Model representing a base class."""
 
-    uid = models.UUIDField(
+    uuid = models.UUIDField(
         unique=True,
-        editable=False,
         default=uuid.uuid4,
-        verbose_name="Public identifier",
+        editable=False,
     )
     comments = models.TextField(blank=True, null=True)
 

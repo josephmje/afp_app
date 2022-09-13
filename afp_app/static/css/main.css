@@ -1,46 +1,3 @@
-/* ---------------------------------------
-# Start configuration
----------------------------------------- */
-html,
-body {
-    height: 100%;
-    margin: 0;
-    max-width: 100%;
-    padding-bottom: 70px;
-    display: flex;
-    flex-direction: column;
-}
-
-/* ---------------------------------------
-# Keep footer at bottom of page
----------------------------------------- */
-.wrapper {
-    min-height: 100%;
-    margin-bottom: -50px;
-}
-header {
-    min-height: 50px;
-}
-footer {
-    position: fixed;
-    bottom: 0;
-    min-height: 50px;
-    margin-top: auto;
-}
-
-$theme-colors: (
-    "primary": $primary,
-    "secondary": $secondary,
-    "success": $success,
-    "info": $info,
-    "warning": $warning,
-    "danger": $danger,
-    "light": $light,
-    "dark": $dark
-);
-
-
-
 :root {
     /* Site color defaults are defined here! */
     --light-text: #F8F8F8;
@@ -59,12 +16,26 @@ $theme-colors: (
     /* Lighter teal from CAMH palette */
 }
 
+.navbar-collapse {
+    /* Get rid of padding on the ends of the header */
+    padding: 0px;
+}
+
 .logo {
     height: 30px;
     width: 80px;
 }
 
-.navbar-collapse {
-    /* Get rid of padding on the ends of the header */
-    padding: 0px;
+.copyright {
+    float: left;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    max-width: 100%;
+    padding-bottom: 70px;
+    display: flex;
+    flex-direction: column;
 }
