@@ -62,6 +62,9 @@ pdm.lock
 .pdm.toml
 __pypackages__/
 
+# Node
+node_modules/
+
 # Environments
 .env
 .venv
