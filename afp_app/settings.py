@@ -20,9 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = (
-    "django-insecure-*tn5zjlfjn9dhq1e23ea)p89%jc2=ld*^m-i(jj^02v+d-w_ac"
-)
+SECRET_KEY = "django-insecure-*tn5zjlfjn9dhq1e23ea)p89%jc2=ld*^m-i(jj^02v+d-w_ac"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -58,6 +56,7 @@ THIRD_PARTY_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "djmoney",
+    "widget_tweaks",
 ]
 
 LOCAL_APPS = [
@@ -129,7 +128,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # AUTHENTICATION
 
-AUTH_USER_MODEL = "accounts.CustomUser"
+AUTH_USER_MODEL = "accounts.User"
 
 # PASSWORDS
 

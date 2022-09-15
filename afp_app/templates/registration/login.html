@@ -1,26 +1,24 @@
-{% extends "base_generic.html" %}
+{% extends "base.html" %}
 
 {% load crispy_forms_tags %}
 
 {% block content %}
-
-<br>
-
-<div class="row">
-  <div class="col-12 col-md-5">
-    <h1>Welcome to the AFP Submission Portal!</h1>
-    <p>This website is hosted by CAMH.</p>
-    <p>If you have any questions, please contact Michael Joseph at <a href="mailto:michael.joseph@camh.ca">michael.joseph@camh.ca</a>.</p>
-  </div>
-
-  <div class="col-12 col-md-5">
-    <h1>Login</h1>
-    <form method="post">
-      {% csrf_token %}{{ form|crispy }}
-      <button type="submit" class="btn btn-succes">Login to AFP</button>
-    </form>
-    <small><a href="">Forgotten your password?</a></small>
+<div class="container text-start mt-5">
+  <div class="row">
+    <div class="col-12 col-md-5">
+      <h1>Welcome to the AFP Submission Portal!</h1>
+      <p>This website is hosted by CAMH.</p>
+      <p>If you have any questions, please contact Michael Joseph at <a
+          href="mailto:michael.joseph@camh.ca">michael.joseph@camh.ca</a>.</p>
+    </div>
+    <div class="col-12 col-md-5">
+      <h1>Login</h1>
+      <form method="post">
+        {% csrf_token %}{{ form|crispy }}
+        <button type="submit" class="btn btn-info">Login to AFP</button>
+      </form>
+      <small><a href="">Forgotten your password?</a></small>
+    </div>
   </div>
 </div>
-
 {% endblock %}

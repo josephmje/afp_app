@@ -1,3 +1,5 @@
+from django.contrib import admin
+
 from afp_app.claims.models import (
     ArticleType,
     Award,
@@ -27,7 +29,6 @@ from afp_app.claims.models import (
     SupervisionType,
     WorkFrequencyType,
 )
-from django.contrib import admin
 
 admin.site.register(ArticleType)
 admin.site.register(AwardLevel)

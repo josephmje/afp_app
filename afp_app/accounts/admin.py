@@ -1,4 +1,4 @@
-from afp_app.accounts.models import CustomUser, Rank, Division
+from afp_app.accounts.models import User, Rank, Division
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
@@ -23,6 +23,6 @@ fields[1] = (
 
 UserAdmin.fieldsets = tuple(fields)
 
-admin.site.register(CustomUser, UserAdmin)
+admin.site.register(User, UserAdmin)
 admin.site.register(Division)
 admin.site.register(Rank)

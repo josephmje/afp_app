@@ -1,16 +1,14 @@
 import uuid
 
-from afp_app.accounts.models import CustomUser, Rank
-from afp_app.claims.mixins import (
-    CreatedUpdatedMixin,
-    AdminMixin,
-    VerificationMixin,
-)
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
 from djmoney.models.fields import MoneyField
+
+from afp_app.accounts.models import User, Rank
+from afp_app.claims.mixins import AdminMixin, CreatedUpdatedMixin, VerificationMixin
 
 STR_SHORT = 10
 STR_MED = 50
@@ -35,7 +33,7 @@ class BaseModel(CreatedUpdatedMixin, VerificationMixin, AdminMixin):
 class UserBaseModel(BaseModel):
     """Model extending the base class to log the user."""
 
-    user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         abstract = True
@@ -132,9 +130,7 @@ class GrantAgency(models.Model):
 
 
 class Grant(BaseModel):
-    amount = MoneyField(
-        max_digits=14, decimal_places=2, default_currency="CAD"
-    )
+    amount = MoneyField(max_digits=14, decimal_places=2, default_currency="CAD")
     name = models.CharField(max_length=STR_LONGEST)
     agency = models.ForeignKey(GrantAgency, on_delete=models.PROTECT)
     other_grant_agency = models.CharField(max_length=STR_MED)
@@ -246,14 +242,10 @@ class Publication(BaseModel):
     journal = models.ForeignKey(
         Journal, on_delete=models.PROTECT, blank=True, null=True
     )
-    other_journal_name = models.CharField(
-        max_length=STR_LONGEST, blank=True, null=True
-    )
+    other_journal_name = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
     volume = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
     issue = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
-    start_page = models.CharField(
-        max_length=STR_LONGEST, blank=True, null=True
-    )
+    start_page = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
     end_page = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
     pub_month = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
     pub_year = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
@@ -292,9 +284,7 @@ class PublicationLink(UserBaseModel):
 
 class EditorialBoard(UserBaseModel):
     journal = models.ForeignKey(Journal, on_delete=models.PROTECT)
-    other_journal_name = models.CharField(
-        max_length=STR_LONGEST, blank=True, null=True
-    )
+    other_journal_name = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
 
 
 class CommitteeWork(UserBaseModel):
@@ -322,9 +312,7 @@ class LectureType(models.Model):
 
 class Lecture(UserBaseModel):
     lecture_type = models.ForeignKey(LectureType, on_delete=models.PROTECT)
-    other_lecture_type = models.CharField(
-        max_length=STR_MED, blank=True, null=True
-    )
+    other_lecture_type = models.CharField(max_length=STR_MED, blank=True, null=True)
     name = models.CharField(max_length=STR_LONGEST)
     course_code = models.CharField(max_length=STR_MED, blank=True, null=True)
     start_date = models.DateField()
@@ -375,9 +363,7 @@ class ExamType(models.Model):
 
 class Exam(UserBaseModel):
     exam_type = models.ForeignKey(ExamType, on_delete=models.PROTECT)
-    other_exam_name = models.CharField(
-        max_length=STR_MED, blank=True, null=True
-    )
+    other_exam_name = models.CharField(max_length=STR_MED, blank=True, null=True)
     student = models.ForeignKey(Student, on_delete=models.PROTECT)
     hours = models.DecimalField(
         max_digits=5,
@@ -405,9 +391,7 @@ class WorkFrequencyType(models.Model):
 
 class Supervision(UserBaseModel):
     student_id = models.ForeignKey(Student, on_delete=models.PROTECT)
-    supervision_type = models.ForeignKey(
-        SupervisionType, on_delete=models.PROTECT
-    )
+    supervision_type = models.ForeignKey(SupervisionType, on_delete=models.PROTECT)
     hours = models.DecimalField(max_digits=5, decimal_places=2)
     duration = models.DecimalField(max_digits=5, decimal_places=2)
     med_duration = models.DecimalField(max_digits=5, decimal_places=2)
