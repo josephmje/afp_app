@@ -1,13 +1,19 @@
 {% extends "base.html" %}
-{% load modelform_title %}
 {% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% load modelform_title %}
 
 {% block content %}
-<div class="container mt-3" style="width: 95%; font-size: 14px">
-  <h2>{% if object %}Edit{% else %}Add{% endif %} {{ form|modelform_title }}</h2>
-  <form action="" method="POST" class="card p-3 mt-5" autocomplete="off">
-    {% csrf_token %}{{ form|crispy }}
-    <input type="submit" name="Submit">
-  </form>
-</div>
+<form hx-post="{{ request.path }}" hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' class="modal-content">
+  <div class="modal header">
+    <h5>{% if object %}Edit{% else %}Add{% endif %} {{ form|modelform_title }}</h5>
+  </div>
+  <div class="modal-body">
+    {{ form|crispy }}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+    <button type="submit" class="btn btn-info">Submit</button>
+  </div>
+</form>
 {% endblock %}
