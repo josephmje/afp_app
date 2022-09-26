@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from afp_app.claims.models import (
+from .models import (
     ArticleType,
     Award,
     AwardLevel,

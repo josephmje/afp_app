@@ -3,26 +3,33 @@
     "model": "accounts.Rank",
     "pk": 1,
     "fields": {
-      "name": "Lecturer"
+      "name": "Fellow"
     }
   },
   {
     "model": "accounts.Rank",
     "pk": 2,
     "fields": {
-      "name": "Assistant Professor"
+      "name": "Lecturer"
     }
   },
   {
     "model": "accounts.Rank",
     "pk": 3,
     "fields": {
-      "name": "Associate Professor"
+      "name": "Assistant Professor"
     }
   },
   {
     "model": "accounts.Rank",
     "pk": 4,
+    "fields": {
+      "name": "Associate Professor"
+    }
+  },
+  {
+    "model": "accounts.Rank",
+    "pk": 5,
     "fields": {
       "name": "Full Professor"
     }

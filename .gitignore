@@ -76,7 +76,6 @@ venv.bak/
 
 # PyCharm
 .idea/
-.env
 
 # VS Code
 .vscode
@@ -89,4 +88,6 @@ venv.bak/
 .*swp
 .*.sw*
 process.yml
+data/
+media/
 .DS_Store

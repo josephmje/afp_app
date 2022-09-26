@@ -1,5 +1,5 @@
 """
-Django settings for afp_app project.
+Django settings for afp project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/4.0/topics/settings/
@@ -8,11 +8,17 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-import os
 from pathlib import Path
+from xmlrpc.client import INTERNAL_ERROR
+
+# from environs import Env
+
+
+# env = Env()
+# env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # GENERAL
 
@@ -20,7 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-*tn5zjlfjn9dhq1e23ea)p89%jc2=ld*^m-i(jj^02v+d-w_ac"
+SECRET_KEY = (
+    "django-insecure-*tn5zjlfjn9dhq1e23ea)p89%jc2=ld*^m-i(jj^02v+d-w_ac"
+)
+# SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -42,7 +51,7 @@ USE_TZ = True
 
 # Application definition
 
-DJANGO_APPS = [
+INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -50,21 +59,15 @@ DJANGO_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_extensions",
-]
-
-THIRD_PARTY_APPS = [
+    # Third-party
     "crispy_forms",
     "crispy_bootstrap5",
     "djmoney",
     "widget_tweaks",
+    # Local
+    "afp.accounts.apps.AccountsConfig",
+    "afp.claims.apps.ClaimsConfig",
 ]
-
-LOCAL_APPS = [
-    "afp_app.accounts",
-    "afp_app.claims",
-]
-
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # MIDDLEWARE
 
@@ -80,16 +83,16 @@ MIDDLEWARE = [
 
 # URLS
 
-ROOT_URLCONF = "afp_app.urls"
+ROOT_URLCONF = "config.urls"
 
-WSGI_APPLICATION = "afp_app.wsgi.application"
+WSGI_APPLICATION = "config.wsgi.application"
 
 # TEMPLATES
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [str(BASE_DIR / "templates")],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -128,7 +131,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # AUTHENTICATION
 
-AUTH_USER_MODEL = "accounts.User"
+AUTH_USER_MODEL = "accounts.CustomUser"
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
 
 # PASSWORDS
 
@@ -156,8 +163,16 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = "static/"
-# STATIC_ROOT = BASE_DIR / "static"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATICFILES_DIRS = [BASE_DIR / "static"]
+# STATIC_ROOT = BASE_DIR / "staticfiles"
+# STATICFILES_STORAGE = (
+#    "django.contrib.staticfiles.storage.StaticFilesStorage                        "
+# )
+
+# MEDIA
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/accounts/login"

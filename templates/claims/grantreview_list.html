@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %} Grant Review {% endblock title %}
+
+{% block content %}
+<br><br>
+
+<div class="container text-center mt-5">
+  <table class="table table-condensed table-hover table-striped" id="tbl_grantreview">
+    <thead>
+      <tr>
+        <th style="width: 20%;">Type</th>
+        <th style="width: 20%;">Agency</th>
+        <th style="width: 15%;">Name</th>
+        <th style="width: 5%;">Date</th>
+        <th style="width: 25%;">Is Member?</th>
+        <th style="width: 25%;"># of Days</th>
+        <th style="width: 25%;">Comments</th>
+        <th style="width: 5%;">Edit</th>
+        <th style="width: 5%;">Delete</th>
+      </tr>
+    </thead>
+    {% for grantreview in grantreviews %}
+    <tr id="grantreview-{{ grantreview.pk }}" class="grantreview-row">
+      <td>{{ grantreview.type }}</td>
+      <td>{{ grantreview.agency }}</td>
+      <td>{{ grantreview.name }}</td>
+      <td>{{ grantreview.date }}</td>
+      <td>{{ grantreview.is_member }}</td>
+      <td>{{ grantreview.num_days }}</td>
+      <td>{{ grantreview.comments }}</td>
+      <td>
+        <a href="{% url 'edit_grantreview' pk=grantreview.pk %}" class="btn btn-secondary" title="Edit grant review">
+          <i class="fas fa-pen"></i>
+        </a>
+      </td>
+      <td>
+        <a href="{% url 'delete_grantreview' pk=grantreview.pk %}" class="btn btn-secondary" title="Delete grant review">
+          <i class="fas fa-trash-alt"></i>
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <a href="{% url 'add_grantreview' %}" class="btn btn-secondary" style="width: 200px;" title="Add grant review">Add a grant review</a>
+</div>
+
+<!-- Turns on the DataTables plugin for the awards table -->
+<script>
+  $(document).ready(function () {
+    $("#tbl_grantreview").DataTable();
+  })
+
+</script>
+
+{% endblock %}

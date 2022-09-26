@@ -6,8 +6,8 @@ from django.urls import reverse_lazy
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
-from afp_app.accounts.models import User
-from afp_app.claims.models import (
+from afp.accounts.models import CustomUser
+from .models import (
     Award,
     CommitteeWork,
     EditorialBoard,
@@ -19,7 +19,7 @@ from afp_app.claims.models import (
 
 class ProfileForm(forms.ModelForm):
     class Meta:
-        model = User
+        model = CustomUser
         fields = [
             "first_name",
             "middle_name",

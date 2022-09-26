@@ -1,5 +1,14 @@
 # AFP Web App
 
+## Start project structure
+
+```bash
+mkdir afp_app
+cd afp_app/
+
+mkdir data docs media static templates
+```
+
 ## Set up environment
 
 ### Python
@@ -7,7 +16,6 @@
 ```bash
 python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
 ```
 
 ### Database
@@ -25,7 +33,7 @@ npm install -g postcss-cli autoprefixer
 Creating a project:
 
 ```bash
-django-admin startproject afp_app
+django-admin startproject afp .
 ```
 
 Run web app:
@@ -37,12 +45,9 @@ python manage.py runserver
 Creating an app within the project:
 
 ```bash
-cd afp_app
-mkdir -p afp_app/accounts
-python manage.py startapp accounts afp_app/accounts
-
-mkdir -p afp_app/claims
-python manage.py startapp claims afp_app/claims
+cd afp
+django-admin startapp accounts
+django-admin startapp claims
 ```
 
 Set up the database:
@@ -61,7 +66,7 @@ python manage.py createsuperuser
 ## Custom Bootstrap
 
 ```bash
-cd afp_app/static/css
+cd static/css
 npm init
 npm install --save bootstrap
 sass bootstrap.scss bootstrap.css

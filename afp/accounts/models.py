@@ -37,7 +37,9 @@ class CustomUserManager(UserManager):
         return self.create_user(email, password, **extra_fields)
 
     def get_by_natural_key(self, username):
-        case_insensitive_username_field = f"{self.model.USERNAME_FIELD}__iexact"
+        case_insensitive_username_field = (
+            f"{self.model.USERNAME_FIELD}__iexact"
+        )
         return self.get(**{case_insensitive_username_field: username})
 
 
@@ -69,10 +71,14 @@ class Rank(models.Model):
 
 class UserManagerActive(models.Manager):
     def get_queryset(self):
-        return super(UserManagerActive, self).get_queryset().filter(is_active=True)
+        return (
+            super(UserManagerActive, self)
+            .get_queryset()
+            .filter(is_active=True)
+        )
 
 
-class User(AbstractUser):
+class CustomUser(AbstractUser):
     """Model extending Django's `AbstractUser` class."""
 
     first_name = models.CharField(_("first name"), max_length=STR_MED)
@@ -83,8 +89,12 @@ class User(AbstractUser):
     email = models.EmailField(_("email address"), unique=True)
     is_physician = models.BooleanField(default=True)
     is_scientist = models.BooleanField(default=False)
-    division = models.ForeignKey("division", on_delete=models.SET_NULL, null=True)
-    other_division = models.CharField(max_length=STR_MED, null=True)
+    division = models.ForeignKey(
+        "division", on_delete=models.SET_NULL, null=True
+    )
+    other_division = models.CharField(
+        max_length=STR_MED, blank=True, null=True
+    )
     rank = models.ForeignKey("rank", on_delete=models.SET_NULL, null=True)
     archived_at = models.DateTimeField(blank=True, null=True)
 
@@ -105,8 +115,10 @@ class User(AbstractUser):
         return f"{self.first_name} {self.last_name}"
 
 
-class Physician(User):
-    """Model extending `User` class with unique fields for physicians."""
+class Physician(models.Model):
+    """Model extending `CustomUser` class with unique fields for physicians."""
+
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
     class ProtectedTime(models.IntegerChoices):
         NO = 0, _("No")
