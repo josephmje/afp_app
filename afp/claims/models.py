@@ -56,6 +56,7 @@ class AwardLevel(models.Model):
         "Award Level",
         max_length=STR_MED,
         help_text="Enter an award level (e.g. Local, Hospital, etc.)",
+        unique=True,
     )
     value = models.IntegerField(
         default=0, validators=[MinValueValidator(0), MaxValueValidator(3000)]
@@ -100,6 +101,7 @@ class GrantAgencyType(models.Model):
     name = models.CharField(
         max_length=STR_MED,
         help_text="Enter a grant agency type.",
+        unique=True,
     )
 
     def __str__(self):
@@ -110,6 +112,7 @@ class GrantCategory(models.Model):
     name = models.CharField(
         max_length=STR_MED,
         help_text="Enter a grant category.",
+        unique=True,
     )
     weight = models.IntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(3)],
@@ -155,6 +158,7 @@ class GrantRole(models.Model):
     name = models.CharField(
         max_length=STR_MED,
         help_text="Enter a grant role.",
+        unique=True,
     )
     weight = models.IntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(7)],
@@ -173,6 +177,7 @@ class GrantReviewType(models.Model):
     name = models.CharField(
         max_length=STR_MED,
         help_text="Enter a publication role.",
+        unique=True,
     )
     weight = models.IntegerField(
         default=0, validators=[MinValueValidator(0), MaxValueValidator(2000)]
@@ -199,6 +204,7 @@ class PublicationType(models.Model):
     name = models.CharField(
         max_length=STR_MED,
         help_text="Enter a publication type.",
+        unique=True,
     )
     weight = models.DecimalField(
         max_digits=5,
@@ -214,6 +220,7 @@ class ArticleType(models.Model):
     name = models.CharField(
         max_length=STR_MED,
         help_text="Enter an article type.",
+        unique=True,
     )
     weight = models.DecimalField(
         max_digits=2,
@@ -280,6 +287,7 @@ class PublicationRole(models.Model):
     name = models.CharField(
         max_length=STR_MED,
         help_text="Enter a publication role.",
+        unique=True,
     )
     weight = models.DecimalField(
         max_digits=3,
@@ -315,6 +323,7 @@ class LectureType(models.Model):
     name = models.CharField(
         max_length=STR_LONG,
         help_text="Enter a lecture type.",
+        unique=True,
     )
     weight = models.DecimalField(
         max_digits=5,
@@ -370,6 +379,7 @@ class ExamType(models.Model):
     name = models.CharField(
         max_length=STR_LONG,
         help_text="Enter an exam type.",
+        unique=True,
     )
     weight = models.IntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(150)],
@@ -393,7 +403,7 @@ class Exam(UserBaseModel):
 
 
 class SupervisionType(models.Model):
-    name = models.CharField(max_length=STR_MED)
+    name = models.CharField(max_length=STR_MED, unique=True)
     weight = models.IntegerField()
 
     def __str__(self):
@@ -401,11 +411,15 @@ class SupervisionType(models.Model):
 
 
 class WorkFrequencyType(models.Model):
-    name = models.CharField(max_length=STR_MED)
+    name = models.CharField(
+        max_length=STR_MED,
+        unique=True,
+    )
     days_equal = models.DecimalField(
         max_digits=2,
         decimal_places=1,
         validators=[MinValueValidator(0), MaxValueValidator(5)],
+        unique=True,
     )
 
 

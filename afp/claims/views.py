@@ -7,7 +7,6 @@ from django.template.context_processors import csrf
 from django.views.generic import (
     CreateView,
     DeleteView,
-    FormView,
     ListView,
     TemplateView,
     UpdateView,
@@ -33,47 +32,32 @@ class AddAwardView(LoginRequiredMixin, CreateView):
     model = Award
     form_class = AwardForm
     template_name = "claims/model_form.html"
-    success_url = "/awards/"
+    success_url = "/awards"
 
     def form_valid(self, form):
-        form.save()
+        award = form.save(commit=False)
+        award.user_id = self.request.user
+        award.save()
         return super().form_valid(form)
 
 
-@login_required(login_url="/accounts/login")
-def add_award(request):
-    if request.method == "POST":
-        form = AwardForm(request.POST)
-        if form.is_valid():
-            award = form.save(commit=False)
-            award.user_id = request.user
-            award.save()
-            return redirect("/awards")
-    else:
-        form = AwardForm()
-    return render(request, "claims/model_form.html", {"form": form})
+class EditAwardView(LoginRequiredMixin, UpdateView):
+    model = Award
+    form_class = AwardForm
+    template_name = "claims/model_form.html"
+    success_url = "/awards"
+
+
+class DeleteAwardView(LoginRequiredMixin, DeleteView):
+    model = Award
+    template_name = "claims/confirm_delete.html"
+    success_url = "/awards"
 
 
 @login_required(login_url="/accounts/login")
 def award_list(request):
     award_list = Award.objects.filter(user_id=request.user)
     return render(request, "claims/award_list.html", {"awards": award_list})
-
-
-@login_required(login_url="/accounts/login")
-def edit_award(request, pk):
-    award = get_object_or_404(Award, pk=pk)
-    if request.method == "POST":
-        form = AwardForm(request.POST, instance=award)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Award updated sucessfully!")
-            return redirect("/awards")
-    else:
-        form = AwardForm(instance=award)
-    return render(
-        request, "claims/model_form.html", {"form": form, "award": award}
-    )
 
 
 @login_required(login_url="/accounts/login")
