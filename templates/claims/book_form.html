@@ -1,0 +1,24 @@
+{% extends 'claims/model_form.html' %}
+{% load crispy_forms_tags %}
+
+{% block form %}
+  {{ form.pub_type|as_crispy_field }}
+  {{ form.title | as_crispy_field }}
+  {{ form.authors | as_crispy_field }}
+  {{ form.chapter_title | as_crispy_field }}
+  {{ form.authors_contd | as_crispy_field }}
+  <div class="row">
+    <div class="col-4">
+      {{ form.publisher|as_crispy_field }}
+    </div>
+    <div class="col-4">
+      {{ form.city|as_crispy_field }}
+    </div>
+    <div class="col-2">
+      {{ form.isbn|as_crispy_field }}
+    </div>
+    <div class="col-2">
+      {{ form.pub_year|as_crispy_field }}
+    </div>
+  </div>
+{% endblock %}

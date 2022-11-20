@@ -118,7 +118,7 @@ class CustomUser(AbstractUser):
 class Physician(models.Model):
     """Model extending `CustomUser` class with unique fields for physicians."""
 
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    user_id = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
     class ProtectedTime(models.IntegerChoices):
         NO = 0, _("No")

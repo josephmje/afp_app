@@ -28,7 +28,7 @@ class CreatedUpdatedMixin(models.Model):
 class VerificationMixin(models.Model):
     """This mixin provides fields for"""
 
-    ver_file = models.FileField("Verification file", blank=True, null=True)
+    ver_file = models.FileField("Verification File", blank=True, null=True)
     ver_url = models.URLField("Verification URL", blank=True, null=True)
 
     class Meta:

@@ -1,10 +1,12 @@
 from django.contrib import admin
+from django.utils.html import format_html
 
 from .models import (
     ArticleType,
     Award,
     AwardLevel,
     CommitteeWork,
+    Cpa,
     EditorialBoard,
     Exam,
     ExamType,
@@ -33,6 +35,7 @@ from .models import (
 admin.site.register(ArticleType)
 admin.site.register(AwardLevel)
 admin.site.register(CommitteeWork)
+admin.site.register(Cpa)
 admin.site.register(EditorialBoard)
 admin.site.register(Exam)
 admin.site.register(ExamType)
@@ -48,8 +51,6 @@ admin.site.register(Journal)
 admin.site.register(Lecture)
 admin.site.register(LectureType)
 admin.site.register(Promotion)
-admin.site.register(Publication)
-admin.site.register(PublicationLink)
 admin.site.register(PublicationType)
 admin.site.register(PublicationRole)
 admin.site.register(Student)
@@ -67,7 +68,7 @@ class AwardAdmin(admin.ModelAdmin):
      - grouping of fields into sections (fieldsets)
     """
 
-    list_display = (
+    list_display = [
         "user_id",
         "name",
         "organization",
@@ -77,10 +78,25 @@ class AwardAdmin(admin.ModelAdmin):
         "ver_file",
         "ver_url",
         "entry_type",
-        "eligible",
+        "status",
         "decision_comments",
-    )
-    list_filter = ["award_level"]
+    ]
+    list_filter = ["eligible", "award_level"]
+
+    def status(self, obj):
+        if obj.eligible == -2:
+            color = "yellow"
+        elif obj.eligible == 0:
+            color = "red"
+        elif obj.eligible == 1:
+            color = "green"
+        else:
+            color = "grey"
+        return format_html(
+            f'<strong><p style="color: {color}">{obj.eligible}</p></strong>'
+        )
+
+    status.allow_tags = True
 
     fieldsets = (
         (
@@ -99,3 +115,14 @@ class AwardAdmin(admin.ModelAdmin):
         ),
         ("Admin", {"fields": ("entry_type", "eligible", "decision_comments")}),
     )
+
+
+class PublicationLinkInLineAdmin(admin.TabularInline):
+    model = PublicationLink
+
+
+class PublicationAdmin(admin.ModelAdmin):
+    inlines = [PublicationLinkInLineAdmin]
+
+
+admin.site.register(Publication, PublicationAdmin)

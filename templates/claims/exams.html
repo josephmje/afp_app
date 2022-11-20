@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Exams{% endblock %}
+
+{% block content %}
+<br><br>
+
+<div class="container text-center mt-5">
+  <h1>Exams</h1>
+</div>
+
+
+<div class="container text-center mt-5">
+  <a href="{% url 'add_exam' %}" class="btn btn-secondary" style="width: 200px;"
+    title="Add exam">Add an exam</a>
+  {% if exams %}
+  <table class="table table-condensed table-hover" id="tbl_exam">
+    <thead>
+      <tr>
+        <th style="width: 40%;">Exam Type</th>
+        <th style="width: 40%;">Other Exam Name</th>
+        <th style="width: 40%;">Student</th>
+        <th style="width: 40%;">Date</th>
+        <th style="width: 40%;">Hours</th>
+        <th style="width: 10%;">Eligible</th>
+        <th style="width: 5%;">Edit</th>
+        <th style="width: 5%;">Delete</th>
+      </tr>
+    </thead>
+    {% for exam in exams %}
+    <tr id="exam-{{ exam.pk }}" class="editorialboard-row">
+      <td>{{ exam.exam_type }}</td>
+      <td>{{ exam.other_exam_name }}</td>
+      <td>{{ exam.student }}</td>
+      <td>{{ exam.date }}</td>
+      <td>{{ exam.hours }}</td>
+      <td>{{ exam.get_eligible_display }}</td>
+      <td>
+        <a href="{% url 'edit_exam' pk=exam.pk %}" class="btn btn-secondary"
+          title="Edit exam">
+          <i class="fas fa-pen"></i>
+        </a>
+      </td>
+      <td>
+        <a href="{% url 'delete_exam' pk=exam.pk %}" class="btn btn-secondary"
+          title="Delete exam">
+          <i class="fas fa-trash-alt"></i>
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <br><br>
+  <p>No exams entered yet.</p>
+  {% endif %}
+</div>
+
+<!-- Turns on the DataTables plugin for the awards table -->
+<script>
+  $(document).ready(function () {
+    $("#tbl_exam").DataTable();
+  })
+</script>
+
+{% endblock %}

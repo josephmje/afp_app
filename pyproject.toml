@@ -39,6 +39,7 @@ dependencies = [
     "django-money==3.0.0",
     "django-widget-tweaks==1.4.12",
     "environs[django]",
+    "gunicorn==20.1.0",
     "psycopg2==2.9.3",
 ]
 

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Editorial Boards{% endblock %}
+
+{% block content %}
+<br><br>
+
+<div class="container text-center mt-5">
+  <h1>Editorial Boards</h1>
+</div>
+
+
+<div class="container text-center mt-5">
+  <a href="{% url 'add_editorial_board' %}" class="btn btn-secondary" style="width: 200px;" title="Add editorial board">Add an editorial board</a>
+  {% if editorial_boards %}
+    <table class="table table-condensed table-hover" id="tbl_editorial_board">
+      <thead>
+        <tr>
+          <th style="width: 40%;">Journal</th>
+          <th style="width: 40%;">Other Journal Name</th>
+          <th style="width: 10%;">Eligible</th>
+          <th style="width: 5%;">Edit</th>
+          <th style="width: 5%;">Delete</th>
+        </tr>
+      </thead>
+      {% for editorial_board in editorial_boards %}
+      <tr id="editorial_board-{{ editorial_board.pk }}" class="editorialboard-row">
+        <td>{{ editorial_board.journal }}</td>
+        <td>{{ editorial_board.other_journal_name }}</td>
+        <td>{{ editorial_board.get_eligible_display }}</td>
+        <td>
+          <a href="{% url 'edit_editorial_board' pk=editorial_board.pk %}" class="btn btn-secondary" title="Edit editorial board">
+            <i class="fas fa-pen"></i>
+          </a>
+        </td>
+        <td>
+          <a href="{% url 'delete_editorial_board' pk=editorial_board.pk %}" class="btn btn-secondary" title="Delete editorial board">
+            <i class="fas fa-trash-alt"></i>
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+{% else %}
+<br><br>
+<p>No editorial boards entered yet.</p>
+{% endif %}
+</div>
+
+<!-- Turns on the DataTables plugin for the awards table -->
+<script>
+  $(document).ready(function () {
+    $("#tbl_editorial_board").DataTable();
+  })
+
+</script>
+
+{% endblock %}

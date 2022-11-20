@@ -1,12 +1,27 @@
 {% extends 'base.html' %}
 
-{% block title %} Grant Review {% endblock title %}
+{% block title %}Grant Reviews{% endblock %}
 
 {% block content %}
 <br><br>
 
 <div class="container text-center mt-5">
-  <table class="table table-condensed table-hover table-striped" id="tbl_grantreview">
+  <h1>Grant Reviews</h1>
+  <br>
+  <p>
+    Full membership in an external grant review committee includes:
+    <ul>
+      <li>Full critical written review of more than 4 grant applications</li>
+      <li>Full attendance of the entire grant review meeting</li>
+      <li> Scoring/ranking of all grants in the competition</li>
+    </ul>
+  </p>
+</div>
+
+<div class="container text-center mt-5">
+  <a href="{% url 'add_grantreview' %}" class="btn btn-secondary" style="width: 200px;" title="Add grant review">Add a grant review</a>
+  {% if grantreviews %}
+  <table class="table table-condensed table-hover" id="tbl_grantreview">
     <thead>
       <tr>
         <th style="width: 20%;">Type</th>
@@ -15,7 +30,7 @@
         <th style="width: 5%;">Date</th>
         <th style="width: 25%;">Is Member?</th>
         <th style="width: 25%;"># of Days</th>
-        <th style="width: 25%;">Comments</th>
+        <th style="width: 25%;">Eligible</th>
         <th style="width: 5%;">Edit</th>
         <th style="width: 5%;">Delete</th>
       </tr>
@@ -28,7 +43,7 @@
       <td>{{ grantreview.date }}</td>
       <td>{{ grantreview.is_member }}</td>
       <td>{{ grantreview.num_days }}</td>
-      <td>{{ grantreview.comments }}</td>
+      <td>{{ grantreview.get_eligible_display }}</td>
       <td>
         <a href="{% url 'edit_grantreview' pk=grantreview.pk %}" class="btn btn-secondary" title="Edit grant review">
           <i class="fas fa-pen"></i>
@@ -42,7 +57,10 @@
     </tr>
     {% endfor %}
   </table>
-  <a href="{% url 'add_grantreview' %}" class="btn btn-secondary" style="width: 200px;" title="Add grant review">Add a grant review</a>
+  {% else %}
+  <br><br>
+  <p>No grant reviews entered yet.</p>
+  {% endif %}
 </div>
 
 <!-- Turns on the DataTables plugin for the awards table -->

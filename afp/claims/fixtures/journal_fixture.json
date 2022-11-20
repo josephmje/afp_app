@@ -1,0 +1,11 @@
+[
+  {
+    "model": "claims.Journal",
+    "pk": 1,
+    "fields": {
+      "name": "Other",
+      "full_name": "Other",
+      "impact_factor": 1
+    }
+  }
+]

@@ -1,15 +1,18 @@
 from datetime import datetime
 
 from django import forms
+from django.core.validators import RegexValidator
 from django.forms.models import inlineformset_factory
 from django.urls import reverse_lazy
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from crispy_forms.bootstrap import FormActions
+from crispy_forms.layout import Div, Field, HTML, Layout, Submit
 
 from afp.accounts.models import CustomUser
 from .models import (
     Award,
+    Cpa,
     CommitteeWork,
     EditorialBoard,
     Exam,
@@ -20,6 +23,7 @@ from .models import (
     GrantReview,
     Lecture,
     Promotion,
+    Student,
     Supervision,
 )
 
@@ -46,23 +50,13 @@ class AwardForm(forms.ModelForm):
             "organization",
             "award_level",
             "cash_prize",
-            "comments",
             "ver_file",
             "ver_url",
+            "comments",
         ]
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-        self.helper.form_action = reverse_lazy("add_award")
-        self.helper.form_method = "POST"
-        self.helper.form_id = "award-form"
-        self.helper.attrs = {
-            "hx-post": reverse_lazy("add_award"),
-            "hx-target": "#award-form",
-            "hx-swap": "outerHTML",
+        widgets = {
+            "comments": forms.Textarea(attrs={"rows": 5}),
         }
-        self.helper.add_input(Submit("submit", "Submit"))
 
 
 class PromotionForm(forms.ModelForm):
@@ -74,6 +68,84 @@ class PromotionForm(forms.ModelForm):
             "ver_file",
             "ver_url",
         ]
+
+
+class BookForm(forms.ModelForm):
+    class Meta:
+        model = Publication
+        fields = [
+            "pub_type",
+            "title",
+            "authors",
+            "chapter_title",
+            "authors_contd",
+            "publisher",
+            "city",
+            "isbn",
+            "pub_year",
+            "comments",
+            "ver_file",
+            "ver_url",
+        ]
+
+        widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
+
+
+class ConferenceForm(forms.ModelForm):
+    class Meta:
+        model = Publication
+        fields = [
+            "title",
+            "authors",
+            "conf_name",
+            "city",
+            "date",
+            "comments",
+            "ver_file",
+            "ver_url",
+        ]
+
+        widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
+
+
+class JournalForm(forms.ModelForm):
+    class Meta:
+        model = Publication
+        fields = [
+            "title",
+            "authors",
+            "authors_contd",
+            "article_type",
+            "journal",
+            "other_journal_name",
+            "volume",
+            "issue",
+            "start_page",
+            "end_page",
+            "pub_month",
+            "pub_year",
+            "pmid",
+            "other_impact_factor",
+            "is_epub",
+            "comments",
+            "ver_file",
+            "ver_url",
+        ]
+
+        widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
+
+
+class EditorialBoardForm(forms.ModelForm):
+    class Meta:
+        model = EditorialBoard
+        fields = [
+            "journal",
+            "other_journal_name",
+            "comments",
+            "ver_file",
+            "ver_url",
+        ]
+        widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
 
 
 class GrantForm(forms.ModelForm):
@@ -92,6 +164,23 @@ class GrantForm(forms.ModelForm):
             "ver_file",
             "ver_url",
         ]
+        widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
+
+
+class GrantLinkForm(forms.ModelForm):
+    class Meta:
+        model = GrantLink
+        fields = "__all__"
+
+
+GrantLinkFormSet = inlineformset_factory(
+    Grant,
+    GrantLink,
+    form=GrantLinkForm,
+    extra=1,
+    can_delete=True,
+    can_delete_extra=True,
+)
 
 
 class GrantReviewForm(forms.ModelForm):
@@ -104,70 +193,22 @@ class GrantReviewForm(forms.ModelForm):
             "date",
             "is_member",
             "num_days",
+            "num_reviewed",
             "comments",
             "ver_file",
             "ver_url",
         ]
+
         widgets = {
             "date": forms.DateInput(
                 attrs={
                     "type": "date",
                     "min": datetime.strptime("01012022", "%d%m%Y").date(),
                     "max": datetime.strptime("31122022", "%d%m%Y").date(),
-                }
-            )
+                },
+            ),
+            "comments": forms.Textarea(attrs={"rows": 5}),
         }
-
-
-class PublicationForm(forms.ModelForm):
-    class Meta:
-        model = Publication
-        fields = [
-            "pub_type",
-            "authors",
-            "title",
-            "publisher",
-            "isbn",
-            "article_type",
-            "journal",
-            "other_journal_name",
-            "volume",
-            "issue",
-            "start_page",
-            "end_page",
-            "pub_month",
-            "pub_year",
-            "pmid",
-            "other_impact_factor",
-            "is_epub",
-            "conf_name",
-            "location",
-            "comments",
-            "ver_file",
-            "ver_url",
-        ]
-
-
-PublicationLinkFormSet = inlineformset_factory(
-    Publication,
-    PublicationLink,
-    form=PublicationForm,
-    can_delete=True,
-    min_num=1,
-    extra=0,
-)
-
-
-class EditorialBoardForm(forms.ModelForm):
-    class Meta:
-        model = EditorialBoard
-        fields = [
-            "journal",
-            "other_journal_name",
-            "comments",
-            "ver_file",
-            "ver_url",
-        ]
 
 
 class CommitteeWorkForm(forms.ModelForm):
@@ -180,6 +221,7 @@ class CommitteeWorkForm(forms.ModelForm):
             "ver_file",
             "ver_url",
         ]
+        widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
 
 
 class LectureForm(forms.ModelForm):
@@ -200,25 +242,59 @@ class LectureForm(forms.ModelForm):
             "ver_file",
             "ver_url",
         ]
+        widgets = {
+            "start_date": forms.DateInput(
+                attrs={
+                    "type": "date",
+                    "min": datetime.strptime("01012022", "%d%m%Y").date(),
+                    "max": datetime.strptime("31122022", "%d%m%Y").date(),
+                },
+            ),
+            "end_date": forms.DateInput(
+                attrs={
+                    "type": "date",
+                    "min": datetime.strptime("01012022", "%d%m%Y").date(),
+                    "max": datetime.strptime("31122022", "%d%m%Y").date(),
+                },
+            ),
+            "comments": forms.Textarea(attrs={"rows": 5}),
+        }
 
 
 class ExamForm(forms.ModelForm):
     class Meta:
         model = Exam
         fields = [
-            "lecture_type",
-            "other_lecture_type",
-            "name",
-            "course_code",
-            "start_date",
+            "exam_type",
+            "other_exam_name",
+            "student",
+            "date",
             "hours",
-            "is_cash",
-            "is_series",
-            "end_date",
-            "num_sessions",
             "comments",
             "ver_file",
             "ver_url",
+        ]
+        widgets = {
+            "date": forms.DateInput(
+                attrs={
+                    "type": "date",
+                    "min": datetime.strptime("01012022", "%d%m%Y").date(),
+                    "max": datetime.strptime("31122022", "%d%m%Y").date(),
+                },
+            ),
+            "comments": forms.Textarea(attrs={"rows": 5}),
+        }
+
+
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = [
+            "first_name",
+            "last_name",
+            "student_type",
+            "other_student_type",
+            "resident_year",
         ]
 
 
@@ -236,3 +312,11 @@ class SupervisionForm(forms.ModelForm):
             "ver_file",
             "ver_url",
         ]
+        widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
+
+
+class CpaForm(forms.ModelForm):
+    class Meta:
+        model = Cpa
+        fields = ["cpa_file", "ver_file", "comments"]
+        widgets = {"comments": forms.Textarea(attrs={"rows": 5})}

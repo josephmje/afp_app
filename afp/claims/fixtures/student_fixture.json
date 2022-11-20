@@ -1,0 +1,12 @@
+[
+  {
+    "model": "claims.Student",
+    "pk": 1,
+    "fields": {
+      "first_name": "",
+      "last_name": "Various",
+      "student_type": 5,
+      "other_student_type": ""
+    }
+  }
+]

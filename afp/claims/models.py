@@ -21,7 +21,7 @@ STR_LONG = 100
 STR_LONGEST = 255
 
 
-class BaseModel(CreatedUpdatedMixin, VerificationMixin, AdminMixin):
+class BaseModel(VerificationMixin, AdminMixin, CreatedUpdatedMixin):
     """Model representing a base class."""
 
     id = models.UUIDField(
@@ -73,10 +73,13 @@ class Award(UserBaseModel):
     organization = models.CharField(max_length=STR_MED)
     award_level = models.ForeignKey(
         AwardLevel,
+        verbose_name="Award Level",
         on_delete=models.PROTECT,
         related_name="award_level",
     )
-    cash_prize = models.BooleanField(default=False)
+    cash_prize = models.BooleanField(
+        default=False, verbose_name="Did you receive a cash prize?"
+    )
 
     class Meta:
         ordering = ["award_level", "name"]
@@ -175,6 +178,7 @@ class GrantLink(UserBaseModel):
 
 class GrantReviewType(models.Model):
     name = models.CharField(
+        "Review Committee Type",
         max_length=STR_MED,
         help_text="Enter a publication role.",
         unique=True,
@@ -188,15 +192,26 @@ class GrantReviewType(models.Model):
 
 
 class GrantReview(UserBaseModel):
-    type = models.ForeignKey(GrantReviewType, on_delete=models.PROTECT)
-    agency = models.CharField(max_length=STR_LONG)
-    name = models.CharField(max_length=STR_LONG)
+    type = models.ForeignKey(
+        GrantReviewType,
+        verbose_name="Grant Review Type",
+        on_delete=models.PROTECT,
+    )
+    agency = models.CharField("Committee Name", max_length=STR_LONG)
+    name = models.CharField(
+        "Grant Name", max_length=STR_LONG, blank=True, null=True
+    )
     date = models.DateField()
     is_member = models.BooleanField(default=False)
     num_days = models.DecimalField(
         max_digits=4,
         decimal_places=2,
         validators=[MinValueValidator(0), MaxValueValidator(25)],
+        verbose_name="# Days Attended",
+    )
+    num_reviewed = models.IntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(99)],
+        verbose_name="# Grants Reviewed",
     )
 
 
@@ -246,12 +261,22 @@ class Journal(models.Model):
         null=True,
     )
 
+    def __str__(self):
+        return self.name
+
 
 class Publication(BaseModel):
     pub_type = models.ForeignKey(PublicationType, on_delete=models.PROTECT)
-    authors = models.CharField(max_length=STR_LONGEST)
     title = models.CharField(max_length=STR_LONGEST)
+    chapter_title = models.CharField(
+        max_length=STR_LONGEST, blank=True, null=True
+    )
+    authors = models.CharField(max_length=STR_LONGEST)
+    authors_contd = models.CharField(
+        max_length=STR_LONGEST, blank=True, null=True
+    )
     publisher = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
+    city = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
     isbn = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
     article_type = models.ForeignKey(
         ArticleType, on_delete=models.PROTECT, blank=True, null=True
@@ -280,7 +305,7 @@ class Publication(BaseModel):
     )
     is_epub = models.BooleanField(default=False)
     conf_name = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
-    location = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
+    date = models.DateField(blank=True, null=True)
 
 
 class PublicationRole(models.Model):
@@ -317,6 +342,9 @@ class CommitteeWork(UserBaseModel):
 
     class Meta:
         verbose_name_plural = "Committee work"
+
+    def __str__(self):
+        return self.name
 
 
 class LectureType(models.Model):
@@ -366,13 +394,18 @@ class Student(models.Model):
         PGY5 = 5, _("PGY-5")
         GRAD = 6, _("Graduated")
 
-    first_name = models.CharField(_("first name"), max_length=STR_MED)
+    first_name = models.CharField(
+        _("first name"), max_length=STR_MED, blank=True
+    )
     last_name = models.CharField(_("last name"), max_length=STR_MED)
     student_type = models.IntegerField(choices=StudentType.choices)
     other_student_type = models.CharField(max_length=STR_MED)
     resident_year = models.IntegerField(
         choices=ResidentYear.choices, blank=True, null=True
     )
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
 
 
 class ExamType(models.Model):
@@ -432,3 +465,12 @@ class Supervision(UserBaseModel):
     duration = models.DecimalField(max_digits=5, decimal_places=2)
     med_duration = models.DecimalField(max_digits=5, decimal_places=2)
     frequency = models.ForeignKey(WorkFrequencyType, on_delete=models.PROTECT)
+
+
+class Cpa(UserBaseModel):
+    cpa_file = models.FileField("CPA file", blank=True, null=True)
+    cpa_value = models.IntegerField(
+        default=0, validators=[MinValueValidator(0), MaxValueValidator(3000)]
+    )
+    ver_url = None
+    entry_type = None

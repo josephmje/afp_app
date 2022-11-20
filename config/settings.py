@@ -34,7 +34,7 @@ SECRET_KEY = (
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/

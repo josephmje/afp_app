@@ -29,10 +29,12 @@
             Research
           </a>
           <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'book_list' %}">Books</a></li>
+            <li><a class="dropdown-item" href="{% url 'conference_list' %}">Conference Abstracts</a></li>
+            <li><a class="dropdown-item" href="{% url 'journal_list' %}">Journals</a></li>
+            <li><a class="dropdown-item" href="{% url 'editorial_board_list' %}">Editorial Boards</a></li>
             <li><a class="dropdown-item" href="#">Grants</a></li>
             <li><a class="dropdown-item" href="{% url 'grantreview_list' %}">Grant Reviews</a></li>
-            <li><a class="dropdown-item" href="#">Publications</a></li>
-            <li><a class="dropdown-item" href="#">Editorial Boards</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -41,11 +43,18 @@
             Education
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Committee Work</a></li>
-            <li><a class="dropdown-item" href="#">Lectures</a></li>
-            <li><a class="dropdown-item" href="#">Exams</a></li>
-            <li><a class="dropdown-item" href="#">Supervision</a></li>
+            <li><a class="dropdown-item" href="{% url 'committee_list' %}">Committee Work</a></li>
+            <li><a class="dropdown-item" href="{% url 'lecture_list' %}">Lectures</a></li>
+            <li><a class="dropdown-item" href="{% url 'exam_list' %}">Exams (Thesis Defenses)</a></li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'supervision_list' %}active{% endif %}"
+            href="#">Supervision</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'supervision_list' %}active{% endif %}"
+            href="#">CPA</a>
         </li>
       </ul>
       {% endif %}
@@ -63,7 +72,7 @@
       <ul class="navbar-nav">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="/"><i class="fa-solid fa-user"></i>&nbsp; Profile</a>
+          <a class="nav-link" href="{% url 'profile' %}"><i class="fa-solid fa-user"></i>&nbsp; Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/accounts/logout"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;

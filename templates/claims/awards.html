@@ -1,19 +1,27 @@
 {% extends 'base.html' %}
 
-{% block title %} Awards {% endblock title %}
+{% block title %}Awards{% endblock %}
 
 {% block content %}
 <br><br>
 
 <div class="container text-center mt-5">
-  <table class="table table-condensed table-hover table-striped" id="tbl_awards">
+  <h1>Awards</h1>
+  <br>
+  <p>Only awards received in this year can be claimed.</p>
+</div>
+
+<div class="container text-center mt-5">
+  <a href="{% url 'add_award' %}" class="btn btn-secondary" style="width: 200px;" title="Add award">Add an award</a>
+  {% if awards %}
+  <table class="table table-condensed table-hover" id="tbl_awards">
     <thead>
       <tr>
         <th style="width: 20%;">Award</th>
         <th style="width: 20%;">Organization</th>
         <th style="width: 15%;">Level</th>
         <th style="width: 5%;">Cash Prize</th>
-        <th style="width: 25%;">Comments</th>
+        <th style="width: 25%;">Eligible</th>
         <th style="width: 5%;">Edit</th>
         <th style="width: 5%;">Delete</th>
       </tr>
@@ -24,7 +32,7 @@
       <td>{{ award.organization }}</td>
       <td>{{ award.award_level }}</td>
       <td>{{ award.cash_prize }}</td>
-      <td>{{ award.comments }}</td>
+      <td>{{ award.get_eligible_display }}</td>
       <td>
         <a href="{% url 'edit_award' pk=award.pk %}" class="btn btn-secondary" title="Edit award">
           <i class="fas fa-pen"></i>
@@ -38,11 +46,10 @@
     </tr>
     {% endfor %}
   </table>
-  <a href="{% url 'add_award' %}" class="btn btn-secondary" style="width: 200px;" title="Add award">Add an award</a>
-</div>
-
-<div id="modal" class="modal fade">
-  <div id="dialog" class="modal-dialog" hx-target="this"></div>
+{% else%}
+  <br><br>
+  <p>No awards entered yet.</p>
+  {% endif %}
 </div>
 
 <!-- Turns on the DataTables plugin for the awards table -->
