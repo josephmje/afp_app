@@ -20,9 +20,6 @@
           <a class="nav-link {% if request.resolver_match.url_name == 'award_list' %}active{% endif %}"
             href="{% url 'award_list' %}">Awards</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Promotion</a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
@@ -33,7 +30,7 @@
             <li><a class="dropdown-item" href="{% url 'conference_list' %}">Conference Abstracts</a></li>
             <li><a class="dropdown-item" href="{% url 'journal_list' %}">Journals</a></li>
             <li><a class="dropdown-item" href="{% url 'editorial_board_list' %}">Editorial Boards</a></li>
-            <li><a class="dropdown-item" href="#">Grants</a></li>
+            <li><a class="dropdown-item" href="{% url 'grant_list' %}">Grants</a></li>
             <li><a class="dropdown-item" href="{% url 'grantreview_list' %}">Grant Reviews</a></li>
           </ul>
         </li>
@@ -50,10 +47,10 @@
         </li>
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'supervision_list' %}active{% endif %}"
-            href="#">Supervision</a>
+            href="{% url 'supervision_list' %}">Supervision</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if request.resolver_match.url_name == 'supervision_list' %}active{% endif %}"
+          <a class="nav-link {% if request.resolver_match.url_name == 'cpa_list' %}active{% endif %}"
             href="#">CPA</a>
         </li>
       </ul>
@@ -72,7 +69,7 @@
       <ul class="navbar-nav">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'profile' %}"><i class="fa-solid fa-user"></i>&nbsp; Profile</a>
+          <a class="nav-link" href="#"><i class="fa-solid fa-user"></i>&nbsp; Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/accounts/logout"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;

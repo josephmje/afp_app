@@ -3,39 +3,21 @@
 
 {% block form %}
   <div class="row">
-    <div class="col-6">
-      {{ form.lecture_type|as_crispy_field }}
-    </div>
-    <div class="col-6">
-      {{ form.other_lecture_type|as_crispy_field }}
-    </div>
+    <div class="col-6">{{ form.lecture_type|as_crispy_field }}</div>
+    <div class="col-6">{{ form.other_lecture_type|as_crispy_field }}</div>
   </div>
   <div class="row">
-    <div class="col-6">
-      {{ form.name|as_crispy_field }}
-    </div>
-    <div class="col-6">
-      {{ form.course_code|as_crispy_field }}
-    </div>
+    <div class="col-6">{{ form.name|as_crispy_field }}</div>
+    <div class="col-6">{{ form.course_code|as_crispy_field }}</div>
   </div>
   <div class="row">
-    <div class="col-6">
-      {{ form.start_date|as_crispy_field }}
-    </div>
-    <div class="col-6">
-      {{ form.hours|as_crispy_field }}
-    </div>
+    <div class="col-6">{{ form.start_date|as_crispy_field }}</div>
+    <div class="col-6">{{ form.hours|as_crispy_field }}</div>
   </div>
   {{ form.is_cash|as_crispy_field }}
   <div class="row">
-    <div class="col-4">
-      {{ form.is_series|as_crispy_field }}
-    </div>
-    <div class="col-4">
-      {{ form.num_sessions|as_crispy_field }}
-    </div>
-    <div class="col-4">
-      {{ form.end_date|as_crispy_field }}
-    </div>
+    <div class="col-4">{{ form.is_series|as_crispy_field }}</div>
+    <div class="col-4">{{ form.num_sessions|as_crispy_field }}</div>
+    <div class="col-4">{{ form.end_date|as_crispy_field }}</div>
   </div>
 {% endblock %}

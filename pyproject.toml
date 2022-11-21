@@ -41,6 +41,7 @@ dependencies = [
     "environs[django]",
     "gunicorn==20.1.0",
     "psycopg2==2.9.3",
+    "whitenoise=6.2.0",
 ]
 
 dynamic = ["version"]

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Supervision{% endblock %}
+
+{% block content %}
+<br><br>
+
+<div class="container text-center mt-5">
+  <h1>Supervision</h1>
+</div>
+
+
+<div class="container text-center mt-5">
+  <a href="{% url 'add_supervision' %}" class="btn btn-secondary" style="width: 200px;"
+    title="Add supervision">Add a supervision</a>
+  {% if supervisions %}
+  <table class="table table-condensed table-hover" id="tbl_supervision">
+    <thead>
+      <tr>
+        <th style="width: 40%;">Supervision Type</th>
+        <th style="width: 40%;">Student</th>
+        <th style="width: 40%;">Hours</th>
+        <th style="width: 40%;">Duration</th>
+        <th style="width: 40%;">Frequency</th>
+        <th style="width: 10%;">Eligible</th>
+        <th style="width: 5%;">Edit</th>
+        <th style="width: 5%;">Delete</th>
+      </tr>
+    </thead>
+    {% for supervision in supervisions %}
+    <tr id="supervision-{{ supervision.pk }}" class="editorialboard-row">
+      <td>{{ supervision.supervision_type }}</td>
+      <td>{{ supervision.student_id }}</td>
+      <td>{{ supervision.hours }}</td>
+      <td>{{ supervision.duration }}</td>
+      <td>{{ supervision.frequency }}</td>
+      <td>{{ supervision.get_eligible_display }}</td>
+      <td>
+        <a href="{% url 'edit_supervision' pk=supervision.pk %}" class="btn btn-secondary"
+          title="Edit supervision">
+          <i class="fas fa-pen"></i>
+        </a>
+      </td>
+      <td>
+        <a href="{% url 'delete_supervision' pk=supervision.pk %}" class="btn btn-secondary"
+          title="Delete supervision">
+          <i class="fas fa-trash-alt"></i>
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <br><br>
+  <p>No supervision data entered yet.</p>
+  {% endif %}
+</div>
+
+<!-- Turns on the DataTables plugin for the awards table -->
+<script>
+  $(document).ready(function () {
+    $("#tbl_supervision").DataTable();
+  })
+</script>
+
+{% endblock %}

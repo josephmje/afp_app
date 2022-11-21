@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Grants{% endblock %}
+
+{% block content %}
+<br><br>
+
+<div class="container text-center mt-5">
+  <h1>Grants</h1>
+  <br>
+</div>
+
+<div class="container text-center mt-5">
+  <a href="{% url 'add_grant' %}" class="btn btn-secondary" style="width: 200px;" title="Add grant">Add a grant</a>
+  {% if grants %}
+    <ul class="list-group">
+      {% for grant in grants %}
+        <li class="list-group-item">
+          <a class="text-reset" href="">{{ grant.name }}</a>
+    {% endfor %}
+  {% else %}
+  <br><br>
+  <p>No grants entered yet.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

@@ -9,7 +9,6 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.layout import Div, Field, HTML, Layout, Submit
 
-from afp.accounts.models import CustomUser
 from .models import (
     Award,
     Cpa,
@@ -22,24 +21,9 @@ from .models import (
     PublicationLink,
     GrantReview,
     Lecture,
-    Promotion,
     Student,
     Supervision,
 )
-
-
-class ProfileForm(forms.ModelForm):
-    class Meta:
-        model = CustomUser
-        fields = [
-            "first_name",
-            "middle_name",
-            "last_name",
-            "email",
-            "division",
-            "other_division",
-            "rank",
-        ]
 
 
 class AwardForm(forms.ModelForm):
@@ -57,17 +41,6 @@ class AwardForm(forms.ModelForm):
         widgets = {
             "comments": forms.Textarea(attrs={"rows": 5}),
         }
-
-
-class PromotionForm(forms.ModelForm):
-    class Meta:
-        model = Promotion
-        fields = [
-            "promoted_to",
-            "comments",
-            "ver_file",
-            "ver_url",
-        ]
 
 
 class BookForm(forms.ModelForm):
@@ -105,7 +78,16 @@ class ConferenceForm(forms.ModelForm):
             "ver_url",
         ]
 
-        widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
+        widgets = {
+            "date": forms.DateInput(
+                attrs={
+                    "type": "date",
+                    "min": datetime.strptime("01012022", "%d%m%Y").date(),
+                    "max": datetime.strptime("31122022", "%d%m%Y").date(),
+                },
+            ),
+            "comments": forms.Textarea(attrs={"rows": 5}),
+        }
 
 
 class JournalForm(forms.ModelForm):
@@ -153,10 +135,11 @@ class GrantForm(forms.ModelForm):
         model = Grant
         fields = [
             "name",
-            "agency",
-            "other_grant_agency",
             "pi_list",
             "coi_list",
+            "agency",
+            "other_grant_agency",
+            "amount",
             "start_date",
             "end_date",
             "at_camh",
@@ -164,7 +147,19 @@ class GrantForm(forms.ModelForm):
             "ver_file",
             "ver_url",
         ]
-        widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
+        widgets = {
+            "start_date": forms.DateInput(
+                attrs={
+                    "type": "date",
+                },
+            ),
+            "end_date": forms.DateInput(
+                attrs={
+                    "type": "date",
+                },
+            ),
+            "comments": forms.Textarea(attrs={"rows": 5}),
+        }
 
 
 class GrantLinkForm(forms.ModelForm):
@@ -268,6 +263,7 @@ class ExamForm(forms.ModelForm):
             "exam_type",
             "other_exam_name",
             "student",
+            "other_student_name",
             "date",
             "hours",
             "comments",
@@ -303,6 +299,7 @@ class SupervisionForm(forms.ModelForm):
         model = Supervision
         fields = [
             "student_id",
+            "other_student_name",
             "supervision_type",
             "hours",
             "duration",

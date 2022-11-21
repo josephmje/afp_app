@@ -3,12 +3,8 @@
 
 {% block form %}
   <div class="row">
-    <div class="col-6">
-      {{ form.award_level|as_crispy_field }}
-    </div>
-    <div class="col-6">
-      {{ form.name|as_crispy_field }}
-    </div>
+    <div class="col-6">{{ form.award_level|as_crispy_field }}</div>
+    <div class="col-6">{{ form.name|as_crispy_field }}</div>
   </div>
   {{ form.organization|as_crispy_field }}
   {{ form.cash_prize|as_crispy_field }}

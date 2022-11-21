@@ -147,14 +147,24 @@ class Grant(BaseModel):
     amount = MoneyField(
         max_digits=14, decimal_places=2, default_currency="CAD"
     )
-    name = models.CharField(max_length=STR_LONGEST)
-    agency = models.ForeignKey(GrantAgency, on_delete=models.PROTECT)
-    other_grant_agency = models.CharField(max_length=STR_MED)
-    pi_list = models.CharField(max_length=STR_LONGEST)
-    coi_list = models.CharField(max_length=STR_LONGEST)
+    name = models.CharField("Grant Title", max_length=STR_LONGEST)
+    agency = models.ForeignKey(
+        GrantAgency, on_delete=models.PROTECT, verbose_name="Granting Agency"
+    )
+    other_grant_agency = models.CharField(
+        "Other Agency", max_length=STR_MED, blank=True, null=True
+    )
+    pi_list = models.CharField("List of PIs", max_length=STR_LONGEST)
+    coi_list = models.CharField("List of Co-Is", max_length=STR_LONGEST)
     start_date = models.DateField()
     end_date = models.DateField()
-    at_camh = models.BooleanField(default=False)
+    at_camh = models.BooleanField("Grant administered at CAMH?", default=False)
+
+    def get_absolute_url(self):
+        return reverse("view_grant", kwargs={"pk": self.pk})
+
+    def __str__(self):
+        return self.name
 
 
 class GrantRole(models.Model):
@@ -171,9 +181,13 @@ class GrantRole(models.Model):
         return self.name
 
 
-class GrantLink(UserBaseModel):
+class GrantLink(AdminMixin, CreatedUpdatedMixin):
+    user_id = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
     grant = models.ForeignKey(Grant, on_delete=models.CASCADE)
     role = models.ForeignKey(GrantRole, on_delete=models.PROTECT)
+    entry_type = None
 
 
 class GrantReviewType(models.Model):
@@ -197,7 +211,7 @@ class GrantReview(UserBaseModel):
         verbose_name="Grant Review Type",
         on_delete=models.PROTECT,
     )
-    agency = models.CharField("Committee Name", max_length=STR_LONG)
+    agency = models.CharField("Granting Agency", max_length=STR_LONG)
     name = models.CharField(
         "Grant Name", max_length=STR_LONG, blank=True, null=True
     )
@@ -266,7 +280,11 @@ class Journal(models.Model):
 
 
 class Publication(BaseModel):
-    pub_type = models.ForeignKey(PublicationType, on_delete=models.PROTECT)
+    pub_type = models.ForeignKey(
+        PublicationType,
+        on_delete=models.PROTECT,
+        verbose_name="Publication Type",
+    )
     title = models.CharField(max_length=STR_LONGEST)
     chapter_title = models.CharField(
         max_length=STR_LONGEST, blank=True, null=True
@@ -277,7 +295,9 @@ class Publication(BaseModel):
     )
     publisher = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
     city = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
-    isbn = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
+    isbn = models.CharField(
+        "ISBN", max_length=STR_LONGEST, blank=True, null=True
+    )
     article_type = models.ForeignKey(
         ArticleType, on_delete=models.PROTECT, blank=True, null=True
     )
@@ -293,9 +313,15 @@ class Publication(BaseModel):
         max_length=STR_LONGEST, blank=True, null=True
     )
     end_page = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
-    pub_month = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
-    pub_year = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
-    pmid = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
+    pub_month = models.CharField(
+        "Month", max_length=STR_LONGEST, blank=True, null=True
+    )
+    pub_year = models.CharField(
+        "Year", max_length=STR_LONGEST, blank=True, null=True
+    )
+    pmid = models.CharField(
+        "PMID", max_length=STR_LONGEST, blank=True, null=True
+    )
     other_impact_factor = models.DecimalField(
         max_digits=5,
         decimal_places=2,
@@ -304,7 +330,9 @@ class Publication(BaseModel):
         null=True,
     )
     is_epub = models.BooleanField(default=False)
-    conf_name = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
+    conf_name = models.CharField(
+        "Conference Name", max_length=STR_LONGEST, blank=True, null=True
+    )
     date = models.DateField(blank=True, null=True)
 
 
@@ -324,9 +352,13 @@ class PublicationRole(models.Model):
         return self.name
 
 
-class PublicationLink(UserBaseModel):
+class PublicationLink(AdminMixin, CreatedUpdatedMixin):
+    user_id = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
     publication = models.ForeignKey(Publication, on_delete=models.CASCADE)
     role = models.ForeignKey(PublicationRole, on_delete=models.PROTECT)
+    entry_type = None
 
 
 class EditorialBoard(UserBaseModel):
@@ -428,6 +460,9 @@ class Exam(UserBaseModel):
         max_length=STR_MED, blank=True, null=True
     )
     student = models.ForeignKey(Student, on_delete=models.PROTECT)
+    other_student_name = models.CharField(
+        max_length=STR_MED, blank=True, null=True
+    )
     hours = models.DecimalField(
         max_digits=5,
         decimal_places=2,
@@ -455,9 +490,15 @@ class WorkFrequencyType(models.Model):
         unique=True,
     )
 
+    def __str__(self):
+        return self.name
+
 
 class Supervision(UserBaseModel):
     student_id = models.ForeignKey(Student, on_delete=models.PROTECT)
+    other_student_name = models.CharField(
+        max_length=STR_MED, blank=True, null=True
+    )
     supervision_type = models.ForeignKey(
         SupervisionType, on_delete=models.PROTECT
     )
@@ -465,6 +506,9 @@ class Supervision(UserBaseModel):
     duration = models.DecimalField(max_digits=5, decimal_places=2)
     med_duration = models.DecimalField(max_digits=5, decimal_places=2)
     frequency = models.ForeignKey(WorkFrequencyType, on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name_plural = "Supervision"
 
 
 class Cpa(UserBaseModel):

@@ -1,0 +1,606 @@
+[
+  {
+    "model": "claims.GrantAgency",
+    "pk": 1,
+    "fields": {
+      "name": "Other",
+      "type": 7,
+      "category": 1
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 2,
+    "fields": {
+      "name": "AFP Innovation Fund",
+      "type": 6,
+      "category": 1
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 3,
+    "fields": {
+      "name": "Alcohol and Gaming Commission of Ontario",
+      "type": 2,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 4,
+    "fields": {
+      "name": "Alzheimer Society of Canada",
+      "type": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 5,
+    "fields": {
+      "name": "Alzheimer's Drug Discovery Foundation",
+      "type": 7,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 6,
+    "fields": {
+      "name": "American Foundation for Suicide Prevention",
+      "type": 5,
+      "category": 1
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 7,
+    "fields": {
+      "name": "ARCTIC",
+      "type": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 8,
+    "fields": {
+      "name": "Brain and Behavior Research Foundation",
+      "type": 4,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 9,
+    "fields": {
+      "name": "Brain Canada",
+      "type": 1,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 10,
+    "fields": {
+      "name": "Burroughs Welcome Fund",
+      "type": 5,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 11,
+    "fields": {
+      "name": "Canada Foundation for Innovation",
+      "type": 1,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 12,
+    "fields": {
+      "name": "Canada Research Chairs Program",
+      "type": 1,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 13,
+    "fields": {
+      "name": "Canadian Cancer Society Research Institute",
+      "type": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 14,
+    "fields": {
+      "name": "Canadian Diabetes Association",
+      "type": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 15,
+    "fields": {
+      "name": "Canadian Foundation for Pharmacy",
+      "type": 7,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 16,
+    "fields": {
+      "name": "Canadian Institutes of Health Research (CIHR)",
+      "type": 1,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 17,
+    "fields": {
+      "name": "Canadian Psychiatric Research Foundation",
+      "type": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 18,
+    "fields": {
+      "name": "Canadian Tobacco Control Research Initiative",
+      "type": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 19,
+    "fields": {
+      "name": "Cancer Care Ontario (CCO)",
+      "type": 2,
+      "category": 1
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 20,
+    "fields": {
+      "name": "Centre for Aging and Brain Health Innovation",
+      "type": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 21,
+    "fields": {
+      "name": "Garfield Weson Foundation",
+      "type": 7,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 22,
+    "fields": {
+      "name": "Genome Canada",
+      "type": 1,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 23,
+    "fields": {
+      "name": "Grand Challenges Canada",
+      "type": 7,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 24,
+    "fields": {
+      "name": "Health Canada",
+      "type": 1,
+      "category": 1
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 25,
+    "fields": {
+      "name": "Heart and Stroke Foundation of Canada",
+      "type": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 26,
+    "fields": {
+      "name": "Hospital for Sick Children",
+      "type": 6,
+      "category": 1
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 27,
+    "fields": {
+      "name": "International OCD Foundation",
+      "type": 5,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 28,
+    "fields": {
+      "name": "Kidney Foundation of Canada",
+      "type": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 29,
+    "fields": {
+      "name": "Manitoba Gambling Research Program",
+      "type": 2,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 30,
+    "fields": {
+      "name": "Medical Council of Canada",
+      "type": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 31,
+    "fields": {
+      "name": "Medical Psychiatry Alliance",
+      "type": 6,
+      "category": 1
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 32,
+    "fields": {
+      "name": "Mental Health Commission of Canada",
+      "type": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 33,
+    "fields": {
+      "name": "Ministry of Economic Development and Innovation",
+      "type": 2,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 34,
+    "fields": {
+      "name": "Multiple Sclerosis Society of Canada",
+      "type": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 35,
+    "fields": {
+      "name": "National Board of Medical Examiners - Stemmler Medical Education Research Fund",
+      "type": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 36,
+    "fields": {
+      "name": "National Cancer Institute of Canada",
+      "type": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 37,
+    "fields": {
+      "name": "National Health and Medical Research Council Australia",
+      "type": 1,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 38,
+    "fields": {
+      "name": "National Institute of Drug Abuse",
+      "type": 4,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 39,
+    "fields": {
+      "name": "National Institute of Mental Health",
+      "type": 4,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 40,
+    "fields": {
+      "name": "National Institutes of Health",
+      "type": 4,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 41,
+    "fields": {
+      "name": "National Library of Medicine",
+      "type": 7,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 42,
+    "fields": {
+      "name": "National Sciences and Engineering Research Council of Canada (NSERC)",
+      "type": 1,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 43,
+    "fields": {
+      "name": "Network Centres of Excellence of Canada",
+      "type": 1,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 44,
+    "fields": {
+      "name": "Neuroscience Catalyst",
+      "type": 2,
+      "category": 2
+    }
+  },
+
+  {
+    "model": "claims.GrantAgency",
+    "pk": 45,
+    "fields": {
+      "name": "Ontario Brain Institute",
+      "type": 2,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 46,
+    "fields": {
+      "name": "Ontario Mental Health Foundation",
+      "type": 2,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 47,
+    "fields": {
+      "name": "Ontario Ministry Competitve Grant",
+      "type": 2,
+      "category": 1
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 48,
+    "fields": {
+      "name": "Ontario Ministry of Health and Long Term Care",
+      "type": 2,
+      "category": 1
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 49,
+    "fields": {
+      "name": "Ontario Ministry of Research and Innovation",
+      "type": 2,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 50,
+    "fields": {
+      "name": "Ontario Neurotrauma Foundation",
+      "type": 2,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 51,
+    "fields": {
+      "name": "Pfizer",
+      "type": 3,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 52,
+    "fields": {
+      "name": "Physician Services Incorporated (PSI) Foundation",
+      "type": 2,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 53,
+    "fields": {
+      "name": "Public Health Agency of Canada",
+      "type": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 54,
+    "fields": {
+      "name": "Royal College of Physicians and Surgeons - Medical Education Research Grant",
+      "type": 1,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 55,
+    "fields": {
+      "name": "Schizophrenia Society of Ontario",
+      "type": 2,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 56,
+    "fields": {
+      "name": "Social Sciences and Humanities Research Council",
+      "type": 1,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 57,
+    "fields": {
+      "name": "Society for Academic CME Research",
+      "type": 7,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 58,
+    "fields": {
+      "name": "Society of Directors of Medical Education)",
+      "type": 7,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 59,
+    "fields": {
+      "name": "Templeton World Charity Foundation",
+      "type": 5,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 60,
+    "fields": {
+      "name": "The AAMC Medical Education Research Grant",
+      "type": 7,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 61,
+    "fields": {
+      "name": "The AMS Phoenix Project Research Grants",
+      "type": 2,
+      "category": 1
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 62,
+    "fields": {
+      "name": "The Association of Medical Education in Europe",
+      "type": 5,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 63,
+    "fields": {
+      "name": "The Networks of Centres of Excellence of Canada",
+      "type": 1,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 64,
+    "fields": {
+      "name": "The Patient-Centered Outcomes Research Institute (PCORI)",
+      "type": 7,
+      "category": 3
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 65,
+    "fields": {
+      "name": "The Spencer Foundation",
+      "type": 7,
+      "category": 2
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 66,
+    "fields": {
+      "name": "University of Toronto",
+      "type": 6,
+      "category": 1
+    }
+  },
+  {
+    "model": "claims.GrantAgency",
+    "pk": 67,
+    "fields": {
+      "name": "Weston Brain Institute",
+      "type": 7,
+      "category": 2
+    }
+  }
+]

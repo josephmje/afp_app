@@ -5,10 +5,6 @@ from . import views
 urlpatterns = [path("", views.HomeView.as_view(), name="home")]
 
 urlpatterns += [
-    path("profile", views.ProfileUpdateView.as_view(), name="profile")
-]
-
-urlpatterns += [
     path("awards", views.AwardListView.as_view(), name="award_list"),
     path("awards/add", views.AwardCreateView.as_view(), name="add_award"),
     path(
@@ -20,29 +16,6 @@ urlpatterns += [
         "awards/<uuid:pk>/delete",
         views.AwardDeleteView.as_view(),
         name="delete_award",
-    ),
-]
-
-urlpatterns += [
-    path(
-        "grantreviews",
-        views.GrantReviewListView.as_view(),
-        name="grantreview_list",
-    ),
-    path(
-        "grantreviews/add",
-        views.GrantReviewCreateView.as_view(),
-        name="add_grantreview",
-    ),
-    path(
-        "grantreviews/<uuid:pk>/edit",
-        views.GrantReviewUpdateView.as_view(),
-        name="edit_grantreview",
-    ),
-    path(
-        "grantreviews/<uuid:pk>/delete",
-        views.GrantReviewDeleteView.as_view(),
-        name="delete_grantreview",
     ),
 ]
 
@@ -140,6 +113,57 @@ urlpatterns += [
 
 urlpatterns += [
     path(
+        "grants",
+        views.GrantListView.as_view(),
+        name="grant_list",
+    ),
+    path(
+        "grants/add",
+        views.GrantCreateView.as_view(),
+        name="add_grant",
+    ),
+    path(
+        "grants/<uuid:pk>",
+        views.GrantDetailView.as_view(),
+        name="view_grant",
+    ),
+    path(
+        "grants/<uuid:pk>/edit",
+        views.GrantUpdateView.as_view(),
+        name="edit_grant",
+    ),
+    path(
+        "grants/<uuid:pk>/delete",
+        views.GrantDeleteView.as_view(),
+        name="delete_grant",
+    ),
+]
+
+urlpatterns += [
+    path(
+        "grantreviews",
+        views.GrantReviewListView.as_view(),
+        name="grantreview_list",
+    ),
+    path(
+        "grantreviews/add",
+        views.GrantReviewCreateView.as_view(),
+        name="add_grantreview",
+    ),
+    path(
+        "grantreviews/<uuid:pk>/edit",
+        views.GrantReviewUpdateView.as_view(),
+        name="edit_grantreview",
+    ),
+    path(
+        "grantreviews/<uuid:pk>/delete",
+        views.GrantReviewDeleteView.as_view(),
+        name="delete_grantreview",
+    ),
+]
+
+urlpatterns += [
+    path(
         "committees", views.CommitteeListView.as_view(), name="committee_list"
     ),
     path(
@@ -192,5 +216,24 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path("publications", views.publication_list, name="publication_list"),
+    path(
+        "supervision",
+        views.SupervisionListView.as_view(),
+        name="supervision_list",
+    ),
+    path(
+        "supervision/add",
+        views.SupervisionCreateView.as_view(),
+        name="add_supervision",
+    ),
+    path(
+        "supervision/<uuid:pk>/edit",
+        views.SupervisionUpdateView.as_view(),
+        name="edit_supervision",
+    ),
+    path(
+        "supervision/<uuid:pk>/delete",
+        views.SupervisionDeleteView.as_view(),
+        name="delete_supervision",
+    ),
 ]

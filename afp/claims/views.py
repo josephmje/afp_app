@@ -1,12 +1,11 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
-from django.template.context_processors import csrf
+from django.shortcuts import redirect
 from django.views.generic import (
     CreateView,
     DeleteView,
+    DetailView,
     ListView,
     TemplateView,
     UpdateView,
@@ -27,9 +26,8 @@ from .forms import (
     GrantReviewForm,
     JournalForm,
     LectureForm,
-    ProfileForm,
+    SupervisionForm,
 )
-from afp.accounts.models import CustomUser
 from .models import (
     Award,
     EditorialBoard,
@@ -41,36 +39,12 @@ from .models import (
     Lecture,
     Publication,
     PublicationLink,
+    Supervision,
 )
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "home.html"
-
-
-class ProfileUpdateView(LoginRequiredMixin, UpdateView):
-    model = CustomUser
-    form_class = ProfileForm
-    template_name = "profile.html"
-    context_object_name = "user"
-    queryset = CustomUser.objects.all()
-
-    def get_context_data(self, **kwargs):
-        context = super(ProfileUpdateView, self).get_context_data(**kwargs)
-        user = self.request.user
-        context["profile_form"] = ProfileForm(
-            instance=self.request.user.customuser,
-            initial={
-                "first_name": user.first_name,
-                "middle_name": user.middle_name,
-                "last_name": user.last_name,
-                "email": user.email,
-                "division": user.division,
-                "other_division": user.other_division,
-                "rank": user.rank,
-            },
-        )
-        return context
 
 
 ###
@@ -116,14 +90,12 @@ class AwardDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class BookListView(LoginRequiredMixin, ListView):
-    model = PublicationLink
+    model = Publication
     template_name = "claims/books.html"
     context_object_name = "books"
 
     def get_queryset(self):
-        return PublicationLink.objects.select_related(
-            user_id=self.request.user
-        ).filter(pub_type__in=[3, 4, 5])
+        return Publication.objects.filter(pub_type__in=[3, 4, 5])
 
 
 class BookCreateView(LoginRequiredMixin, CreateView):
@@ -131,12 +103,6 @@ class BookCreateView(LoginRequiredMixin, CreateView):
     form_class = BookForm
     template_name = "claims/book_form.html"
     success_url = reverse_lazy("book_list")
-
-    def form_valid(self, form):
-        book = form.save(commit=False)
-        book.user_id = self.request.user
-        book.save()
-        return super().form_valid(form)
 
 
 class BookUpdateView(LoginRequiredMixin, UpdateView):
@@ -162,9 +128,7 @@ class ConferenceListView(LoginRequiredMixin, ListView):
     context_object_name = "conferences"
 
     def get_queryset(self):
-        return Publication.objects.filter(user_id=self.request.user).filter(
-            pub_type=2
-        )
+        return Publication.objects.filter(pub_type=2)
 
 
 class ConferenceCreateView(LoginRequiredMixin, CreateView):
@@ -175,7 +139,6 @@ class ConferenceCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         conference = form.save(commit=False)
-        conference.user_id = self.request.user
         conference.pub_type = 2
         conference.save()
         return super().form_valid(form)
@@ -204,9 +167,7 @@ class JournalListView(LoginRequiredMixin, ListView):
     context_object_name = "journals"
 
     def get_queryset(self):
-        return Publication.objects.filter(user_id=self.request.user).filter(
-            pub_type=1
-        )
+        return Publication.objects.filter(pub_type=1)
 
 
 class JournalCreateView(LoginRequiredMixin, CreateView):
@@ -217,7 +178,6 @@ class JournalCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         journal = form.save(commit=False)
-        journal.user_id = self.request.user
         journal.pub_type = 1
         journal.save()
         return super().form_valid(form)
@@ -245,27 +205,25 @@ class GrantListView(LoginRequiredMixin, ListView):
     template_name = "claims/grants.html"
     context_object_name = "grants"
 
-    def get_queryset(self):
-        return Grant.objects.filter(user_id=self.request.user)
-
 
 class GrantCreateView(LoginRequiredMixin, CreateView):
     model = Grant
     form_class = GrantForm
-    template_name = "claims/model_form.html"
-    success_url = reverse_lazy("grant_list")
+    template_name = "claims/grant_form.html"
+    # success_url = reverse_lazy("grant_list")
 
-    def form_valid(self, form):
-        grant = form.save(commit=False)
-        grant.user_id = self.request.user
-        grant.save()
-        return super().form_valid(form)
+
+class GrantDetailView(LoginRequiredMixin, DetailView):
+    model = Grant
+    form_class = GrantForm
+    template_name = "claims/grant_detail.html"
+    success_url = reverse_lazy("grant_list")
 
 
 class GrantUpdateView(LoginRequiredMixin, UpdateView):
     model = Grant
     form_class = GrantForm
-    template_name = "claims/model_form.html"
+    template_name = "claims/grant_form.html"
     success_url = reverse_lazy("grant_list")
 
 
@@ -527,11 +485,37 @@ class ExamDeleteView(LoginRequiredMixin, DeleteView):
 ###
 
 
-@login_required(login_url="/accounts/login")
-def publication_list(request):
-    publication_list = PublicationLink.objects.filter(user_id=request.user)
-    return render(
-        request,
-        "claims/publications.html",
-        {"publications": publication_list},
-    )
+class SupervisionListView(LoginRequiredMixin, ListView):
+    model = Supervision
+    template_name = "claims/supervision.html"
+    context_object_name = "supervisions"
+
+    def get_queryset(self):
+        return Supervision.objects.filter(user_id=self.request.user)
+
+
+class SupervisionCreateView(LoginRequiredMixin, CreateView):
+    model = Supervision
+    form_class = SupervisionForm
+    template_name = "claims/supervision_form.html"
+    success_url = reverse_lazy("supervision_list")
+
+    def form_valid(self, form):
+        supervision = form.save(commit=False)
+        supervision.user_id = self.request.user
+        supervision.save()
+        return super().form_valid(form)
+
+
+class SupervisionUpdateView(LoginRequiredMixin, UpdateView):
+    model = Supervision
+    form_class = SupervisionForm
+    template_name = "claims/supervision_form.html"
+    success_url = reverse_lazy("supervision_list")
+
+
+class SupervisionDeleteView(LoginRequiredMixin, DeleteView):
+    model = Supervision
+    queryset = Supervision.objects.all()
+    template_name = "claims/confirm_delete.html"
+    success_url = reverse_lazy("supervision_list")

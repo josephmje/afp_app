@@ -2,14 +2,15 @@
 {% load crispy_forms_tags %}
 
 {% block form %}
-  <div class="row">
-    <div class="col-6">
-      {{ form.award_level|as_crispy_field }}
-    </div>
-    <div class="col-6">
-      {{ form.name|as_crispy_field }}
-    </div>
-  </div>
-  {{ form.organization|as_crispy_field }}
-  {{ form.cash_prize|as_crispy_field }}
+{{ form.supervision_type|as_crispy_field }}
+<div class="row">
+  <div class="col-6">{{ form.student_id|as_crispy_field }}</div>
+  <div class="col-6">{{ form.other_student_name|as_crispy_field }}</div>
+</div>
+<div class="row">
+  <div class="col-3">{{ form.hours|as_crispy_field }}</div>
+  <div class="col-3">{{ form.duration|as_crispy_field }}</div>
+  <div class="col-3">{{ form.med_duration|as_crispy_field }}</div>
+  <div class="col-3">{{ form.frequency|as_crispy_field }}</div>
+</div>
 {% endblock %}
