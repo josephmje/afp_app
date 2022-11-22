@@ -183,10 +183,14 @@ class GrantRole(models.Model):
 
 class GrantLink(AdminMixin, CreatedUpdatedMixin):
     user_id = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        verbose_name="Investigator",
     )
     grant = models.ForeignKey(Grant, on_delete=models.CASCADE)
-    role = models.ForeignKey(GrantRole, on_delete=models.PROTECT)
+    role = models.ForeignKey(
+        GrantRole, on_delete=models.PROTECT, verbose_name="Investigator Role"
+    )
     entry_type = None
 
 
@@ -216,7 +220,10 @@ class GrantReview(UserBaseModel):
         "Grant Name", max_length=STR_LONG, blank=True, null=True
     )
     date = models.DateField()
-    is_member = models.BooleanField(default=False)
+    is_member = models.BooleanField(
+        default=False,
+        verbose_name="Are you a full member of this grant review committee?",
+    )
     num_days = models.DecimalField(
         max_digits=4,
         decimal_places=2,
@@ -290,7 +297,7 @@ class Publication(BaseModel):
         max_length=STR_LONGEST, blank=True, null=True
     )
     authors = models.CharField(max_length=STR_LONGEST)
-    authors_contd = models.CharField(
+    chapter_authors = models.CharField(
         max_length=STR_LONGEST, blank=True, null=True
     )
     publisher = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
@@ -322,13 +329,6 @@ class Publication(BaseModel):
     pmid = models.CharField(
         "PMID", max_length=STR_LONGEST, blank=True, null=True
     )
-    other_impact_factor = models.DecimalField(
-        max_digits=5,
-        decimal_places=2,
-        validators=[MinValueValidator(0)],
-        blank=True,
-        null=True,
-    )
     is_epub = models.BooleanField(default=False)
     conf_name = models.CharField(
         "Conference Name", max_length=STR_LONGEST, blank=True, null=True
@@ -357,14 +357,16 @@ class PublicationLink(AdminMixin, CreatedUpdatedMixin):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE
     )
     publication = models.ForeignKey(Publication, on_delete=models.CASCADE)
-    role = models.ForeignKey(PublicationRole, on_delete=models.PROTECT)
+    role = models.ForeignKey(
+        PublicationRole, on_delete=models.PROTECT, verbose_name="Author Role"
+    )
     entry_type = None
 
 
 class EditorialBoard(UserBaseModel):
     journal = models.ForeignKey(Journal, on_delete=models.PROTECT)
     other_journal_name = models.CharField(
-        max_length=STR_LONGEST, blank=True, null=True
+        "Other Journal Name", max_length=STR_LONGEST, blank=True, null=True
     )
 
 
@@ -396,18 +398,28 @@ class LectureType(models.Model):
 
 
 class Lecture(UserBaseModel):
-    lecture_type = models.ForeignKey(LectureType, on_delete=models.PROTECT)
-    other_lecture_type = models.CharField(
-        max_length=STR_MED, blank=True, null=True
+    lecture_type = models.ForeignKey(
+        LectureType, on_delete=models.PROTECT, verbose_name="Lecture Type"
     )
-    name = models.CharField(max_length=STR_LONGEST)
-    course_code = models.CharField(max_length=STR_MED, blank=True, null=True)
-    start_date = models.DateField()
-    hours = models.DecimalField(max_digits=5, decimal_places=2)
-    is_cash = models.BooleanField(default=False)
-    is_series = models.BooleanField(default=False)
-    end_date = models.DateField(blank=True, null=True)
-    num_sessions = models.IntegerField()
+    other_lecture_type = models.CharField(
+        "Other Lecture Type", max_length=STR_MED, blank=True, null=True
+    )
+    name = models.CharField("Lecture Name", max_length=STR_LONGEST)
+    course_code = models.CharField(
+        "Course Name/Course Code", max_length=STR_MED, blank=True, null=True
+    )
+    start_date = models.DateField("Start Date")
+    hours = models.DecimalField(
+        "Hours (per lecture)", max_digits=5, decimal_places=2
+    )
+    is_cash = models.BooleanField(
+        "Did you receive an honorarium for this lecture?", default=False
+    )
+    is_series = models.BooleanField(
+        "Was this lecture part of a series?", default=False
+    )
+    end_date = models.DateField("End Date", blank=True, null=True)
+    num_sessions = models.IntegerField("# Sessions", blank=True, null=True)
 
 
 class Student(models.Model):
@@ -455,13 +467,17 @@ class ExamType(models.Model):
 
 
 class Exam(UserBaseModel):
-    exam_type = models.ForeignKey(ExamType, on_delete=models.PROTECT)
-    other_exam_name = models.CharField(
-        max_length=STR_MED, blank=True, null=True
+    exam_type = models.ForeignKey(
+        ExamType, on_delete=models.PROTECT, verbose_name="Exam Type"
     )
-    student = models.ForeignKey(Student, on_delete=models.PROTECT)
+    other_exam_name = models.CharField(
+        "Other Exam Type", max_length=STR_MED, blank=True, null=True
+    )
+    student = models.ForeignKey(
+        Student, on_delete=models.PROTECT, verbose_name="Student Name"
+    )
     other_student_name = models.CharField(
-        max_length=STR_MED, blank=True, null=True
+        "Other Student Name", max_length=STR_MED, blank=True, null=True
     )
     hours = models.DecimalField(
         max_digits=5,
@@ -495,17 +511,24 @@ class WorkFrequencyType(models.Model):
 
 
 class Supervision(UserBaseModel):
-    student_id = models.ForeignKey(Student, on_delete=models.PROTECT)
+    student_id = models.ForeignKey(
+        Student, on_delete=models.PROTECT, verbose_name="Student Name"
+    )
     other_student_name = models.CharField(
-        max_length=STR_MED, blank=True, null=True
+        "Other Student Name", max_length=STR_MED, blank=True, null=True
     )
     supervision_type = models.ForeignKey(
-        SupervisionType, on_delete=models.PROTECT
+        SupervisionType,
+        on_delete=models.PROTECT,
+        verbose_name="Supervision Type",
     )
-    hours = models.DecimalField(max_digits=5, decimal_places=2)
+    hours = models.DecimalField(
+        max_digits=5, decimal_places=2, blank=True, null=True
+    )
     duration = models.DecimalField(max_digits=5, decimal_places=2)
-    med_duration = models.DecimalField(max_digits=5, decimal_places=2)
-    frequency = models.ForeignKey(WorkFrequencyType, on_delete=models.PROTECT)
+    frequency = models.ForeignKey(
+        WorkFrequencyType, on_delete=models.PROTECT, blank=True, null=True
+    )
 
     class Meta:
         verbose_name_plural = "Supervision"

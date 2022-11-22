@@ -96,19 +96,10 @@ sass bootstrap.scss bootstrap.css
 
 ## To Do
 
--   learn [flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/#flexbox-background) for site layout
--   upload file doesn't capture files yet
--   instructions stating to use either file upload or URL for verification
 -   simple forms
-    -   Award
     -   Promotion
         -   needs to update user profile as well
         -   selection list shouldn't include Lecturer
-    -   GrantReview
-        -   branching logic for `is_member`, `num_days`
-    -   EditorialBoard
-    -   CommitteeWork
-    -   Lectures
 -   inline formsets
     -   Grant
         -   external tables include GrantAgency, GrantLink
@@ -118,8 +109,3 @@ sass bootstrap.scss bootstrap.css
         -   query Journal table
         -   external tables include PublicationLink
         -   tagging system for authors
-    -   Exam
-        -   external tables include Student
-    -   Supervision
-        -   external tables include Student
-        -   limit choices based on student type

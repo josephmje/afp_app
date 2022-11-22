@@ -3,11 +3,11 @@ version: "3.9"
 services:
   web:
     build: .
-    ports:
-      - "8000:8000"
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn config.wsgi -b 0.0.0.0:8000
     volumes:
       - .:/code
+    ports:
+      - "8000:8000"
     depends_on:
       - db
     environment:
@@ -25,6 +25,9 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
+      - POSTGRES_USER=afp
+      - POSTGRES_PASSWORD=afp
+      - POSTGRES_DB=afp
 
 volumes:
   postgres_data:

@@ -1,13 +1,8 @@
 from datetime import datetime
 
 from django import forms
-from django.core.validators import RegexValidator
 from django.forms.models import inlineformset_factory
-from django.urls import reverse_lazy
 
-from crispy_forms.helper import FormHelper
-from crispy_forms.bootstrap import FormActions
-from crispy_forms.layout import Div, Field, HTML, Layout, Submit
 
 from .models import (
     Award,
@@ -43,60 +38,14 @@ class AwardForm(forms.ModelForm):
         }
 
 
-class BookForm(forms.ModelForm):
+class PublicationForm(forms.ModelForm):
     class Meta:
         model = Publication
         fields = [
-            "pub_type",
             "title",
             "authors",
             "chapter_title",
-            "authors_contd",
-            "publisher",
-            "city",
-            "isbn",
-            "pub_year",
-            "comments",
-            "ver_file",
-            "ver_url",
-        ]
-
-        widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
-
-
-class ConferenceForm(forms.ModelForm):
-    class Meta:
-        model = Publication
-        fields = [
-            "title",
-            "authors",
-            "conf_name",
-            "city",
-            "date",
-            "comments",
-            "ver_file",
-            "ver_url",
-        ]
-
-        widgets = {
-            "date": forms.DateInput(
-                attrs={
-                    "type": "date",
-                    "min": datetime.strptime("01012022", "%d%m%Y").date(),
-                    "max": datetime.strptime("31122022", "%d%m%Y").date(),
-                },
-            ),
-            "comments": forms.Textarea(attrs={"rows": 5}),
-        }
-
-
-class JournalForm(forms.ModelForm):
-    class Meta:
-        model = Publication
-        fields = [
-            "title",
-            "authors",
-            "authors_contd",
+            "chapter_authors",
             "article_type",
             "journal",
             "other_journal_name",
@@ -107,7 +56,6 @@ class JournalForm(forms.ModelForm):
             "pub_month",
             "pub_year",
             "pmid",
-            "other_impact_factor",
             "is_epub",
             "comments",
             "ver_file",
@@ -165,12 +113,13 @@ class GrantForm(forms.ModelForm):
 class GrantLinkForm(forms.ModelForm):
     class Meta:
         model = GrantLink
-        fields = "__all__"
+        fields = ["user_id", "role"]
 
 
 GrantLinkFormSet = inlineformset_factory(
     Grant,
     GrantLink,
+    fields=("user_id", "role"),
     form=GrantLinkForm,
     extra=1,
     can_delete=True,
@@ -303,7 +252,6 @@ class SupervisionForm(forms.ModelForm):
             "supervision_type",
             "hours",
             "duration",
-            "med_duration",
             "frequency",
             "comments",
             "ver_file",

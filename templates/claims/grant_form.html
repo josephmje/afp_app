@@ -1,20 +1,137 @@
-{% extends 'claims/model_form.html' %}
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load modelform_title %}
 
-{% block form %}
-{{ form.name|as_crispy_field }}
-  <div class="row">
-    <div class="col-6">{{ form.pi_list|as_crispy_field }}</div>
-    <div class="col-6">{{ form.coi_list|as_crispy_field }}</div>
-  </div>
-  <div class="row">
-    <div class="col-6">{{ form.agency|as_crispy_field }}</div>
-    <div class="col-6">{{ form.other_grant_agency|as_crispy_field }}</div>
-  </div>
-  <div class="row">
-    <div class="col-4">{{ form.amount|as_crispy_field }}</div>
-    <div class="col-4">{{ form.start_date|as_crispy_field }}</div>
-    <div class="col-4">{{ form.end_date|as_crispy_field }}</div>
-  </div>
-  {{ form.at_camh|as_crispy_field }}
+{% block content %}
+
+<div class="container mt-3" style="width: 95%; font-size: 14 px">
+  <form method="POST" class="card p-3 mt-5" autocomplete="off">
+    <h2>
+      {% if object %}
+      Edit
+      {% else %}
+      Add
+      {% endif %}
+      {{ form|modelform_title }}
+    </h2>
+    <br>
+    {% csrf_token %}
+    {{ form.name|as_crispy_field }}
+    <div class="row">
+      <div class="col-6">{{ form.pi_list|as_crispy_field }}</div>
+      <div class="col-6">{{ form.coi_list|as_crispy_field }}</div>
+    </div>
+    <div class="row">
+      <div class="col-6">{{ form.agency|as_crispy_field }}</div>
+      <div class="col-6">{{ form.other_grant_agency|as_crispy_field }}</div>
+    </div>
+    <div class="row">
+      <div class="col-4">{{ form.amount|as_crispy_field }}</div>
+      <div class="col-4">{{ form.start_date|as_crispy_field }}</div>
+      <div class="col-4">{{ form.end_date|as_crispy_field }}</div>
+    </div>
+    {{ form.at_camh|as_crispy_field }}
+    <hr style="border: 1px solid #007bff;">
+    <div class="input-group">
+      <div class="col">{{ form.ver_file|as_crispy_field }}</div>
+      <span class="col-1" style="text-align: center; padding: 40px 0">OR</span>
+      <div class="col">{{ form.ver_url|as_crispy_field }}</div>
+    </div>
+    {{ form.comments|as_crispy_field }}
+
+    {% with named_formsets.links as formset %}
+      {{ formset.management_form }}
+      <script type="text/html" id="links-template">
+        <tr id="links-__prefix__" class=hide_all>
+          {% for fields in formset.empty_form.hidden_fields %}
+          {{ fields }}
+          {% endfor %}
+
+          {% for fields in formset.empty_form.visible_fields %}
+          <td>{{ fields }}</td>
+          {% endfor %}
+        </tr>
+      </script>
+
+      <div class="table-responsive card mt-4">
+        <div class="card-header card-header-secondary">
+          <h5 class="card-title">Add Investigators</h5>
+        </div>
+        <table class="table card-body">
+          <tbody id="item-links">
+            {% for error in formset.non_form_errors %}
+              <span style="color: red">{{ error }}</span>
+            {% endfor %}
+            {% for forms in formset %}
+            {{ forms.management_form }}
+            <tr id="links-{{ forloop.counter0 }}" class=hide_all>
+              {{ forms.id }}
+              {% for field in forms.visible_fields %}
+              <td>
+                {{ field|as_crispy_field }}
+                {% for error in field.errors %}
+                <span style="color: red">{{ error }}</span>
+                {% endfor %}
+              </td>
+              {% endfor %}
+              {% if forms.instance.pk %}
+              <td>
+                <button type="button" class="btn btn-danger" data-toggle="modal"
+                  data-target="#exampleModal{{forms.instance.pk}}">
+                  Delete
+                </button>
+                <div class="modal fade" id="exampleModal{{forms.instance.pk}}" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel{{forms.instance.pk}}" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel{{forms.instance.pk}}">Are Your Sure You Want To
+                          Delete This?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-footer">
+                        <a href="{% url 'delete_grantlink' forms.instance.pk %}" type="button"
+                          class="btn btn-primary">Yes, Delete</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              {% endif %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="col text-center">
+          <a href="#" class="btn btn-secondary mt-3 add-links" style="width: 200px; margin: 10px;">Add More</a>
+        </div>
+      </div>
+    {% endwith %}
+    <div class="row">
+      <button type="submit" class="btn btn-primary mt-3" style="width: 90px; margin: 5px;">Save</button>
+      <a href="javascript:history.back()" class="btn btn-secondary mt-3" style="width: 90px; margin: 5px;">Cancel</a>
+    </div>
+  </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+<script>
+  $(document).ready(function () {
+    // when user clicks add more btn of images
+    $('.add-links').click(function (ev) {
+      ev.preventDefault();
+      var count = $('#item-links').children().length;
+      var tmplMarkup = $('#links-template').html();
+      var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
+      $('#item-links').append(compiledTmpl);
+
+      // update form count
+      $('#id_links-TOTAL_FORMS').attr('value', count + 1);
+    });
+  });
+</script>
 {% endblock %}

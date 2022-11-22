@@ -4,6 +4,16 @@
     "pk": 1,
     "fields": {
       "first_name": "",
+      "last_name": "Other",
+      "student_type": 5,
+      "other_student_type": ""
+    }
+  },
+  {
+    "model": "claims.Student",
+    "pk": 2,
+    "fields": {
+      "first_name": "",
       "last_name": "Various",
       "student_type": 5,
       "other_student_type": ""

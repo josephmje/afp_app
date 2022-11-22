@@ -1,46 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'claims/model_form.html' %}
 {% load crispy_forms_tags %}
-{% load modelform_title %}
 
-{% block content %}
-
-<div class="container mt-3" style="width: 95%; font-size: 14 px">
-
-  <form method="POST" class="card p-3 mt-5" autocomplete="off">
-    <h2>
-      {% if object %}
-      Edit
-      {% else %}
-      Add
-      {% endif %}
-      {{ form|modelform_title }}
-    </h2>
-    {% csrf_token %}
-    {{ form.name|as_crispy_field }}
-    <div class="row">
-      <div class="col-6">
-        {{ form.organization|as_crispy_field }}
-      </div>
-      <div class="col-6">
-        {{ form.award_level|as_crispy_field }}
-      </div>
-    </div>
-    {{ form.cash_prize|as_crispy_field }}
-    <div class="row">
-      <div class="col-5">
-        {{ form.ver_file|as_crispy_field }}
-      </div>
-      <div class="col-1">
-        <h5>OR</h5>
-      </div>
-      <div class="col-5">
-        {{ form.ver_url|as_crispy_field }}
-      </div>
-    </div>
-    {{ form.comments|as_crispy_field }}
-    <div class="row">
-      <button type="submit" class="btn btn-primary mt-3" style="width: 90px; margin: 5px;">Save</button>
-      <a href="{% url 'award_list' %}" class="btn btn-secondary mt-3" style="width: 90px; margin: 5px;">Cancel</a>
-    </div>
-  </form>
+{% block form %}
+<div class="row">
+  <div class="col-4">{{ form.first_name|as_crispy_field }}</div>
+  <div class="col-4">{{ form.middle_name|as_crispy_field }}</div>
+  <div class="col-4">{{ form.last_name|as_crispy_field }}</div>
+</div>
+{{ form.email|as_crispy_field }}
+<div class="row">
+  <div class="col-6">{{ form.division|as_crispy_field }}</div>
+  <div class="col-6">{{ form.other_division|as_crispy_field }}</div>
+</div>
+{{ form.rank|as_crispy_field }}
 {% endblock %}

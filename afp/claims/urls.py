@@ -21,70 +21,24 @@ urlpatterns += [
 
 urlpatterns += [
     path(
-        "books",
-        views.BookListView.as_view(),
-        name="book_list",
+        "publications",
+        views.PublicationListView.as_view(),
+        name="publication_list",
     ),
     path(
-        "books/add",
-        views.BookCreateView.as_view(),
-        name="add_book",
+        "publications/add",
+        views.PublicationCreateView.as_view(),
+        name="add_publication",
     ),
     path(
-        "books/<uuid:pk>/edit",
-        views.BookUpdateView.as_view(),
-        name="edit_book",
+        "publications/<uuid:pk>/edit",
+        views.PublicationUpdateView.as_view(),
+        name="edit_publication",
     ),
     path(
-        "books/<uuid:pk>/delete",
-        views.BookDeleteView.as_view(),
-        name="delete_book",
-    ),
-]
-
-urlpatterns += [
-    path(
-        "conferences",
-        views.ConferenceListView.as_view(),
-        name="conference_list",
-    ),
-    path(
-        "conferences/add",
-        views.ConferenceCreateView.as_view(),
-        name="add_conference",
-    ),
-    path(
-        "conferences/<uuid:pk>/edit",
-        views.ConferenceUpdateView.as_view(),
-        name="edit_conference",
-    ),
-    path(
-        "conferences/<uuid:pk>/delete",
-        views.ConferenceDeleteView.as_view(),
-        name="delete_conference",
-    ),
-]
-
-urlpatterns += [
-    path(
-        "journals",
-        views.JournalListView.as_view(),
-        name="journal_list",
-    ),
-    path(
-        "journals/add",
-        views.JournalCreateView.as_view(),
-        name="add_journal",
-    ),
-    path(
-        "journals/<uuid:pk>/edit",
-        views.JournalUpdateView.as_view(),
-        name="edit_journal",
-    ),
-    path(
-        "journals/<uuid:pk>/delete",
-        views.JournalDeleteView.as_view(),
-        name="delete_journal",
+        "publications/<uuid:pk>/delete",
+        views.PublicationDeleteView.as_view(),
+        name="delete_publication",
     ),
 ]
 
@@ -123,11 +77,6 @@ urlpatterns += [
         name="add_grant",
     ),
     path(
-        "grants/<uuid:pk>",
-        views.GrantDetailView.as_view(),
-        name="view_grant",
-    ),
-    path(
         "grants/<uuid:pk>/edit",
         views.GrantUpdateView.as_view(),
         name="edit_grant",
@@ -136,6 +85,11 @@ urlpatterns += [
         "grants/<uuid:pk>/delete",
         views.GrantDeleteView.as_view(),
         name="delete_grant",
+    ),
+    path(
+        "grant_link/<uuid:pk>/delete",
+        views.GrantLinkDeleteView.as_view(),
+        name="delete_grantlink",
     ),
 ]
 

@@ -39,10 +39,12 @@ admin.site.register(GrantAgency)
 admin.site.register(GrantAgencyType)
 admin.site.register(GrantCategory)
 admin.site.register(GrantReviewType)
+admin.site.register(GrantLink)
 admin.site.register(GrantRole)
 admin.site.register(Journal)
 admin.site.register(LectureType)
 admin.site.register(Promotion)
+admin.site.register(PublicationLink)
 admin.site.register(PublicationType)
 admin.site.register(PublicationRole)
 admin.site.register(SupervisionType)
@@ -131,7 +133,7 @@ class PublicationAdmin(admin.ModelAdmin):
         "title",
         "chapter_title",
         "authors",
-        "authors_contd",
+        "chapter_authors",
         "publisher",
         "city",
         "isbn",
@@ -145,7 +147,6 @@ class PublicationAdmin(admin.ModelAdmin):
         "pub_month",
         "pub_year",
         "pmid",
-        "other_impact_factor",
         "is_epub",
         "conf_name",
         "date",
@@ -163,10 +164,10 @@ class PublicationAdmin(admin.ModelAdmin):
                 "fields": (
                     "pub_type",
                     ("title", "chapter_title"),
-                    ("authors", "authors_contd"),
+                    ("authors", "chapter_authors"),
                     ("publisher", "city", "isbn"),
                     "article_type",
-                    ("journal", "other_journal_name", "other_impact_factor"),
+                    ("journal", "other_journal_name"),
                     ("volume", "issue", "start_page", "end_page"),
                     ("pub_month", "pub_year", "pmid", "is_epub"),
                     ("conf_name", "date"),
@@ -469,7 +470,6 @@ class SupervisionAdmin(admin.ModelAdmin):
         "other_student_name",
         "hours",
         "duration",
-        "med_duration",
         "frequency",
         "comments",
         "ver_file",
@@ -488,7 +488,7 @@ class SupervisionAdmin(admin.ModelAdmin):
                     "user_id",
                     "supervision_type",
                     ("student_id", "other_student_name"),
-                    ("hours", "duration", "med_duration", "frequency"),
+                    ("hours", "duration", "frequency"),
                     "comments",
                     ("ver_file", "ver_url"),
                 )

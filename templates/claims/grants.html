@@ -7,21 +7,57 @@
 
 <div class="container text-center mt-5">
   <h1>Grants</h1>
-  <br>
 </div>
 
 <div class="container text-center mt-5">
-  <a href="{% url 'add_grant' %}" class="btn btn-secondary" style="width: 200px;" title="Add grant">Add a grant</a>
+  <a href="{% url 'add_grant' %}" class="btn btn-secondary" style="width: 200px;" title="Add grant">Add a
+    grant</a>
   {% if grants %}
-    <ul class="list-group">
-      {% for grant in grants %}
-        <li class="list-group-item">
-          <a class="text-reset" href="">{{ grant.name }}</a>
+  <table class="table table-condensed table-hover table-striped" id="tbl_grant">
+    <thead>
+      <tr>
+        <th style="width: 20%;">Name</th>
+        <th style="width: 20%;">PI List</th>
+        <th style="width: 15%;">Co-I List</th>
+        <th style="width: 5%;">Granting Agency</th>
+        <th style="width: 25%;">Amount</th>
+        <th style="width: 5%;">Eligible</th>
+        <th style="width: 5%;">Edit</th>
+        <th style="width: 5%;">Delete</th>
+      </tr>
+    </thead>
+    {% for grant in grants %}
+    <tr id="grant-{{ grant.pk }}" class="grant-row">
+      <td>{{ grant.name }}</td>
+      <td>{{ grant.pi_list }}</td>
+      <td>{{ grant.co_list }}</td>
+      <td>{{ grant.agency }}</td>
+      <td>{{ grant.amount }}</td>
+      <td>{{ grant.get_eligible_display }}</td>
+      <td>
+        <a href="{% url 'edit_grant' pk=grant.pk %}" class="btn btn-secondary" title="Edit grant">
+          <i class="fas fa-pen"></i>
+        </a>
+      </td>
+      <td>
+        <a href="{% url 'delete_grant' pk=grant.pk %}" class="btn btn-secondary" title="Delete grant">
+          <i class="fas fa-trash-alt"></i>
+        </a>
+      </td>
+    </tr>
     {% endfor %}
+  </table>
   {% else %}
   <br><br>
   <p>No grants entered yet.</p>
   {% endif %}
 </div>
+
+<!-- Turns on the DataTables plugin for the awards table -->
+<script>
+  $(document).ready(function () {
+    $("#tbl_grant").DataTable();
+  })
+</script>
 
 {% endblock %}
