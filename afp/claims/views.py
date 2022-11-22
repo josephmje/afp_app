@@ -23,6 +23,7 @@ from .forms import (
     GrantForm,
     GrantLinkFormSet,
     GrantReviewForm,
+    PublicationLinkFormSet,
     PublicationForm,
     LectureForm,
     SupervisionForm,

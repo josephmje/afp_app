@@ -42,6 +42,7 @@ class PublicationForm(forms.ModelForm):
     class Meta:
         model = Publication
         fields = [
+            "pub_type",
             "title",
             "authors",
             "chapter_title",
@@ -63,6 +64,23 @@ class PublicationForm(forms.ModelForm):
         ]
 
         widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
+
+
+class PublicationLinkForm(forms.ModelForm):
+    class Meta:
+        model = PublicationLink
+        fields = ["user_id", "role"]
+
+
+PublicationLinkFormSet = inlineformset_factory(
+    Publication,
+    PublicationLink,
+    fields=("user_id", "role"),
+    form=PublicationForm,
+    extra=1,
+    can_delete=True,
+    can_delete_extra=True,
+)
 
 
 class EditorialBoardForm(forms.ModelForm):

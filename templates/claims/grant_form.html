@@ -59,9 +59,6 @@
         </div>
         <table class="table card-body">
           <tbody id="item-links">
-            {% for error in formset.non_form_errors %}
-              <span style="color: red">{{ error }}</span>
-            {% endfor %}
             {% for forms in formset %}
             {{ forms.management_form }}
             <tr id="links-{{ forloop.counter0 }}" class=hide_all>
@@ -69,9 +66,6 @@
               {% for field in forms.visible_fields %}
               <td>
                 {{ field|as_crispy_field }}
-                {% for error in field.errors %}
-                <span style="color: red">{{ error }}</span>
-                {% endfor %}
               </td>
               {% endfor %}
               {% if forms.instance.pk %}
