@@ -44,9 +44,12 @@ class PublicationForm(forms.ModelForm):
         fields = [
             "pub_type",
             "title",
-            "authors",
             "chapter_title",
+            "authors",
             "chapter_authors",
+            "publisher",
+            "city",
+            "isbn",
             "article_type",
             "journal",
             "other_journal_name",
@@ -58,6 +61,8 @@ class PublicationForm(forms.ModelForm):
             "pub_year",
             "pmid",
             "is_epub",
+            "conf_name",
+            "conf_date",
             "comments",
             "ver_file",
             "ver_url",
@@ -75,11 +80,10 @@ class PublicationLinkForm(forms.ModelForm):
 PublicationLinkFormSet = inlineformset_factory(
     Publication,
     PublicationLink,
-    fields=("user_id", "role"),
-    form=PublicationForm,
-    extra=1,
+    form=PublicationLinkForm,
+    extra=0,
+    min_num=1,
     can_delete=True,
-    can_delete_extra=True,
 )
 
 
@@ -139,9 +143,9 @@ GrantLinkFormSet = inlineformset_factory(
     GrantLink,
     fields=("user_id", "role"),
     form=GrantLinkForm,
-    extra=1,
+    extra=0,
+    min_num=1,
     can_delete=True,
-    can_delete_extra=True,
 )
 
 

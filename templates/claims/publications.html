@@ -7,7 +7,53 @@
 
 <div class="container text-center mt-5">
   <h1>Publications</h1>
-  <br>
 </div>
+
+<div class="container text-center mt-5">
+  <a href="{% url 'add_publication' %}" class="btn btn-secondary" style="width: 200px;" title="Add publication">Add a
+    publication</a>
+  {% if publications %}
+  <table class="table table-condensed table-hover table-striped" id="tbl_publication">
+    <thead>
+      <tr>
+        <th style="width: 20%;">Type</th>
+        <th style="width: 20%;">Title</th>
+        <th style="width: 15%;">Authors</th>
+        <th style="width: 5%;">Eligible</th>
+        <th style="width: 5%;">Edit</th>
+        <th style="width: 5%;">Delete</th>
+      </tr>
+    </thead>
+    {% for publication in publications %}
+    <tr id="publication-{{ publication.pk }}" class="publication-row">
+      <td>{{ publication.pub_type }}</td>
+      <td>{{ publication.title }}</td>
+      <td>{{ publication.author }}</td>
+      <td>{{ publication.get_eligible_display }}</td>
+      <td>
+        <a href="{% url 'edit_publication' pk=publication.pk %}" class="btn btn-secondary" title="Edit publication">
+          <i class="fas fa-pen"></i>
+        </a>
+      </td>
+      <td>
+        <a href="{% url 'delete_publication' pk=publication.pk %}" class="btn btn-secondary" title="Delete publication">
+          <i class="fas fa-trash-alt"></i>
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <br><br>
+  <p>No publications entered yet.</p>
+  {% endif %}
+</div>
+
+<!-- Turns on the DataTables plugin for the awards table -->
+<script>
+  $(document).ready(function () {
+    $("#tbl_publication").DataTable();
+  })
+</script>
 
 {% endblock %}

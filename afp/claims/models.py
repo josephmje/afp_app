@@ -294,11 +294,11 @@ class Publication(BaseModel):
     )
     title = models.CharField(max_length=STR_LONGEST)
     chapter_title = models.CharField(
-        max_length=STR_LONGEST, blank=True, null=True
+        "Chapter Title", max_length=STR_LONGEST, blank=True, null=True
     )
     authors = models.CharField(max_length=STR_LONGEST)
     chapter_authors = models.CharField(
-        max_length=STR_LONGEST, blank=True, null=True
+        "Chapter Authors", max_length=STR_LONGEST, blank=True, null=True
     )
     publisher = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
     city = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
@@ -306,13 +306,17 @@ class Publication(BaseModel):
         "ISBN", max_length=STR_LONGEST, blank=True, null=True
     )
     article_type = models.ForeignKey(
-        ArticleType, on_delete=models.PROTECT, blank=True, null=True
+        ArticleType,
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+        verbose_name="Article Type",
     )
     journal = models.ForeignKey(
         Journal, on_delete=models.PROTECT, blank=True, null=True
     )
     other_journal_name = models.CharField(
-        max_length=STR_LONGEST, blank=True, null=True
+        "Other Journal Name", max_length=STR_LONGEST, blank=True, null=True
     )
     volume = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
     issue = models.CharField(max_length=STR_LONGEST, blank=True, null=True)
@@ -333,7 +337,10 @@ class Publication(BaseModel):
     conf_name = models.CharField(
         "Conference Name", max_length=STR_LONGEST, blank=True, null=True
     )
-    date = models.DateField(blank=True, null=True)
+    conf_date = models.DateField("Conference Date", blank=True, null=True)
+
+    def __str__(self):
+        return self.title
 
 
 class PublicationRole(models.Model):
@@ -354,7 +361,9 @@ class PublicationRole(models.Model):
 
 class PublicationLink(AdminMixin, CreatedUpdatedMixin):
     user_id = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        verbose_name="Author",
     )
     publication = models.ForeignKey(Publication, on_delete=models.CASCADE)
     role = models.ForeignKey(

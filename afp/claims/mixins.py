@@ -10,9 +10,7 @@ class CreatedUpdatedMixin(models.Model):
     """
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    # created_user =
     modified_at = models.DateTimeField(auto_now=True)
-    # modified_user =
 
     class Meta:
         abstract = True

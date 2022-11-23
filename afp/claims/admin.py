@@ -149,7 +149,7 @@ class PublicationAdmin(admin.ModelAdmin):
         "pmid",
         "is_epub",
         "conf_name",
-        "date",
+        "conf_date",
         "comments",
         "ver_file",
         "ver_url",
@@ -170,7 +170,7 @@ class PublicationAdmin(admin.ModelAdmin):
                     ("journal", "other_journal_name"),
                     ("volume", "issue", "start_page", "end_page"),
                     ("pub_month", "pub_year", "pmid", "is_epub"),
-                    ("conf_name", "date"),
+                    ("conf_name", "conf_date"),
                     "comments",
                     ("ver_file", "ver_url"),
                 )

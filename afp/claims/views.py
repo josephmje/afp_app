@@ -1,19 +1,13 @@
-from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import (
     CreateView,
     DeleteView,
-    DetailView,
     ListView,
     TemplateView,
     UpdateView,
 )
-from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse_lazy
-
-from crispy_forms.utils import render_crispy_form
 
 from .forms import (
     AwardForm,
@@ -45,9 +39,6 @@ from .models import (
 
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "home.html"
-
-
-###
 
 
 class AwardListView(LoginRequiredMixin, ListView):
@@ -86,27 +77,80 @@ class AwardDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("award_list")
 
 
-###
-
-
 class PublicationListView(LoginRequiredMixin, ListView):
     model = Publication
     template_name = "claims/publications.html"
     context_object_name = "publications"
 
 
-class PublicationCreateView(LoginRequiredMixin, CreateView):
-    model = Publication
+class PublicationInline:
     form_class = PublicationForm
+    model = Publication
     template_name = "claims/publication_form.html"
     success_url = reverse_lazy("publication_list")
 
+    def form_valid(self, form):
+        named_formsets = self.get_named_formsets()
+        if not all((x.is_valid() for x in named_formsets.values())):
+            return self.render_to_response(self.get_context_data(form=form))
 
-class PublicationUpdateView(LoginRequiredMixin, UpdateView):
-    model = Publication
-    form_class = PublicationForm
-    template_name = "claims/publication_form.html"
-    success_url = reverse_lazy("publication_list")
+        self.object = form.save()
+
+        for name, formset in named_formsets.items():
+            formset_save_func = getattr(
+                self, "formset_{0}_valid".format(name), None
+            )
+            if formset_save_func is not None:
+                formset_save_func(formset)
+            else:
+                formset.save()
+        return redirect("publication_list")
+
+    def formset_links_valid(self, formset):
+        links = formset.save(commit=False)
+        for obj in formset.deleted_objects:
+            obj.delete()
+        for link in links:
+            link.publication = self.object
+            link.save()
+
+
+class PublicationCreateView(LoginRequiredMixin, PublicationInline, CreateView):
+    def get_context_data(self, **kwargs):
+        ctx = super(PublicationCreateView, self).get_context_data(**kwargs)
+        ctx["named_formsets"] = self.get_named_formsets()
+        return ctx
+
+    def get_named_formsets(self):
+        if self.request.method == "GET":
+            return {"links": PublicationLinkFormSet(prefix="links")}
+        else:
+            return {
+                "links": PublicationLinkFormSet(
+                    self.request.POST or None,
+                    self.request.FILES or None,
+                    prefix="links",
+                )
+            }
+
+
+class PublicationUpdateView(LoginRequiredMixin, PublicationInline, UpdateView):
+    def get_context_data(self, **kwargs):
+        ctx = super(PublicationUpdateView, self).get_context_data(**kwargs)
+        ctx["named_formsets"] = self.get_named_formsets()
+        return ctx
+
+    def get_named_formsets(self):
+        if self.request.method == "GET":
+            return {"links": PublicationLinkFormSet(prefix="links")}
+        else:
+            return {
+                "links": PublicationLinkFormSet(
+                    self.request.POST or None,
+                    self.request.FILES or None,
+                    prefix="links",
+                )
+            }
 
 
 class PublicationDeleteView(LoginRequiredMixin, DeleteView):
@@ -116,7 +160,10 @@ class PublicationDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("publication_list")
 
 
-###
+class PublicationLinkDeleteView(LoginRequiredMixin, DeleteView):
+    model = PublicationLink
+    queryset = PublicationLink.objects.all()
+    template_name = "claims/confirm_delete.html"
 
 
 class GrantListView(LoginRequiredMixin, ListView):
@@ -208,9 +255,6 @@ class GrantLinkDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "claims/confirm_delete.html"
 
 
-###
-
-
 class GrantReviewListView(LoginRequiredMixin, ListView):
     model = GrantReview
     template_name = "claims/grant_reviews.html"
@@ -247,7 +291,6 @@ class GrantReviewDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("grantreview_list")
 
 
-###
 class EditorialBoardListView(LoginRequiredMixin, ListView):
     model = EditorialBoard
     template_name = "claims/editorial_boards.html"
@@ -282,9 +325,6 @@ class EditorialBoardDeleteView(LoginRequiredMixin, DeleteView):
     queryset = EditorialBoard.objects.all()
     template_name = "claims/confirm_delete.html"
     success_url = reverse_lazy("editorial_board_list")
-
-
-###
 
 
 class CommitteeListView(LoginRequiredMixin, ListView):
@@ -323,9 +363,6 @@ class CommitteeDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("committee_list")
 
 
-###
-
-
 class LectureListView(LoginRequiredMixin, ListView):
     model = Lecture
     template_name = "claims/lectures.html"
@@ -362,9 +399,6 @@ class LectureDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("lecture_list")
 
 
-###
-
-
 class ExamListView(LoginRequiredMixin, ListView):
     model = Exam
     template_name = "claims/exams.html"
@@ -399,9 +433,6 @@ class ExamDeleteView(LoginRequiredMixin, DeleteView):
     queryset = Exam.objects.all()
     template_name = "claims/confirm_delete.html"
     success_url = reverse_lazy("exam_list")
-
-
-###
 
 
 class SupervisionListView(LoginRequiredMixin, ListView):
