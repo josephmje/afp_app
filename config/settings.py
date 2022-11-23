@@ -114,7 +114,12 @@ FIXTURES_DIR = BASE_DIR / "claims" / "fixtures"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {"default": env.dj_db_url("DATABASE_URL")}
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -165,7 +170,3 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/accounts/login"
-
-import django_heroku
-
-django_heroku.settings(locals())
