@@ -6,10 +6,10 @@
 <div class="container text-start mt-5">
   <div class="row">
     <div class="col-12 col-md-5">
-      <h1>Welcome to the AFP Submission Portal!</h1>
-      <p>This website is hosted by CAMH.</p>
+      <h1>Welcome to the <br>AFP Claims<br> Submission Portal!</h1>
+      <br>
       <p>If you have any questions, please contact Michael Joseph at <a
-          href="mailto:josephmje.22@gmail.com">josephmje.22@gmail.com</a>.</p>
+          href="mailto:info@afp-fmc-camh.ca">info@afp-fmc-camh.ca</a>.</p>
     </div>
     <div class="col-12 col-md-5">
       <h1>Login</h1>
@@ -17,7 +17,7 @@
         {% csrf_token %}{{ form|crispy }}
         <button type="submit" class="btn btn-info mt-2">Login</button>
       </form>
-      <small><a href="">Forgot login or password?</a></small>
+      <small><a href="{% url 'password_reset' %}">Forgot login or password?</a></small>
     </div>
   </div>
 </div>
