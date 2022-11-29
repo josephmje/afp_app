@@ -34,6 +34,7 @@ SECRET_KEY = env.str("SECRET_KEY")
 # SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", default=True)
 # CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=True)
 # SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+CSRF_TRUSTED_ORIGINS = ["https://*.railway.app','https://*.127.0.0.1']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
