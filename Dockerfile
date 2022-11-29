@@ -13,9 +13,19 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /usr/src/code
 
 # Install dependencies
-COPY ./requirements.txt .
+RUN apt-get update \
+    && apt-get install -f -y postgresql-dev gcc python3-dev musl-dev
+
 RUN pip install --upgrade pip
+COPY ./requirements.txt .
 RUN pip install -r requirements.txt
+
+# Copy entrypoint
+COPY ./entrypoint.sh .
+RUN sed -i 's/\r$//g' /usr/src/code/entrypoint.sh
+RUN chmod +x /usr/src/code/entrypoint.sh
 
 # Copy project
 COPY . .
+
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]

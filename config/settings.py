@@ -33,7 +33,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
 SECURE_HSTS_PRELOAD = env.bool("SECURE_HSTS_PRELOAD", default=True)
 SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", default=True)
 CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=True)
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
@@ -125,8 +125,12 @@ FIXTURES_DIR = BASE_DIR / "claims" / "fixtures"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": env("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": env("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
+        "USER": env("SQL_USER", "user"),
+        "PASSWORD": env("SQL_PASSWORD", "password"),
+        "HOST": env("SQL_HOST", "localhost"),
+        "PORT": env("SQL_PORT", "5432"),
     }
 }
 
