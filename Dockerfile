@@ -13,8 +13,8 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /usr/src/code
 
 # Install dependencies
-RUN apt-get update \
-    && apt-get install -f -y postgresql-dev gcc python3-dev musl-dev
+#RUN apt-get update \
+#    && apt-get install -f -y postgresql-dev gcc python3-dev musl-dev
 
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
