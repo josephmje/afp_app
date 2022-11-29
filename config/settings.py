@@ -38,7 +38,13 @@ CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=True)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = [".afp-fmc-camh.ca", "localhost", "0.0.0.0", "127.0.0.1"]
+ALLOWED_HOSTS = [
+    ".afp-fmc-camh.ca",
+    ".railway.app",
+    "localhost",
+    "0.0.0.0",
+    "127.0.0.1",
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
