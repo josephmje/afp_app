@@ -21,8 +21,7 @@
             href="{% url 'award_list' %}">Awards</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Research
           </a>
           <ul class="dropdown-menu">
@@ -33,8 +32,7 @@
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Education
           </a>
           <ul class="dropdown-menu">
@@ -49,7 +47,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'cpa_list' %}active{% endif %}"
-            href="#">CPA</a>
+            href="{% url 'cpa_list' %}">CPA</a>
         </li>
       </ul>
       {% endif %}
@@ -67,15 +65,15 @@
       <ul class="navbar-nav">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa-solid fa-user"></i>&nbsp; Profile</a>
+          <a class="nav-link" href="{% url 'edit_profile' %}"><i class="fa-solid fa-user"></i>&nbsp; Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/accounts/logout"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;
+          <a class="nav-link" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;
             Logout</a>
         </li>
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="/accounts/login">Login</a>
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
         </li>
         {% endif %}
       </ul>

@@ -191,3 +191,18 @@ urlpatterns += [
         name="delete_supervision",
     ),
 ]
+
+urlpatterns += [
+    path("cpa", views.CpaListView.as_view(), name="cpa_list"),
+    path("cpa/add", views.CpaCreateView.as_view(), name="add_cpa"),
+    path(
+        "cpa/<uuid:pk>/edit",
+        views.CpaUpdateView.as_view(),
+        name="edit_cpa",
+    ),
+    path(
+        "cpa/<uuid:pk>/delete",
+        views.CpaDeleteView.as_view(),
+        name="delete_cpa",
+    ),
+]

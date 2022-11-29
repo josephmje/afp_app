@@ -12,6 +12,7 @@ from django.urls import reverse_lazy
 from .forms import (
     AwardForm,
     CommitteeWorkForm,
+    CpaForm,
     EditorialBoardForm,
     ExamForm,
     GrantForm,
@@ -24,6 +25,7 @@ from .forms import (
 )
 from .models import (
     Award,
+    Cpa,
     EditorialBoard,
     Exam,
     Grant,
@@ -469,3 +471,37 @@ class SupervisionDeleteView(LoginRequiredMixin, DeleteView):
     queryset = Supervision.objects.all()
     template_name = "claims/confirm_delete.html"
     success_url = reverse_lazy("supervision_list")
+
+class CpaListView(LoginRequiredMixin, ListView):
+    model = Cpa
+    template_name = "claims/cpa.html"
+    context_object_name = "cpa_list"
+
+    def get_queryset(self):
+        return Cpa.objects.filter(user_id=self.request.user)
+
+
+class CpaCreateView(LoginRequiredMixin, CreateView):
+    model = Cpa
+    form_class = CpaForm
+    template_name = "claims/cpa_form.html"
+    success_url = reverse_lazy("cpa_list")
+
+    def form_valid(self, form):
+        cpa = form.save(commit=False)
+        cpa.user_id = self.request.user
+        cpa.save()
+        return super().form_valid(form)
+
+
+class CpaUpdateView(LoginRequiredMixin, UpdateView):
+    model = Cpa
+    form_class = CpaForm
+    template_name = "claims/cpa_form.html"
+    success_url = reverse_lazy("cpa_list")
+
+class CpaDeleteView(LoginRequiredMixin, DeleteView):
+    model = Cpa
+    queryset = Cpa.objects.all()
+    template_name = "claims/confirm_delete.html"
+    success_url = reverse_lazy("cpa_list")

@@ -99,6 +99,23 @@ class EditorialBoardForm(forms.ModelForm):
         ]
         widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
 
+    def fields_required(self, fields):
+        for field in fields:
+            if not self.cleaned_data.get(field, ""):
+                msg = forms.ValidationError("This field is required.")
+                self.add_error(field, msg)
+
+    def clean(self):
+        journal = self.cleaned_data.get("journal")
+
+        if journal == "Other":
+            self.fields_required(["other_journal_name"])
+        else:
+            self.cleaned_data["other_journal_name"] = ""
+
+        return self.cleaned_data
+    
+
 
 class GrantForm(forms.ModelForm):
     class Meta:
@@ -225,6 +242,30 @@ class LectureForm(forms.ModelForm):
             ),
             "comments": forms.Textarea(attrs={"rows": 5}),
         }
+
+    def fields_required(self, fields):
+        for field in fields:
+            if not self.cleaned_data.get(field, ""):
+                msg = forms.ValidationError("This field is required.")
+                self.add_error(field, msg)
+
+    def clean(self):
+        lecture_type = self.cleaned_data.get("lecture_type")
+        is_series = self.cleaned_data.get("is_series")
+
+        if lecture_type == "Other Lecture":
+            self.fields_required(["other_lecture_type"])
+        else:
+            self.cleaned_data["other_lecture_type"] = ""
+
+        if is_series:
+            self.fields_required(["num_sessions"])
+            self.fields_required(["end_date"])
+        else:
+            self.cleaned_data["num_sessions"] = 1
+            self.cleaned_data["end_date"] = self.cleaned_data.get("start_date")
+
+        return self.cleaned_data
 
 
 class ExamForm(forms.ModelForm):

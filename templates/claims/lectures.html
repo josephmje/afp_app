@@ -10,8 +10,8 @@
 </div>
 
 <div class="container text-center mt-5">
-    <a href="{% url 'add_lecture' %}" class="btn btn-secondary" style="width: 200px;" title="Add lecture">Add a
-      lecture</a>
+  <a href="{% url 'add_lecture' %}" class="btn btn-secondary" style="width: 200px;" title="Add lecture">Add a
+    lecture</a>
   {% if lectures %}
   <table class="table table-condensed table-hover table-striped" id="tbl_lecture">
     <thead>
@@ -21,8 +21,6 @@
         <th style="width: 15%;">Start Date</th>
         <th style="width: 5%;">Hours</th>
         <th style="width: 25%;">Is Cash?</th>
-        <th style="width: 25%;">Is_Series?</th>
-        <th style="width: 25%;">End Date</th>
         <th style="width: 5%;"># Sessions</th>
         <th style="width: 5%;">Eligible</th>
         <th style="width: 5%;">Edit</th>
@@ -36,8 +34,6 @@
       <td>{{ lecture.start_date }}</td>
       <td>{{ lecture.hours }}</td>
       <td>{{ lecture.is_cash }}</td>
-      <td>{{ lecture.is_series }}</td>
-      <td>{{ lecture.end_date }}</td>
       <td>{{ lecture.num_sessions }}</td>
       <td>{{ lecture.get_eligible_display }}</td>
       <td>

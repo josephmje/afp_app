@@ -25,6 +25,7 @@ urlpatterns = (
         # User management
         path("accounts/", include("django.contrib.auth.urls")),
         # Local apps
+        path("", include("afp.accounts.urls")),
         path("", include("afp.claims.urls")),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

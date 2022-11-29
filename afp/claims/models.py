@@ -375,7 +375,9 @@ class PublicationLink(AdminMixin, CreatedUpdatedMixin):
 class EditorialBoard(UserBaseModel):
     journal = models.ForeignKey(Journal, on_delete=models.PROTECT)
     other_journal_name = models.CharField(
-        "Other Journal Name", max_length=STR_LONGEST, blank=True, null=True
+        "Other Journal Name", max_length=STR_LONGEST, blank=True,
+        help_text="Only required if 'Other' is selected from the Journal list.",
+
     )
 
 
@@ -544,9 +546,12 @@ class Supervision(UserBaseModel):
 
 
 class Cpa(UserBaseModel):
-    cpa_file = models.FileField("CPA file", blank=True, null=True)
+    cpa_file = models.FileField("CPA File", blank=True, null=True)
     cpa_value = models.IntegerField(
         default=0, validators=[MinValueValidator(0), MaxValueValidator(3000)]
     )
     ver_url = None
     entry_type = None
+
+    class Meta:
+        verbose_name = "CPA"

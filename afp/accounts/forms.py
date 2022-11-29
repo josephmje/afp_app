@@ -5,13 +5,20 @@ from .models import CustomUser, Physician
 
 
 class ProfileUpdateForm(UserChangeForm):
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={"class": "form-control"})
+    )
+
     class Meta:
-        model = User
+        model = CustomUser
         fields = [
             "first_name",
             "middle_name",
             "last_name",
+            "username",
             "email",
+            "password",
+            "date_joined",
             "division",
             "other_division",
             "rank",

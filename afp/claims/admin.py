@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from django import forms
 
 from .models import (
     ArticleType,
@@ -41,7 +42,6 @@ admin.site.register(GrantCategory)
 admin.site.register(GrantReviewType)
 admin.site.register(GrantLink)
 admin.site.register(GrantRole)
-admin.site.register(Journal)
 admin.site.register(LectureType)
 admin.site.register(Promotion)
 admin.site.register(PublicationLink)
@@ -49,6 +49,9 @@ admin.site.register(PublicationType)
 admin.site.register(PublicationRole)
 admin.site.register(SupervisionType)
 admin.site.register(WorkFrequencyType)
+
+
+admin.site.register(Journal)
 
 
 @admin.register(Award)

@@ -9,4 +9,22 @@
   <h1>CPA</h1>
 </div>
 
+<div class="container text-center mt-5">
+  <a href="{% url 'add_cpa' %}" class="btn btn-secondary" style="width: 200px;" title="Add a CPA">Add a
+    CPA</a>
+  {% if cpa_list %}
+  {% for cpa in cpa_list %}
+  <a href="{% url 'edit_cpa' pk=cpa.pk %}" class="btn btn-secondary" title="Edit CPA">
+    <i class="fas fa-pen"></i>
+  </a>
+  <a href="{% url 'delete_cpa' pk=cpa.pk %}" class="btn btn-secondary" title="Delete CPA">
+    <i class="fas fa-trash-alt"></i>
+  </a>
+  {% endfor %}
+  {% else %}
+  <br><br>
+  <p>No CPA added yet.</p>
+  {% endif %}
+</div>
+
 {% endblock %}

@@ -68,7 +68,7 @@
 
     <div class="table-responsive card mt-4">
       <div class="card-header card-header-secondary">
-        <h5 class="card-title">Add Investigators</h5>
+        <h5 class="card-title">Add Authors</h5>
       </div>
       <table class="table card-body">
         <tbody id="item-links">
@@ -121,27 +121,26 @@
       <button type="submit" class="btn btn-primary mt-3" style="width: 90px; margin: 5px;">Save</button>
       <a href="javascript:history.back()" class="btn btn-secondary mt-3" style="width: 90px; margin: 5px;">Cancel</a>
     </div>
-    </form>
-    </div>
+  </form>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+  </script>
 
-    <script>
-      $(document).ready(function () {
-        // when user clicks add more btn of images
-        $('.add-links').click(function (ev) {
-          ev.preventDefault();
-          var count = $('#item-links').children().length;
-          var tmplMarkup = $('#links-template').html();
-          var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
-          $('#item-links').append(compiledTmpl);
+<script>
+  $(document).ready(function () {
+    // when user clicks add more btn of images
+    $('.add-links').click(function (ev) {
+      ev.preventDefault();
+      var count = $('#item-links').children().length;
+      var tmplMarkup = $('#links-template').html();
+      var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
+      $('#item-links').append(compiledTmpl);
 
-          // update form count
-          $('#id_links-TOTAL_FORMS').attr('value', count + 1);
-        });
-      });
-    </script>
-    {% endblock %}
-
+      // update form count
+      $('#id_links-TOTAL_FORMS').attr('value', count + 1);
+    });
+  });
+</script>
+{% endblock %}
