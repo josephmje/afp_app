@@ -20,12 +20,5 @@ RUN pip install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
-# Copy entrypoint
-COPY ./entrypoint.sh .
-RUN sed -i 's/\r$//g' /usr/src/code/entrypoint.sh
-RUN chmod +x /usr/src/code/entrypoint.sh
-
 # Copy project
 COPY . .
-
-ENTRYPOINT ["/usr/src/code/entrypoint.sh"]
