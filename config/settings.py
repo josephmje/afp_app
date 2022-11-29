@@ -38,13 +38,7 @@ CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=True)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = [
-    ".afp-fmc-camh.ca",
-    ".railway.app",
-    "localhost",
-    "0.0.0.0",
-    "127.0.0.1",
-]
+ALLOWED_HOSTS = [*]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -131,12 +125,12 @@ FIXTURES_DIR = BASE_DIR / "claims" / "fixtures"
 
 DATABASES = {
     "default": {
-        "ENGINE": env("SQL_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": env("PGDATABASE", BASE_DIR / "db.sqlite3"),
-        "USER": env("PGUSER", "user"),
-        "PASSWORD": env("PGPASSWORD", "password"),
-        "HOST": env("PGHOST", "localhost"),
-        "PORT": env("PGPORT", "5432"),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env("PGDATABASE"),
+        "USER": env("PGUSER"),
+        "PASSWORD": env("PGPASSWORD"),
+        "HOST": env("PGHOST"),
+        "PORT": env("PGPORT"),
     }
 }
 
