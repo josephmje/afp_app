@@ -38,7 +38,7 @@ CSRF_COOKIE_SECURE = env.bool("CSRF_COOKIE_SECURE", default=True)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = ["*"]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
