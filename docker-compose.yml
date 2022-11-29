@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    command: gunicorn config.wsgi -b 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/code
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    environment:
+      - "SECRET_KEY=4IyztbtYl8vGl9bKY6Ver7lJ508Sa4Lw6t__e69H-iA"
+      - "DEBUG=True"
+      - "SECURE_SSL_REDIRECT=False"
+      - "SECURE_HSTS_SECONDS=0"
+      - "SECURE_HSTS_INCLUDE_SUBDOMAINS=False"
+      - "SECURE_HSTS_PRELOAD=False"
+      - "SESSION_COOKIE_SECURE=False"
+      - "CSRF_COOKIE_SECURE=False"
+      - "SQL_ENGINE=django.db.backends.sqlite3"
+      - "SQL_DATABASE=db.sqlite3"
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+
+volumes:
+  postgres_data:

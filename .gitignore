@@ -91,3 +91,4 @@ process.yml
 data/
 media/
 .DS_Store
+docker-compose-prod.yml

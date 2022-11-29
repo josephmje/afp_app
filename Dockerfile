@@ -1,5 +1,5 @@
 # Pull base image
-FROM python:3.10.4-slim-bullseye
+FROM --platform=linux/amd64 python:3.10.4-slim-bullseye
 
 # Set environment variables
 # Disable automatic check for pip updates
@@ -10,10 +10,11 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # Set work directory
-WORKDIR /code
+WORKDIR /usr/src/code
 
 # Install dependencies
 COPY ./requirements.txt .
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # Copy project
