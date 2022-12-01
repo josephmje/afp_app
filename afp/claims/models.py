@@ -1,20 +1,18 @@
 import uuid
 
 from django import forms
-from django.template.defaultfilters import filesizeformat
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.template.defaultfilters import filesizeformat
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from djmoney.models.fields import MoneyField
 
 from afp.accounts.models import Rank
-from .mixins import (
-    AdminMixin,
-    CreatedUpdatedMixin,
-)
+
+from .mixins import AdminMixin, CreatedUpdatedMixin
 
 STR_SHORT = 10
 STR_MED = 50
@@ -119,7 +117,7 @@ class Award(UserBaseModel):
             "application/pdf",
             "application/msword",
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpg",
+            "image/jpeg",
             "image/png",
         ],
         max_upload_size=2621440,
@@ -147,7 +145,7 @@ class Promotion(UserBaseModel):
             "application/pdf",
             "application/msword",
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpg",
+            "image/jpeg",
             "image/png",
         ],
         max_upload_size=2621440,
@@ -227,7 +225,7 @@ class Grant(BaseModel):
             "application/pdf",
             "application/msword",
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpg",
+            "image/jpeg",
             "image/png",
         ],
         max_upload_size=2621440,
@@ -317,7 +315,7 @@ class GrantReview(UserBaseModel):
             "application/pdf",
             "application/msword",
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpg",
+            "image/jpeg",
             "image/png",
         ],
         max_upload_size=2621440,
@@ -436,7 +434,7 @@ class Publication(BaseModel):
             "application/pdf",
             "application/msword",
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpg",
+            "image/jpeg",
             "image/png",
         ],
         max_upload_size=2621440,
@@ -475,6 +473,9 @@ class PublicationLink(AdminMixin, CreatedUpdatedMixin):
     role = models.ForeignKey(
         PublicationRole, on_delete=models.PROTECT, verbose_name="Author Role"
     )
+    is_corresponding = models.BooleanField(
+        "Corresponding Author", default=False
+    )
     entry_type = None
 
 
@@ -493,7 +494,7 @@ class EditorialBoard(UserBaseModel):
             "application/pdf",
             "application/msword",
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpg",
+            "image/jpeg",
             "image/png",
         ],
         max_upload_size=2621440,
@@ -513,7 +514,7 @@ class CommitteeWork(UserBaseModel):
             "application/pdf",
             "application/msword",
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpg",
+            "image/jpeg",
             "image/png",
         ],
         max_upload_size=2621440,
@@ -575,7 +576,7 @@ class Lecture(UserBaseModel):
             "application/pdf",
             "application/msword",
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpg",
+            "image/jpeg",
             "image/png",
         ],
         max_upload_size=2621440,
@@ -657,7 +658,7 @@ class Exam(UserBaseModel):
             "application/pdf",
             "application/msword",
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpg",
+            "image/jpeg",
             "image/png",
         ],
         max_upload_size=2621440,
@@ -733,7 +734,7 @@ class Supervision(UserBaseModel):
             "application/pdf",
             "application/msword",
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpg",
+            "image/jpeg",
             "image/png",
         ],
         max_upload_size=2621440,
@@ -766,7 +767,7 @@ class Cpa(UserBaseModel):
             "application/pdf",
             "application/msword",
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpg",
+            "image/jpeg",
             "image/png",
         ],
         max_upload_size=2621440,

@@ -81,19 +81,19 @@ class UserManagerActive(models.Manager):
 class CustomUser(AbstractUser):
     """Model extending Django's `AbstractUser` class."""
 
-    first_name = models.CharField(_("first name"), max_length=STR_MED)
+    first_name = models.CharField("First Name", max_length=STR_MED)
     middle_name = models.CharField(
-        _("middle name"), max_length=STR_MED, blank=True, null=True
+        "Middle Name", max_length=STR_MED, blank=True, null=True
     )
-    last_name = models.CharField(_("last name"), max_length=STR_MED)
-    email = models.EmailField(_("email address"), unique=True)
+    last_name = models.CharField("Last Name", max_length=STR_MED)
+    email = models.EmailField("Email", unique=True)
     is_physician = models.BooleanField(default=True)
     is_scientist = models.BooleanField(default=False)
     division = models.ForeignKey(
         "division", on_delete=models.SET_NULL, null=True
     )
     other_division = models.CharField(
-        max_length=STR_MED, blank=True, null=True
+        "Other Division", max_length=STR_MED, blank=True, null=True
     )
     rank = models.ForeignKey("rank", on_delete=models.SET_NULL, null=True)
     archived_at = models.DateTimeField(blank=True, null=True)

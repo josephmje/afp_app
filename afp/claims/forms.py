@@ -3,20 +3,19 @@ from datetime import datetime
 from django import forms
 from django.forms.models import inlineformset_factory
 
-
 from .models import (
     Award,
-    Promotion,
-    Cpa,
     CommitteeWork,
+    Cpa,
     EditorialBoard,
     Exam,
     Grant,
     GrantLink,
-    Publication,
-    PublicationLink,
     GrantReview,
     Lecture,
+    Promotion,
+    Publication,
+    PublicationLink,
     Student,
     Supervision,
 )

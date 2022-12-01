@@ -1,17 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from django.views.generic import (
-    CreateView,
-    DeleteView,
-    ListView,
-    TemplateView,
-    UpdateView,
-)
 from django.urls import reverse_lazy
+from django.views.generic import CreateView, DeleteView, ListView, TemplateView, UpdateView
 
 from .forms import (
     AwardForm,
-    PromotionForm,
     CommitteeWorkForm,
     CpaForm,
     EditorialBoardForm,
@@ -19,22 +12,23 @@ from .forms import (
     GrantForm,
     GrantLinkFormSet,
     GrantReviewForm,
-    PublicationLinkFormSet,
-    PublicationForm,
     LectureForm,
+    PromotionForm,
+    PublicationForm,
+    PublicationLinkFormSet,
     SupervisionForm,
 )
 from .models import (
     Award,
-    Promotion,
+    CommitteeWork,
     Cpa,
     EditorialBoard,
     Exam,
     Grant,
     GrantLink,
     GrantReview,
-    CommitteeWork,
     Lecture,
+    Promotion,
     Publication,
     PublicationLink,
     Supervision,
