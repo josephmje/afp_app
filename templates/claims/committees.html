@@ -17,7 +17,7 @@
 <div class="container text-center mt-5">
   <a href="{% url 'add_committee' %}" class="btn btn-secondary" style="width: 200px;" title="Add committee">Add a committee</a>
   {% if committees %}
-  <table class="table table-condensed table-hover table-striped" id="tbl_commitees">
+  <table class="table table-condensed table-hover" id="tbl_commitees">
     <thead>
       <tr>
         <th style="width: 20%;">Name</th>
@@ -54,7 +54,7 @@
 <!-- Turns on the DataTables plugin for the commiteeworks table -->
 <script>
   $(document).ready(function () {
-    $("#tbl_commiteeworks").DataTable({searching: false});
+    $("#tbl_commitees").DataTable({searching: false});
   })
 
 </script>
