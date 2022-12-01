@@ -35,6 +35,11 @@ class AwardForm(forms.ModelForm):
             "comments",
         ]
         widgets = {
+            "ver_file": forms.ClearableFileInput(
+                attrs={
+                    "accept": "application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpeg, image/png"
+                }
+            ),
             "comments": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -49,6 +54,11 @@ class PromotionForm(forms.ModelForm):
             "comments",
         ]
         widgets = {
+            "ver_file": forms.ClearableFileInput(
+                attrs={
+                    "accept": "application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpeg, image/png"
+                }
+            ),
             "comments": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -83,7 +93,14 @@ class PublicationForm(forms.ModelForm):
             "ver_url",
         ]
 
-        widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
+        widgets = {
+            "ver_file": forms.ClearableFileInput(
+                attrs={
+                    "accept": "application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpeg, image/png"
+                }
+            ),
+            "comments": forms.Textarea(attrs={"rows": 5}),
+        }
 
 
 class PublicationLinkForm(forms.ModelForm):
@@ -112,7 +129,14 @@ class EditorialBoardForm(forms.ModelForm):
             "ver_file",
             "ver_url",
         ]
-        widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
+        widgets = {
+            "ver_file": forms.ClearableFileInput(
+                attrs={
+                    "accept": "application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpeg, image/png"
+                }
+            ),
+            "comments": forms.Textarea(attrs={"rows": 5}),
+        }
 
     def fields_required(self, fields):
         for field in fields:
@@ -159,6 +183,11 @@ class GrantForm(forms.ModelForm):
                     "type": "date",
                 },
             ),
+            "ver_file": forms.ClearableFileInput(
+                attrs={
+                    "accept": "application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpeg, image/png"
+                }
+            ),
             "comments": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -204,6 +233,11 @@ class GrantReviewForm(forms.ModelForm):
                     "max": datetime.strptime("31122022", "%d%m%Y").date(),
                 },
             ),
+            "ver_file": forms.ClearableFileInput(
+                attrs={
+                    "accept": "application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpeg, image/png"
+                }
+            ),
             "comments": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -218,7 +252,14 @@ class CommitteeWorkForm(forms.ModelForm):
             "ver_file",
             "ver_url",
         ]
-        widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
+        widgets = {
+            "ver_file": forms.ClearableFileInput(
+                attrs={
+                    "accept": "application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpeg, image/png"
+                }
+            ),
+            "comments": forms.Textarea(attrs={"rows": 5}),
+        }
 
 
 class LectureForm(forms.ModelForm):
@@ -253,6 +294,11 @@ class LectureForm(forms.ModelForm):
                     "min": datetime.strptime("01012022", "%d%m%Y").date(),
                     "max": datetime.strptime("31122022", "%d%m%Y").date(),
                 },
+            ),
+            "ver_file": forms.ClearableFileInput(
+                attrs={
+                    "accept": "application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpeg, image/png"
+                }
             ),
             "comments": forms.Textarea(attrs={"rows": 5}),
         }
@@ -303,6 +349,11 @@ class ExamForm(forms.ModelForm):
                     "max": datetime.strptime("31122022", "%d%m%Y").date(),
                 },
             ),
+            "ver_file": forms.ClearableFileInput(
+                attrs={
+                    "accept": "application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpeg, image/png"
+                }
+            ),
             "comments": forms.Textarea(attrs={"rows": 5}),
         }
 
@@ -333,11 +384,30 @@ class SupervisionForm(forms.ModelForm):
             "ver_file",
             "ver_url",
         ]
-        widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
+        widgets = {
+            "ver_file": forms.ClearableFileInput(
+                attrs={
+                    "accept": "application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpeg, image/png"
+                }
+            ),
+            "comments": forms.Textarea(attrs={"rows": 5}),
+        }
 
 
 class CpaForm(forms.ModelForm):
     class Meta:
         model = Cpa
         fields = ["cpa_file", "ver_file", "comments"]
-        widgets = {"comments": forms.Textarea(attrs={"rows": 5})}
+        widgets = {
+            "cpa_file": forms.ClearableFileInput(
+                attrs={
+                    "accept": "application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpeg, image/png"
+                }
+            ),
+            "ver_file": forms.ClearableFileInput(
+                attrs={
+                    "accept": "application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpeg, image/png"
+                }
+            ),
+            "comments": forms.Textarea(attrs={"rows": 5}),
+        }

@@ -23,16 +23,6 @@ class CreatedUpdatedMixin(models.Model):
         return super(CreatedUpdatedMixin, self).save(*args, **kwargs)
 
 
-class VerificationMixin(models.Model):
-    """This mixin provides fields for"""
-
-    ver_file = models.FileField("Verification File", blank=True, null=True)
-    ver_url = models.URLField("Verification URL", blank=True, null=True)
-
-    class Meta:
-        abstract = True
-
-
 class AdminMixin(models.Model):
     """
     This mixin provides fields for conveying the eligibility of
