@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}CPA{% endblock %}
 
@@ -10,21 +11,49 @@
 </div>
 
 <div class="container text-center mt-5">
-  <a href="{% url 'add_cpa' %}" class="btn btn-secondary" style="width: 200px;" title="Add a CPA">Add a
-    CPA</a>
   {% if cpa_list %}
-  {% for cpa in cpa_list %}
-  <a href="{% url 'edit_cpa' pk=cpa.pk %}" class="btn btn-secondary" title="Edit CPA">
-    <i class="fas fa-pen"></i>
-  </a>
-  <a href="{% url 'delete_cpa' pk=cpa.pk %}" class="btn btn-secondary" title="Delete CPA">
-    <i class="fas fa-trash-alt"></i>
-  </a>
-  {% endfor %}
-  {% else %}
+  <table class="table table-condensed table-hover" id="tbl_cpa">
+    <thead>
+      <tr>
+        <th style="width: 20%;">CPA</th>
+        <th style="width: 25%;">Eligible</th>
+        <th style="width: 5%;">Edit</th>
+        <th style="width: 5%;">Delete</th>
+      </tr>
+    </thead>
+    {% for cpa in cpa_list %}
+    <tr id="cpa-{{ cpa.pk }}" class="cpa-row">
+      <td><a href="{{ cpa.cpa_file.url }}">{{ cpa.cpa_file }}</a></td>
+      <td>{{ cpa.get_eligible_display }}</td>
+      <td>
+        <a href="{% url 'edit_cpa' pk=cpa.pk %}" class="btn btn-secondary" title="Edit CPA">
+          <i class="fas fa-pen"></i>
+        </a>
+      </td>
+      <td>
+        <a href="{% url 'delete_cpa' pk=cpa.pk %}" class="btn btn-secondary" title="Delete CPA">
+          <i class="fas fa-trash-alt"></i>
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else%}
+  <a href="{% url 'add_cpa' %}" class="btn btn-secondary" style="width: 200px;" title="Add CPA">Add a
+    CPA</a>
   <br><br>
-  <p>No CPA added yet.</p>
+  <p>No CPA uploaded yet.</p>
   {% endif %}
 </div>
+
+<script>
+  $(document).ready(function () {
+    $("#tbl_cpa").DataTable({
+      searching: false,
+      paging: false,
+      info: false,
+    });
+  })
+</script>
 
 {% endblock %}

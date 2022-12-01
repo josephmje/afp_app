@@ -21,6 +21,27 @@ urlpatterns += [
 
 urlpatterns += [
     path(
+        "promotions", views.PromotionListView.as_view(), name="promotion_list"
+    ),
+    path(
+        "promotions/add",
+        views.PromotionCreateView.as_view(),
+        name="add_promotion",
+    ),
+    path(
+        "promotions/<uuid:pk>/edit",
+        views.PromotionUpdateView.as_view(),
+        name="edit_promotion",
+    ),
+    path(
+        "promotions/<uuid:pk>/delete",
+        views.PromotionDeleteView.as_view(),
+        name="delete_promotion",
+    ),
+]
+
+urlpatterns += [
+    path(
         "publications",
         views.PublicationListView.as_view(),
         name="publication_list",

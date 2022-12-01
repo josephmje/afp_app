@@ -309,7 +309,7 @@
     "model": "claims.GrantAgency",
     "pk": 35,
     "fields": {
-      "name": "National Board of Medical Examiners - Stemmler Medical Education Research Fund",
+      "name": "National Board of Medical Examiners",
       "type": 1,
       "category": 2
     }
@@ -327,7 +327,7 @@
     "model": "claims.GrantAgency",
     "pk": 37,
     "fields": {
-      "name": "National Health and Medical Research Council Australia",
+      "name": "National Health and Medical Research Council",
       "type": 1,
       "category": 3
     }
@@ -372,7 +372,7 @@
     "model": "claims.GrantAgency",
     "pk": 42,
     "fields": {
-      "name": "National Sciences and Engineering Research Council of Canada (NSERC)",
+      "name": "NSERC",
       "type": 1,
       "category": 3
     }
@@ -481,7 +481,7 @@
     "model": "claims.GrantAgency",
     "pk": 54,
     "fields": {
-      "name": "Royal College of Physicians and Surgeons - Medical Education Research Grant",
+      "name": "Royal College of Physicians and Surgeons",
       "type": 1,
       "category": 2
     }
@@ -571,7 +571,7 @@
     "model": "claims.GrantAgency",
     "pk": 64,
     "fields": {
-      "name": "The Patient-Centered Outcomes Research Institute (PCORI)",
+      "name": "PCORI",
       "type": 7,
       "category": 3
     }

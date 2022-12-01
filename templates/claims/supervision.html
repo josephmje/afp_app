@@ -12,7 +12,7 @@
 
 <div class="container text-center mt-5">
   <a href="{% url 'add_supervision' %}" class="btn btn-secondary" style="width: 200px;"
-    title="Add supervision">Add a supervision</a>
+    title="Add supervision">Add supervision</a>
   {% if supervisions %}
   <table class="table table-condensed table-hover" id="tbl_supervision">
     <thead>
@@ -59,7 +59,7 @@
 <!-- Turns on the DataTables plugin for the awards table -->
 <script>
   $(document).ready(function () {
-    $("#tbl_supervision").DataTable();
+    $("#tbl_supervision").DataTable({searching: false});
   })
 </script>
 

@@ -11,6 +11,7 @@ from django.urls import reverse_lazy
 
 from .forms import (
     AwardForm,
+    PromotionForm,
     CommitteeWorkForm,
     CpaForm,
     EditorialBoardForm,
@@ -25,6 +26,7 @@ from .forms import (
 )
 from .models import (
     Award,
+    Promotion,
     Cpa,
     EditorialBoard,
     Exam,
@@ -41,6 +43,12 @@ from .models import (
 
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "home.html"
+
+
+class UserMixin:
+    def form_valid(self, form):
+        form.instance.user_id = self.request.user
+        return super().form_valid(form)
 
 
 class AwardListView(LoginRequiredMixin, ListView):
@@ -77,6 +85,42 @@ class AwardDeleteView(LoginRequiredMixin, DeleteView):
     queryset = Award.objects.all()
     template_name = "claims/confirm_delete.html"
     success_url = reverse_lazy("award_list")
+
+
+class PromotionListView(LoginRequiredMixin, ListView):
+    model = Promotion
+    template_name = "claims/promotions.html"
+    context_object_name = "promotions"
+
+    def get_queryset(self):
+        return Promotion.objects.filter(user_id=self.request.user)
+
+
+class PromotionCreateView(LoginRequiredMixin, CreateView):
+    model = Promotion
+    form_class = PromotionForm
+    template_name = "claims/promotion_form.html"
+    success_url = reverse_lazy("promotion_list")
+
+    def form_valid(self, form):
+        promotion = form.save(commit=False)
+        promotion.user_id = self.request.user
+        promotion.save()
+        return super().form_valid(form)
+
+
+class PromotionUpdateView(LoginRequiredMixin, UpdateView):
+    model = Promotion
+    form_class = PromotionForm
+    template_name = "claims/promotion_form.html"
+    success_url = reverse_lazy("promotion_list")
+
+
+class PromotionDeleteView(LoginRequiredMixin, DeleteView):
+    model = Promotion
+    queryset = Promotion.objects.all()
+    template_name = "claims/confirm_delete.html"
+    success_url = reverse_lazy("promotion_list")
 
 
 class PublicationListView(LoginRequiredMixin, ListView):
@@ -357,6 +401,13 @@ class CommitteeUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "claims/committee_form.html"
     success_url = reverse_lazy("committee_list")
 
+    def form_valid(self, form):
+        committee = form.save(commit=False)
+        if committee.entry_type == 2:
+            committee.entry_type = 3
+        committee.save()
+        return super().form_valid(form)
+
 
 class CommitteeDeleteView(LoginRequiredMixin, DeleteView):
     model = CommitteeWork
@@ -392,6 +443,13 @@ class LectureUpdateView(LoginRequiredMixin, UpdateView):
     form_class = LectureForm
     template_name = "claims/lecture_form.html"
     success_url = reverse_lazy("lecture_list")
+
+    def form_valid(self, form):
+        lecture = form.save(commit=False)
+        if lecture.entry_type == 2:
+            lecture.entry_type = 3
+        lecture.save()
+        return super().form_valid(form)
 
 
 class LectureDeleteView(LoginRequiredMixin, DeleteView):
@@ -429,6 +487,13 @@ class ExamUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "claims/exam_form.html"
     success_url = reverse_lazy("exam_list")
 
+    def form_valid(self, form):
+        exam = form.save(commit=False)
+        if exam.entry_type == 2:
+            exam.entry_type = 3
+        exam.save()
+        return super().form_valid(form)
+
 
 class ExamDeleteView(LoginRequiredMixin, DeleteView):
     model = Exam
@@ -465,12 +530,20 @@ class SupervisionUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "claims/supervision_form.html"
     success_url = reverse_lazy("supervision_list")
 
+    def form_valid(self, form):
+        supervision = form.save(commit=False)
+        if supervision.entry_type == 2:
+            supervision.entry_type = 3
+        supervision.save()
+        return super().form_valid(form)
+
 
 class SupervisionDeleteView(LoginRequiredMixin, DeleteView):
     model = Supervision
     queryset = Supervision.objects.all()
     template_name = "claims/confirm_delete.html"
     success_url = reverse_lazy("supervision_list")
+
 
 class CpaListView(LoginRequiredMixin, ListView):
     model = Cpa
@@ -499,6 +572,7 @@ class CpaUpdateView(LoginRequiredMixin, UpdateView):
     form_class = CpaForm
     template_name = "claims/cpa_form.html"
     success_url = reverse_lazy("cpa_list")
+
 
 class CpaDeleteView(LoginRequiredMixin, DeleteView):
     model = Cpa

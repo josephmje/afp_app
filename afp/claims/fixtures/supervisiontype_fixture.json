@@ -3,7 +3,7 @@
     "model": "claims.SupervisionType",
     "pk": 1,
     "fields": {
-      "name": "Research",
+      "name": "Master's Student",
       "weight": 200
     }
   },
@@ -11,13 +11,37 @@
     "model": "claims.SupervisionType",
     "pk": 2,
     "fields": {
-      "name": "Graduate Program Advisory Committee",
-      "weight": 500
+      "name": "PhD Student",
+      "weight": 200
     }
   },
   {
     "model": "claims.SupervisionType",
     "pk": 3,
+    "fields": {
+      "name": "Graduate Program Advisory Committee (PAC)",
+      "weight": 500
+    }
+  },
+  {
+    "model": "claims.SupervisionType",
+    "pk": 4,
+    "fields": {
+      "name": "Research Fellow",
+      "weight": 200
+    }
+  },
+  {
+    "model": "claims.SupervisionType",
+    "pk": 5,
+    "fields": {
+      "name": "CSS/CSP Resident",
+      "weight": 200
+    }
+  },
+  {
+    "model": "claims.SupervisionType",
+    "pk": 6,
     "fields": {
       "name": "Resident Research Elective",
       "weight": 100
@@ -25,47 +49,7 @@
   },
   {
     "model": "claims.SupervisionType",
-    "pk": 4,
-    "fields": {
-      "name": "Medical Student Core/LInC",
-      "weight": 500
-    }
-  },
-  {
-    "model": "claims.SupervisionType",
-    "pk": 5,
-    "fields": {
-      "name": "Medical Student Elective",
-      "weight": 250
-    }
-  },
-  {
-    "model": "claims.SupervisionType",
-    "pk": 6,
-    "fields": {
-      "name": "Resident Remediation",
-      "weight": 200
-    }
-  },
-  {
-    "model": "claims.SupervisionType",
     "pk": 7,
-    "fields": {
-      "name": "CBD Coaching",
-      "weight": 500
-    }
-  },
-  {
-    "model": "claims.SupervisionType",
-    "pk": 8,
-    "fields": {
-      "name": "Resident Quality Improvement Project",
-      "weight": 500
-    }
-  },
-  {
-    "model": "claims.SupervisionType",
-    "pk": 9,
     "fields": {
       "name": "Other Research Supervision - NO CREDIT",
       "weight": 0
@@ -73,7 +57,55 @@
   },
   {
     "model": "claims.SupervisionType",
+    "pk": 8,
+    "fields": {
+      "name": "Medical Student Core/LInC",
+      "weight": 500
+    }
+  },
+  {
+    "model": "claims.SupervisionType",
+    "pk": 9,
+    "fields": {
+      "name": "Medical Student/IMG Elective",
+      "weight": 250
+    }
+  },
+  {
+    "model": "claims.SupervisionType",
     "pk": 10,
+    "fields": {
+      "name": "Resident Remediation",
+      "weight": 200
+    }
+  },
+  {
+    "model": "claims.SupervisionType",
+    "pk": 11,
+    "fields": {
+      "name": "CBD Coaching",
+      "weight": 500
+    }
+  },
+  {
+    "model": "claims.SupervisionType",
+    "pk": 12,
+    "fields": {
+      "name": "Resident Quality Improvement Project",
+      "weight": 500
+    }
+  },
+  {
+    "model": "claims.SupervisionType",
+    "pk": 13,
+    "fields": {
+      "name": "Resident Clinical Supervision - NO CREDIT",
+      "weight": 0
+    }
+  },
+  {
+    "model": "claims.SupervisionType",
+    "pk": 14,
     "fields": {
       "name": "Other Clinical Supervision - NO CREDIT",
       "weight": 0

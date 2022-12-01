@@ -375,9 +375,10 @@ class PublicationLink(AdminMixin, CreatedUpdatedMixin):
 class EditorialBoard(UserBaseModel):
     journal = models.ForeignKey(Journal, on_delete=models.PROTECT)
     other_journal_name = models.CharField(
-        "Other Journal Name", max_length=STR_LONGEST, blank=True,
+        "Other Journal Name",
+        max_length=STR_LONGEST,
+        blank=True,
         help_text="Only required if 'Other' is selected from the Journal list.",
-
     )
 
 
@@ -484,12 +485,7 @@ class Exam(UserBaseModel):
     other_exam_name = models.CharField(
         "Other Exam Type", max_length=STR_MED, blank=True, null=True
     )
-    student = models.ForeignKey(
-        Student, on_delete=models.PROTECT, verbose_name="Student Name"
-    )
-    other_student_name = models.CharField(
-        "Other Student Name", max_length=STR_MED, blank=True, null=True
-    )
+    student_name = models.CharField("Student Name", max_length=STR_MED)
     hours = models.DecimalField(
         max_digits=5,
         decimal_places=2,
@@ -522,23 +518,31 @@ class WorkFrequencyType(models.Model):
 
 
 class Supervision(UserBaseModel):
-    student_id = models.ForeignKey(
-        Student, on_delete=models.PROTECT, verbose_name="Student Name"
-    )
-    other_student_name = models.CharField(
-        "Other Student Name", max_length=STR_MED, blank=True, null=True
-    )
+    class ResidentYear(models.IntegerChoices):
+        PGY1 = 1, _("PGY-1")
+        PGY2 = 2, _("PGY-2")
+        PGY3 = 3, _("PGY-3")
+        PGY4 = 4, _("PGY-4")
+        PGY5 = 5, _("PGY-5")
+        GRAD = 6, _("Graduated")
+
     supervision_type = models.ForeignKey(
         SupervisionType,
         on_delete=models.PROTECT,
         verbose_name="Supervision Type",
     )
-    hours = models.DecimalField(
+    student_name = models.CharField("Student Name", max_length=STR_MED)
+    resident_year = models.IntegerField(
+        choices=ResidentYear.choices, blank=True, null=True
+    )
+    duration = models.DecimalField(
         max_digits=5, decimal_places=2, blank=True, null=True
     )
-    duration = models.DecimalField(max_digits=5, decimal_places=2)
     frequency = models.ForeignKey(
         WorkFrequencyType, on_delete=models.PROTECT, blank=True, null=True
+    )
+    hours = models.DecimalField(
+        max_digits=5, decimal_places=2, blank=True, null=True
     )
 
     class Meta:

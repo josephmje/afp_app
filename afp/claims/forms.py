@@ -6,6 +6,7 @@ from django.forms.models import inlineformset_factory
 
 from .models import (
     Award,
+    Promotion,
     Cpa,
     CommitteeWork,
     EditorialBoard,
@@ -29,6 +30,20 @@ class AwardForm(forms.ModelForm):
             "organization",
             "award_level",
             "cash_prize",
+            "ver_file",
+            "ver_url",
+            "comments",
+        ]
+        widgets = {
+            "comments": forms.Textarea(attrs={"rows": 5}),
+        }
+
+
+class PromotionForm(forms.ModelForm):
+    class Meta:
+        model = Promotion
+        fields = [
+            "promoted_to",
             "ver_file",
             "ver_url",
             "comments",
@@ -114,7 +129,6 @@ class EditorialBoardForm(forms.ModelForm):
             self.cleaned_data["other_journal_name"] = ""
 
         return self.cleaned_data
-    
 
 
 class GrantForm(forms.ModelForm):
@@ -274,8 +288,7 @@ class ExamForm(forms.ModelForm):
         fields = [
             "exam_type",
             "other_exam_name",
-            "student",
-            "other_student_name",
+            "student_name",
             "date",
             "hours",
             "comments",
@@ -310,8 +323,8 @@ class SupervisionForm(forms.ModelForm):
     class Meta:
         model = Supervision
         fields = [
-            "student_id",
-            "other_student_name",
+            "student_name",
+            "resident_year",
             "supervision_type",
             "hours",
             "duration",
