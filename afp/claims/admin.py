@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from django import forms
 
 from .models import (
     ArticleType,
@@ -406,8 +405,7 @@ class ExamAdmin(admin.ModelAdmin):
         "user_id",
         "exam_type",
         "other_exam_name",
-        "student",
-        "other_student_name",
+        "student_name",
         "date",
         "hours",
         "comments",
@@ -426,7 +424,7 @@ class ExamAdmin(admin.ModelAdmin):
                 "fields": (
                     "user_id",
                     ("exam_type", "other_exam_name"),
-                    ("student", "other_student_name"),
+                    ("student_name"),
                     ("date", "hours"),
                     "comments",
                     ("ver_file", "ver_url"),
@@ -469,8 +467,8 @@ class SupervisionAdmin(admin.ModelAdmin):
     list_display = [
         "user_id",
         "supervision_type",
-        "student_id",
-        "other_student_name",
+        "student_name",
+        "resident_year",
         "hours",
         "duration",
         "frequency",
@@ -490,7 +488,7 @@ class SupervisionAdmin(admin.ModelAdmin):
                 "fields": (
                     "user_id",
                     "supervision_type",
-                    ("student_id", "other_student_name"),
+                    ("student_name", "resident_year"),
                     ("hours", "duration", "frequency"),
                     "comments",
                     ("ver_file", "ver_url"),

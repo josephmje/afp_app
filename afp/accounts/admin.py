@@ -41,10 +41,6 @@ class CustomUserChangeForm(UserChangeForm):
         fields = "__all__"
 
 
-class CsvImportForm(forms.Form):
-    csv_upload = forms.FileField()
-
-
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
@@ -78,48 +74,6 @@ class CustomUserAdmin(UserAdmin):
             {"fields": ("division", "other_division", "rank")},
         ),
     )
-
-    def get_urls(self):
-        urls = super().get_urls()
-        new_urls = [
-            path("upload-csv/", self.upload_csv),
-        ]
-        return new_urls + urls
-
-    def upload_csv(self, request):
-        if request.method == "POST":
-            csv_file = request.FILES["csv_upload"]
-
-            if not csv_file.name.endswith(".csv"):
-                messages.warning(request, "The wrong file type was uploaded.")
-                return HttpResponseRedirect(request.path_info)
-
-            file_data = csv_file.read().decode("utf-8")
-            csv_data = file_data.split("\n")
-
-            for x in csv_data:
-                fields = x.split(",")
-                created = CustomUser.objects.update_or_create(
-                    id=fields[0],
-                    first_name=fields[1],
-                    middle_name=fields[2],
-                    last_name=fields[3],
-                    email=fields[4],
-                    username=fields[5],
-                    password=fields[6],
-                    is_staff=fields[7],
-                    is_active=fields[8],
-                    is_physician=fields[9],
-                    is_scientist=fields[10],
-                    division=fields[11],
-                    rank=fields[12],
-                )
-            url = reverse("admin:index")
-            return HttpResponseRedirect(url)
-
-        form = CsvImportForm()
-        data = {"form": form}
-        return render(request, "csv_upload.html", data)
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
