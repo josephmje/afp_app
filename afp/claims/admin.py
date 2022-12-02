@@ -42,7 +42,6 @@ admin.site.register(GrantReviewType)
 admin.site.register(GrantLink)
 admin.site.register(GrantRole)
 admin.site.register(LectureType)
-admin.site.register(Promotion)
 admin.site.register(PublicationLink)
 admin.site.register(PublicationType)
 admin.site.register(PublicationRole)
@@ -102,6 +101,37 @@ class AwardAdmin(admin.ModelAdmin):
                     "organization",
                     "award_level",
                     "cash_prize",
+                    "comments",
+                    ("ver_file", "ver_url"),
+                )
+            },
+        ),
+        ("Admin", {"fields": ("entry_type", "eligible", "decision_comments")}),
+    )
+
+
+@admin.register(Promotion)
+class PromotionAdmin(admin.ModelAdmin):
+
+    list_display = [
+        "user_id",
+        "promoted_to",
+        "comments",
+        "ver_file",
+        "ver_url",
+        "entry_type",
+        "eligible",
+        "decision_comments",
+    ]
+    list_filter = ("eligible", "promoted_to")
+
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "user_id",
+                    "promoted_to",
                     "comments",
                     ("ver_file", "ver_url"),
                 )
