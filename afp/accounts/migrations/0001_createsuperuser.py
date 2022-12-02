@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import migrations
 
 import google.auth
@@ -18,9 +19,10 @@ def createsuperuser(apps, schema_editor):
     ).payload.data.decode("UTF-8")
 
     # Create a new user using acquired password
-    from django.contrib.auth.models import User
-
-    User.objects.create_superuser("admin", password=superuser_password)
+    User = get_user_model()
+    User.objects.create_superuser(
+        username="admin", password=superuser_password
+    )
 
 
 class Migration(migrations.Migration):

@@ -66,10 +66,12 @@ resource "google_project_service" "secretmanager" {
   disable_on_destroy = false
 }
 
+
 # Step 4: Create a custom Service Account
 resource "google_service_account" "django" {
   account_id = "django"
 }
+
 
 # Step 5: Create the database
 resource "random_password" "database_password" {
@@ -84,7 +86,7 @@ resource "google_sql_database_instance" "instance" {
   settings {
     tier = "db-f1-micro"
   }
-  deletion_protection = false
+  deletion_protection = true
 }
 
 resource "google_sql_database" "database" {
@@ -97,6 +99,7 @@ resource "google_sql_user" "django" {
   instance = google_sql_database_instance.instance.name
   password = random_password.database_password.result
 }
+
 
 # Step 6: Create the secrets
 resource "google_storage_bucket" "media" {
@@ -170,7 +173,6 @@ resource "google_secret_manager_secret_iam_binding" "superuser_password" {
   members   = [local.cloudbuild_serviceaccount]
 }
 
-
 # Step 10: Create Cloud Run service
 resource "google_cloud_run_service" "service" {
   name                       = var.service
@@ -200,7 +202,6 @@ resource "google_cloud_run_service" "service" {
   }
 }
 
-
 # Step 11: Specify Cloud Run permissions
 data "google_iam_policy" "noauth" {
   binding {
@@ -219,7 +220,6 @@ resource "google_cloud_run_service_iam_policy" "noauth" {
   policy_data = data.google_iam_policy.noauth.policy_data
 }
 
-
 # Step 12: Grant access to the database
 resource "google_project_iam_binding" "service_permissions" {
   for_each = toset([
@@ -237,7 +237,6 @@ resource "google_service_account_iam_binding" "cloudbuild_sa" {
 
   members = [local.cloudbuild_serviceaccount]
 }
-
 
 # Step 14: View final output
 output "superuser_password" {
