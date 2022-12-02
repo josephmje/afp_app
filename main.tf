@@ -38,7 +38,7 @@ variable "service" {
 # Step 3: Activate service APIs
 resource "google_project_service" "run" {
   service            = "run.googleapis.com"
-  disable_on_destroy = false
+  disable_on_destroy = true
 }
 
 resource "google_project_service" "sql-component" {

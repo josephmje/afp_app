@@ -21,7 +21,9 @@ def createsuperuser(apps, schema_editor):
     # Create a new user using acquired password
     User = get_user_model()
     User.objects.create_superuser(
-        username="admin", password=superuser_password
+        username="admin",
+        email="info@afp-fmc-camh.ca",
+        password=superuser_password,
     )
 
 
