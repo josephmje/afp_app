@@ -31,6 +31,8 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = []
+    dependencies = [
+        ("accounts", "0001_initial"),
+    ]
 
     operations = [migrations.RunPython(createsuperuser)]
