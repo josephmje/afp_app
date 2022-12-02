@@ -117,13 +117,14 @@ class PublicationLinkInLineAdmin(admin.TabularInline):
     list_display = [
         "user_id",
         "role",
+        "is_corresponding",
         "eligible",
         "decision_comments",
     ]
     fieldsets = (
         (
             None,
-            {"fields": (("user_id", "role"),)},
+            {"fields": (("user_id", "role", "is_corresponding"),)},
         ),
         ("Admin", {"fields": ("eligible", "decision_comments")}),
     )

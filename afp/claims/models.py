@@ -129,9 +129,6 @@ class Award(UserBaseModel):
     class Meta:
         ordering = ["award_level", "name"]
 
-    def get_absolute_url(self):
-        return reverse("award-detail", args=[str(self.id)])
-
     def __str__(self):
         return self.name
 
@@ -153,6 +150,9 @@ class Promotion(UserBaseModel):
         null=True,
     )
     ver_url = models.URLField("Verification URL", blank=True, null=True)
+
+    def __str__(self):
+        return str(self.promoted_to)
 
 
 class GrantAgencyType(models.Model):
@@ -236,6 +236,9 @@ class Grant(BaseModel):
 
     def get_absolute_url(self):
         return reverse("view_grant", kwargs={"pk": self.pk})
+
+    class Meta:
+        ordering = ["agency", "name"]
 
     def __str__(self):
         return self.name
@@ -323,6 +326,12 @@ class GrantReview(UserBaseModel):
         null=True,
     )
     ver_url = models.URLField("Verification URL", blank=True, null=True)
+
+    class Meta:
+        ordering = ["type", "agency"]
+
+    def __str__(self):
+        return f"{self.agency} - {self.date}"
 
 
 class PublicationType(models.Model):
@@ -443,6 +452,9 @@ class Publication(BaseModel):
     )
     ver_url = models.URLField("Verification URL", blank=True, null=True)
 
+    class Meta:
+        ordering = ["pub_type", "title"]
+
     def __str__(self):
         return self.title
 
@@ -503,6 +515,12 @@ class EditorialBoard(UserBaseModel):
     )
     ver_url = models.URLField("Verification URL", blank=True, null=True)
 
+    class Meta:
+        ordering = ["journal"]
+
+    def __str__(self):
+        return str(self.journal)
+
 
 class CommitteeWork(UserBaseModel):
     name = models.CharField(max_length=STR_LONG)
@@ -524,6 +542,7 @@ class CommitteeWork(UserBaseModel):
     ver_url = models.URLField("Verification URL", blank=True, null=True)
 
     class Meta:
+        ordering = ["name"]
         verbose_name_plural = "Committee work"
 
     def __str__(self):
@@ -584,6 +603,12 @@ class Lecture(UserBaseModel):
         null=True,
     )
     ver_url = models.URLField("Verification URL", blank=True, null=True)
+
+    class Meta:
+        ordering = ["lecture_type", "start_date", "name"]
+
+    def __str__(self):
+        return f"{str(self.lecture_type)}: {self.lecture_name} - {self.start_date}"
 
 
 class Student(models.Model):
@@ -667,6 +692,12 @@ class Exam(UserBaseModel):
     )
     ver_url = models.URLField("Verification URL", blank=True, null=True)
 
+    class Meta:
+        ordering = ["exam_type", "date"]
+
+    def __str__(self):
+        return f"{str(self.exam_type)}: {self.student_name} - {self.date}"
+
 
 class SupervisionType(models.Model):
     name = models.CharField(max_length=STR_MED, unique=True)
@@ -744,7 +775,11 @@ class Supervision(UserBaseModel):
     ver_url = models.URLField("Verification URL", blank=True, null=True)
 
     class Meta:
+        ordering = ["supervision_type", "student_name"]
         verbose_name_plural = "Supervision"
+
+    def __str__(self):
+        return f"{str(self.supervision_type)} - {self.student_name}"
 
 
 class Cpa(UserBaseModel):
@@ -781,3 +816,6 @@ class Cpa(UserBaseModel):
 
     class Meta:
         verbose_name = "CPA"
+
+    def __str__(self):
+        return self.cpa_file

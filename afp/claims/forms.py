@@ -105,7 +105,7 @@ class PublicationForm(forms.ModelForm):
 class PublicationLinkForm(forms.ModelForm):
     class Meta:
         model = PublicationLink
-        fields = ["user_id", "role"]
+        fields = ["user_id", "role", "is_corresponding"]
 
 
 PublicationLinkFormSet = inlineformset_factory(
