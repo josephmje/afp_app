@@ -28,7 +28,7 @@
     <tr id="publication-{{ publication.pk }}" class="publication-row">
       <td>{{ publication.pub_type }}</td>
       <td>{{ publication.title }}</td>
-      <td>{{ publication.author }}</td>
+      <td>{{ publication.authors }}</td>
       <td>{{ publication.get_eligible_display }}</td>
       <td>
         <a href="{% url 'edit_publication' pk=publication.pk %}" class="btn btn-secondary" title="Edit publication">
