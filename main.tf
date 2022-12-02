@@ -25,7 +25,7 @@ variable "project" {
 
 variable "region" {
   type        = string
-  default     = "northamerica-northeast1"
+  default     = "us-east4"
   description = "Google Cloud Region"
 }
 
@@ -80,11 +80,11 @@ resource "random_password" "database_password" {
 resource "google_sql_database_instance" "instance" {
   name             = "afp"
   database_version = "POSTGRES_13"
-  region           = "northamerica-northeast1"
+  region           = "us-east4"
   settings {
     tier = "db-f1-micro"
   }
-  deletion_protection = true
+  deletion_protection = false
 }
 
 resource "google_sql_database" "database" {
@@ -101,7 +101,7 @@ resource "google_sql_user" "django" {
 # Step 6: Create the secrets
 resource "google_storage_bucket" "media" {
   name     = "${var.project}-images"
-  location = "NORTHAMERICA-NORTHEAST1"
+  location = "US"
 }
 
 resource "random_password" "django_secret_key" {

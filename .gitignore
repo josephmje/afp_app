@@ -83,6 +83,10 @@ venv.bak/
 # pyenv
 .python-version
 
+# Terraform
+*terraform*
+.terraform/
+
 # Miscellaneous
 .nfs*
 .*swp
