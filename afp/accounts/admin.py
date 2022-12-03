@@ -1,20 +1,17 @@
-from django import forms
-from django.contrib import admin, messages
+from django.contrib import admin
+from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.urls import path, reverse
 
-from afp.accounts.models import CustomUser, Division, Physician, Rank
+from afp.accounts.models import Division, Physician, Rank
 
-
+User = get_user_model()
 class CustomUserCreationForm(UserCreationForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
 
     class Meta:
-        model = CustomUser
+        model = User
         fields = (
             "first_name",
             "middle_name",
@@ -37,7 +34,7 @@ class CustomUserChangeForm(UserChangeForm):
     """
 
     class Meta:
-        model = CustomUser
+        model = User
         fields = "__all__"
 
 
@@ -76,7 +73,7 @@ class CustomUserAdmin(UserAdmin):
     )
 
 
-admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(User, CustomUserAdmin)
 admin.site.register(Physician)
 admin.site.register(Division)
 admin.site.register(Rank)
