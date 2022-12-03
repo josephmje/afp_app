@@ -12,7 +12,13 @@ from djmoney.models.fields import MoneyField
 
 from afp.accounts.models import Rank
 
-from .mixins import AdminMixin, CreatedUpdatedMixin
+from .mixins import (
+    AdminMixin,
+    CreatedUpdatedMixin,
+    VerificationMixin,
+    user_directory_path,
+    ContentTypeRestrictedFileField,
+)
 
 STR_SHORT = 10
 STR_MED = 50
@@ -20,7 +26,7 @@ STR_LONG = 100
 STR_LONGEST = 255
 
 
-class BaseModel(AdminMixin, CreatedUpdatedMixin):
+class BaseModel(AdminMixin, CreatedUpdatedMixin, VerificationMixin):
     """Model representing a base class."""
 
     id = models.UUIDField(
@@ -44,37 +50,6 @@ class UserBaseModel(BaseModel):
 
     class Meta:
         abstract = True
-
-
-class ContentTypeRestrictedFileField(models.FileField):
-    def __init__(self, *args, **kwargs):
-        self.content_types = kwargs.pop("content_types", [])
-        self.max_upload_size = kwargs.pop("max_upload_size", 0)
-        super(ContentTypeRestrictedFileField, self).__init__(*args, **kwargs)
-
-    def clean(self, *args, **kwargs):
-        data = super(ContentTypeRestrictedFileField, self).clean(
-            *args, **kwargs
-        )
-        file = data.file
-        try:
-            content_type = file.content_type
-            if content_type in self.content_types:
-                if file.size > self.max_upload_size:
-                    raise forms.ValidationError(
-                        _(
-                            "Please keep file size under %s. Current file size is %s"
-                        )
-                        % (
-                            filesizeformat(self.max_upload_size),
-                            filesizeformat(file.size),
-                        )
-                    )
-            else:
-                raise forms.ValidationError("This file type is not supported.")
-        except AttributeError:
-            pass
-        return data
 
 
 class AwardLevel(models.Model):
@@ -110,21 +85,6 @@ class Award(UserBaseModel):
     cash_prize = models.BooleanField(
         default=False, verbose_name="Did you receive a cash prize?"
     )
-    ver_file = ContentTypeRestrictedFileField(
-        "Verification File",
-        upload_to="uploads/awards/",
-        content_types=[
-            "application/pdf",
-            "application/msword",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpeg",
-            "image/png",
-        ],
-        max_upload_size=2621440,
-        blank=True,
-        null=True,
-    )
-    ver_url = models.URLField("Verification URL", blank=True, null=True)
 
     class Meta:
         ordering = ["award_level", "name"]
@@ -135,21 +95,6 @@ class Award(UserBaseModel):
 
 class Promotion(UserBaseModel):
     promoted_to = models.ForeignKey(Rank, on_delete=models.PROTECT)
-    ver_file = ContentTypeRestrictedFileField(
-        "Verification File",
-        upload_to="uploads/promotions/",
-        content_types=[
-            "application/pdf",
-            "application/msword",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpeg",
-            "image/png",
-        ],
-        max_upload_size=2621440,
-        blank=True,
-        null=True,
-    )
-    ver_url = models.URLField("Verification URL", blank=True, null=True)
 
     def __str__(self):
         return str(self.promoted_to)
@@ -218,21 +163,6 @@ class Grant(BaseModel):
     start_date = models.DateField()
     end_date = models.DateField()
     at_camh = models.BooleanField("Grant administered at CAMH?", default=False)
-    ver_file = ContentTypeRestrictedFileField(
-        "Verification File",
-        upload_to="uploads/grants/",
-        content_types=[
-            "application/pdf",
-            "application/msword",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpeg",
-            "image/png",
-        ],
-        max_upload_size=2621440,
-        blank=True,
-        null=True,
-    )
-    ver_url = models.URLField("Verification URL", blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse("view_grant", kwargs={"pk": self.pk})
@@ -311,21 +241,6 @@ class GrantReview(UserBaseModel):
         validators=[MinValueValidator(0), MaxValueValidator(99)],
         verbose_name="# Grants Reviewed",
     )
-    ver_file = ContentTypeRestrictedFileField(
-        "Verification File",
-        upload_to="uploads/grant_reviews/",
-        content_types=[
-            "application/pdf",
-            "application/msword",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpeg",
-            "image/png",
-        ],
-        max_upload_size=2621440,
-        blank=True,
-        null=True,
-    )
-    ver_url = models.URLField("Verification URL", blank=True, null=True)
 
     class Meta:
         ordering = ["type", "agency"]
@@ -436,21 +351,6 @@ class Publication(BaseModel):
         "Conference Name", max_length=STR_LONGEST, blank=True, null=True
     )
     conf_date = models.DateField("Conference Date", blank=True, null=True)
-    ver_file = ContentTypeRestrictedFileField(
-        "Verification File",
-        upload_to="uploads/publications/",
-        content_types=[
-            "application/pdf",
-            "application/msword",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpeg",
-            "image/png",
-        ],
-        max_upload_size=2621440,
-        blank=True,
-        null=True,
-    )
-    ver_url = models.URLField("Verification URL", blank=True, null=True)
 
     class Meta:
         ordering = ["pub_type", "title"]
@@ -499,21 +399,6 @@ class EditorialBoard(UserBaseModel):
         blank=True,
         help_text="Only required if 'Other' is selected from the Journal list.",
     )
-    ver_file = ContentTypeRestrictedFileField(
-        "Verification File",
-        upload_to="uploads/editorial_boards/",
-        content_types=[
-            "application/pdf",
-            "application/msword",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpeg",
-            "image/png",
-        ],
-        max_upload_size=2621440,
-        blank=True,
-        null=True,
-    )
-    ver_url = models.URLField("Verification URL", blank=True, null=True)
 
     class Meta:
         ordering = ["journal"]
@@ -525,21 +410,6 @@ class EditorialBoard(UserBaseModel):
 class CommitteeWork(UserBaseModel):
     name = models.CharField(max_length=STR_LONG)
     hours = models.IntegerField()
-    ver_file = ContentTypeRestrictedFileField(
-        "Verification File",
-        upload_to="uploads/committees/",
-        content_types=[
-            "application/pdf",
-            "application/msword",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpeg",
-            "image/png",
-        ],
-        max_upload_size=2621440,
-        blank=True,
-        null=True,
-    )
-    ver_url = models.URLField("Verification URL", blank=True, null=True)
 
     class Meta:
         ordering = ["name"]
@@ -588,21 +458,6 @@ class Lecture(UserBaseModel):
     )
     end_date = models.DateField("End Date", blank=True, null=True)
     num_sessions = models.IntegerField("# Sessions", blank=True, null=True)
-    ver_file = ContentTypeRestrictedFileField(
-        "Verification File",
-        upload_to="uploads/lectures/",
-        content_types=[
-            "application/pdf",
-            "application/msword",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpeg",
-            "image/png",
-        ],
-        max_upload_size=2621440,
-        blank=True,
-        null=True,
-    )
-    ver_url = models.URLField("Verification URL", blank=True, null=True)
 
     class Meta:
         ordering = ["lecture_type", "start_date", "name"]
@@ -676,21 +531,6 @@ class Exam(UserBaseModel):
         decimal_places=2,
     )
     date = models.DateField()
-    ver_file = ContentTypeRestrictedFileField(
-        "Verification File",
-        upload_to="uploads/exams/",
-        content_types=[
-            "application/pdf",
-            "application/msword",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpeg",
-            "image/png",
-        ],
-        max_upload_size=2621440,
-        blank=True,
-        null=True,
-    )
-    ver_url = models.URLField("Verification URL", blank=True, null=True)
 
     class Meta:
         ordering = ["exam_type", "date"]
@@ -758,21 +598,6 @@ class Supervision(UserBaseModel):
         null=True,
         help_text="Only required for PAC attendance.",
     )
-    ver_file = ContentTypeRestrictedFileField(
-        "Verification File",
-        upload_to="uploads/supervision/",
-        content_types=[
-            "application/pdf",
-            "application/msword",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpeg",
-            "image/png",
-        ],
-        max_upload_size=2621440,
-        blank=True,
-        null=True,
-    )
-    ver_url = models.URLField("Verification URL", blank=True, null=True)
 
     class Meta:
         ordering = ["supervision_type", "student_name"]
@@ -785,25 +610,11 @@ class Supervision(UserBaseModel):
 class Cpa(UserBaseModel):
     cpa_file = ContentTypeRestrictedFileField(
         "CPA File",
-        upload_to="uploads/cpas/",
+        upload_to=user_directory_path,
         content_types=[
             "application/pdf",
             "application/msword",
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        ],
-        max_upload_size=2621440,
-        blank=True,
-        null=True,
-    )
-    ver_file = ContentTypeRestrictedFileField(
-        "Verification File",
-        upload_to="uploads/cpas/",
-        content_types=[
-            "application/pdf",
-            "application/msword",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "image/jpeg",
-            "image/png",
         ],
         max_upload_size=2621440,
         blank=True,
@@ -812,6 +623,7 @@ class Cpa(UserBaseModel):
     cpa_value = models.IntegerField(
         default=0, validators=[MinValueValidator(0), MaxValueValidator(3000)]
     )
+    ver_url = None
     entry_type = None
 
     class Meta:
