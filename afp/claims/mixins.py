@@ -1,4 +1,6 @@
+from django import forms
 from django.db import models
+from django.template.defaultfilters import filesizeformat
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -21,6 +23,63 @@ class CreatedUpdatedMixin(models.Model):
             self.created_at = timezone.now()
         self.modified_at = timezone.now()
         return super(CreatedUpdatedMixin, self).save(*args, **kwargs)
+
+
+class ContentTypeRestrictedFileField(models.FileField):
+    def __init__(self, *args, **kwargs):
+        self.content_types = kwargs.pop("content_types", [])
+        self.max_upload_size = kwargs.pop("max_upload_size", 0)
+        super(ContentTypeRestrictedFileField, self).__init__(*args, **kwargs)
+
+    def clean(self, *args, **kwargs):
+        data = super(ContentTypeRestrictedFileField, self).clean(
+            *args, **kwargs
+        )
+        file = data.file
+        try:
+            content_type = file.content_type
+            if content_type in self.content_types:
+                if file.size > self.max_upload_size:
+                    raise forms.ValidationError(
+                        _(
+                            "Please keep file size under %s. Current file size is %s"
+                        )
+                        % (
+                            filesizeformat(self.max_upload_size),
+                            filesizeformat(file.size),
+                        )
+                    )
+            else:
+                raise forms.ValidationError("This file type is not supported.")
+        except AttributeError:
+            pass
+        return data
+
+
+def user_directory_path(instance, filename):
+    return f"uploads/{instance.user_id}/{instance._meta.model._meta.verbose_name.title()}/{filename}"
+
+
+class VerificationMixin(models.Model):
+
+    ver_file = ContentTypeRestrictedFileField(
+        "Verification File",
+        upload_to=user_directory_path,
+        content_types=[
+            "application/pdf",
+            "application/msword",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "image/jpeg",
+            "image/png",
+        ],
+        max_upload_size=2621440,
+        blank=True,
+        null=True,
+    )
+    ver_url = models.URLField("Verification URL", blank=True, null=True)
+
+    class Meta:
+        abstract = True
 
 
 class AdminMixin(models.Model):
