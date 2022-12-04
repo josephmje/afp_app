@@ -9,6 +9,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 from environ import Env
@@ -17,11 +18,10 @@ ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 APPS_DIR = ROOT_DIR / "afp"
 
 env = Env()
+env_file = str(ROOT_DIR / ".env")
 
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
-if READ_DOT_ENV_FILE:
-    # OS environment variables take precedence over variables from .env
-    env.read_env(str(ROOT_DIR / ".env"))
+if os.path.isfile(env_file):
+    env.read_env(env_file)
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ USE_TZ = True
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-DATABASES = {"default": env.db_url("DATABASE_URL")}
+DATABASES = {"default": env.db("DATABASE_URL")}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
