@@ -1,0 +1,39 @@
+:root {
+    /* Site color defaults are defined here! */
+    --light-text: #F8F8F8;
+    /* Slightly off white */
+    --dark-text: #383838;
+    /* Slightly gray black */
+    --theme-main: #6E298D;
+    /* CAMH purple */
+    --theme-dark: #5B2374;
+    /* Darker purple for highlight on hover etc. */
+    --theme-light: #904B9C;
+    /* Lighter purple from CAMH palette */
+    --alt-theme-main: #007681;
+    /* CAMH teal */
+    --alt-theme-light: #7DCBD5;
+    /* Lighter teal from CAMH palette */
+}
+
+.navbar-collapse {
+    /* Get rid of padding on the ends of the header */
+    padding: 0px;
+}
+
+.logo {
+    height: 30px;
+    width: 80px;
+}
+
+.copyright {
+    float: left;
+}
+
+body {
+    height: 100%;
+    margin: auto;
+    padding-bottom: 70px;
+    display: flex;
+    flex-direction: column;
+}
