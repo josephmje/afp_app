@@ -463,7 +463,7 @@ class Lecture(UserBaseModel):
         ordering = ["lecture_type", "start_date", "name"]
 
     def __str__(self):
-        return f"{str(self.lecture_type)}: {self.lecture_name} - {self.start_date}"
+        return f"{str(self.lecture_type)}: {self.name} - {self.start_date}"
 
 
 class Student(models.Model):
@@ -630,4 +630,4 @@ class Cpa(UserBaseModel):
         verbose_name = "CPA"
 
     def __str__(self):
-        return self.cpa_file
+        return str(self.cpa_file)

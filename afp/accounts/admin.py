@@ -41,7 +41,7 @@ class CustomUserChangeForm(UserChangeForm):
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
-    model = CustomUser
+    model = User
     fieldsets = (
         (None, {"fields": ("username", "password")}),
         (

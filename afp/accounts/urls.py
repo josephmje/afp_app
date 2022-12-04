@@ -3,8 +3,6 @@ from django.urls import path
 
 from afp.accounts.views import user_update_view
 
-app_name = "accounts"
-
 urlpatterns = [
     path("profile", view=user_update_view, name="edit_profile"),
     path(
