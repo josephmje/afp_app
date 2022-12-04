@@ -9,14 +9,13 @@ https://docs.djangoproject.com/en/4.0/howto/deployment/wsgi/
 
 import os
 import sys
+from pathlib import Path
 
 from django.core.wsgi import get_wsgi_application
 
-app_path = os.path.abspath(
-    os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)
-)
-sys.path.append(os.path.join(app_path, "afp"))
+ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent
+sys.path.append(str(ROOT_DIR / "afp"))
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
 
 application = get_wsgi_application()

@@ -12,6 +12,7 @@ steps:
         "python",
         "manage.py",
         "migrate",
+        "--settings=config.settings.production",
       ]
 
   - name: "gcr.io/google-appengine/exec-wrapper"
@@ -25,6 +26,7 @@ steps:
         "python",
         "manage.py",
         "collectstatic",
+        "--settings=config.settings.production",
         "--no-input",
       ]
 

@@ -7,11 +7,17 @@ from .base import env
 DEBUG = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env(
-    "DJANGO_SECRET_KEY",
+    "SECRET_KEY",
     default="3imFUMIBBNoX0IedRh98b5UN3TnxDI6caHjlgfK9rJkIuI27yPLAVOfHObhzyS6t",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
+
+# DATABASES
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+DATABASES = {"default": env.db()}
+DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 # CACHES
 # ------------------------------------------------------------------------------

@@ -16,9 +16,9 @@ except google.auth.exceptions.DefaultCredentialsError:
 
 if os.environ.get("GOOGLE_CLOUD_PROJECT", None):
     # Pull secrets from Secret Manager
-    project_id = env("GOOGLE_CLOUD_PROJECT")
+    project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
     client = secretmanager.SecretManagerServiceClient()
-    settings_name = env("SETTINGS_NAME", "django_settings")
+    settings_name = os.environ.get("SETTINGS_NAME", "django_settings")
     name = f"projects/{project_id}/secrets/{settings_name}/versions/latest"
     payload = client.access_secret_version(name=name).payload.data.decode(
         "UTF-8"
@@ -30,7 +30,7 @@ else:
     )
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-SECRET_KEY = env("DJANGO_SECRET_KEY")
+SECRET_KEY = env("SECRET_KEY")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["afp-fmc-camh.ca"])
 
@@ -73,8 +73,7 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 # https://docs.djangoproject.com/en/dev/topics/security/#ssl-https
 # https://docs.djangoproject.com/en/dev/ref/settings/#secure-hsts-seconds
-# TODO: set this to 60 seconds first and then to 518400 once you prove the former works
-SECURE_HSTS_SECONDS = 60
+SECURE_HSTS_SECONDS = 518400
 # https://docs.djangoproject.com/en/dev/ref/settings/#secure-hsts-include-subdomains
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
     "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True
@@ -118,7 +117,7 @@ EMAIL_SUBJECT_PREFIX = env(
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL regex.
-ADMIN_URL = env("DJANGO_ADMIN_URL")
+#ADMIN_URL = env("DJANGO_ADMIN_URL")
 
 # Anymail
 # ------------------------------------------------------------------------------

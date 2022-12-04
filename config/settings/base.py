@@ -42,9 +42,6 @@ USE_TZ = True
 
 # DATABASES
 # ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-DATABASES = {"default": env.db()}
-DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
