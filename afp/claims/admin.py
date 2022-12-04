@@ -71,25 +71,11 @@ class AwardAdmin(admin.ModelAdmin):
         "ver_file",
         "ver_url",
         "entry_type",
-        "status",
+        "eligible",
         "decision_comments",
     ]
     list_filter = ["eligible", "award_level"]
-
-    def status(self, obj):
-        if obj.eligible == -2:
-            color = "yellow"
-        elif obj.eligible == 0:
-            color = "red"
-        elif obj.eligible == 1:
-            color = "green"
-        else:
-            color = "grey"
-        return format_html(
-            f'<strong><p style="color: {color}">{obj.eligible}</p></strong>'
-        )
-
-    status.allow_tags = True
+    list_editable = ["eligible", "decision_comments"]
 
     fieldsets = (
         (
@@ -123,7 +109,8 @@ class PromotionAdmin(admin.ModelAdmin):
         "eligible",
         "decision_comments",
     ]
-    list_filter = ("eligible", "promoted_to")
+    list_filter = ["eligible", "promoted_to"]
+    list_editable = ["eligible", "decision_comments"]
 
     fieldsets = (
         (
