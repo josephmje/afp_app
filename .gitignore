@@ -68,6 +68,7 @@ node_modules/
 # Environments
 .env
 .venv
+.env/
 env/
 venv/
 ENV/
