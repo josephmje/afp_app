@@ -8,5 +8,4 @@ class StaticRootGoogleCloudStorage(GoogleCloudStorage):
 
 class MediaRootGoogleCloudStorage(GoogleCloudStorage):
     location = "media"
-    default_acl = "publicRead"
     file_overwrite = False

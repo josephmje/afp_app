@@ -85,8 +85,13 @@ venv.bak/
 .python-version
 
 # Terraform
-*terraform*
-.terraform/
+**/.terraform/*
+.terraform/*
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+crash.logs
+*.tfvars
 
 # Miscellaneous
 .nfs*

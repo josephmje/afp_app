@@ -183,7 +183,7 @@
     "model": "claims.GrantAgency",
     "pk": 21,
     "fields": {
-      "name": "Garfield Weson Foundation",
+      "name": "Garfield Weston Foundation",
       "type": 7,
       "category": 2
     }
@@ -202,7 +202,7 @@
     "pk": 23,
     "fields": {
       "name": "Grand Challenges Canada",
-      "type": 7,
+      "type": 1,
       "category": 3
     }
   },
@@ -517,7 +517,7 @@
     "model": "claims.GrantAgency",
     "pk": 58,
     "fields": {
-      "name": "Society of Directors of Medical Education)",
+      "name": "Society of Directors of Medical Education",
       "type": 7,
       "category": 2
     }
