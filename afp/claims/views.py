@@ -181,16 +181,15 @@ class PublicationUpdateView(LoginRequiredMixin, PublicationInline, UpdateView):
         return ctx
 
     def get_named_formsets(self):
-        if self.request.method == "GET":
-            return {"links": PublicationLinkFormSet(prefix="links")}
-        else:
-            return {
-                "links": PublicationLinkFormSet(
-                    self.request.POST or None,
-                    self.request.FILES or None,
-                    prefix="links",
-                )
-            }
+        return {
+            "links": PublicationLinkFormSet(
+                self.request.POST or None,
+                self.request.FILES or None,
+                instance=self.object,
+                prefix="links",
+            )
+        }
+
 
 
 class PublicationDeleteView(LoginRequiredMixin, DeleteView):
@@ -200,10 +199,6 @@ class PublicationDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("publication_list")
 
 
-class PublicationLinkDeleteView(LoginRequiredMixin, DeleteView):
-    model = PublicationLink
-    queryset = PublicationLink.objects.all()
-    template_name = "claims/confirm_delete.html"
 
 
 class GrantListView(LoginRequiredMixin, ListView):
@@ -270,16 +265,15 @@ class GrantUpdateView(LoginRequiredMixin, GrantInline, UpdateView):
         return ctx
 
     def get_named_formsets(self):
-        if self.request.method == "GET":
-            return {"links": GrantLinkFormSet(prefix="links")}
-        else:
-            return {
-                "links": GrantLinkFormSet(
-                    self.request.POST or None,
-                    self.request.FILES or None,
-                    prefix="links",
-                )
-            }
+        return {
+            "links": GrantLinkFormSet(
+                self.request.POST or None,
+                self.request.FILES or None,
+                instance=self.object,
+                prefix="links",
+            )
+        }
+
 
 
 class GrantDeleteView(LoginRequiredMixin, DeleteView):
@@ -289,10 +283,6 @@ class GrantDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("grant_list")
 
 
-class GrantLinkDeleteView(LoginRequiredMixin, DeleteView):
-    model = GrantLink
-    queryset = GrantLink.objects.all()
-    template_name = "claims/confirm_delete.html"
 
 
 class GrantReviewListView(LoginRequiredMixin, ListView):

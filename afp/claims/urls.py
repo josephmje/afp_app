@@ -107,11 +107,6 @@ urlpatterns += [
         views.GrantDeleteView.as_view(),
         name="delete_grant",
     ),
-    path(
-        "grant_link/<uuid:pk>/delete",
-        views.GrantLinkDeleteView.as_view(),
-        name="delete_grantlink",
-    ),
 ]
 
 urlpatterns += [

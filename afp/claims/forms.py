@@ -200,7 +200,6 @@ class GrantLinkForm(forms.ModelForm):
 GrantLinkFormSet = inlineformset_factory(
     Grant,
     GrantLink,
-    fields=("user_id", "role"),
     form=GrantLinkForm,
     extra=0,
     min_num=1,
