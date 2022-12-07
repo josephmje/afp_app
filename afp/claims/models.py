@@ -156,7 +156,6 @@ class Grant(BaseModel):
         max_length=STR_MED,
         blank=True,
         null=True,
-        help_text="Only required if 'Other' is selected from the Grant Agency list.",
     )
     pi_list = models.CharField("List of PIs", max_length=STR_LONGEST)
     coi_list = models.CharField("List of Co-Is", max_length=STR_LONGEST)
@@ -294,6 +293,8 @@ class Journal(models.Model):
         blank=True,
         null=True,
     )
+    class Meta:
+        ordering = ["name"]
 
     def __str__(self):
         return self.full_name
@@ -397,7 +398,6 @@ class EditorialBoard(UserBaseModel):
         "Other Journal Name",
         max_length=STR_LONGEST,
         blank=True,
-        help_text="Only required if 'Other' is selected from the Journal list.",
     )
 
     class Meta:
@@ -489,7 +489,8 @@ class Student(models.Model):
     student_type = models.IntegerField(choices=StudentType.choices)
     other_student_type = models.CharField(max_length=STR_MED)
     resident_year = models.IntegerField(
-        choices=ResidentYear.choices, blank=True, null=True
+        choices=ResidentYear.choices, blank=True, null=True,
+        verbose_name="Resident Year"
     )
 
     def __str__(self):
@@ -519,7 +520,6 @@ class Exam(UserBaseModel):
         max_length=STR_MED,
         blank=True,
         null=True,
-        help_text="Only required if 'Other' is selected from the Exam Type list.",
     )
     student_name = models.CharField(
         "Student Name",
@@ -542,6 +542,9 @@ class Exam(UserBaseModel):
 class SupervisionType(models.Model):
     name = models.CharField(max_length=STR_MED, unique=True)
     weight = models.IntegerField()
+
+    class Meta:
+        ordering = ["pk"]
 
     def __str__(self):
         return self.name
@@ -579,7 +582,8 @@ class Supervision(UserBaseModel):
     )
     student_name = models.CharField("Student Name", max_length=STR_MED)
     resident_year = models.IntegerField(
-        choices=ResidentYear.choices, blank=True, null=True
+        choices=ResidentYear.choices, blank=True, null=True,
+        verbose_name="Resident Year"
     )
     duration = models.DecimalField(
         verbose_name="# of Months",
@@ -589,7 +593,8 @@ class Supervision(UserBaseModel):
         null=True,
     )
     frequency = models.ForeignKey(
-        WorkFrequencyType, on_delete=models.PROTECT, blank=True, null=True
+        WorkFrequencyType, on_delete=models.PROTECT, blank=True, null=True,
+        verbose_name="# of days per week student devotes to work"
     )
     hours = models.DecimalField(
         max_digits=5,

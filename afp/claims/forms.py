@@ -101,6 +101,21 @@ class PublicationForm(forms.ModelForm):
             "comments": forms.Textarea(attrs={"rows": 5}),
         }
 
+    def fields_required(self, fields):
+        for field in fields:
+            if not self.cleaned_data.get(field, ""):
+                msg = forms.ValidationError("This field is required.")
+                self.add_error(field, msg)
+
+    def clean(self):
+        journal = self.cleaned_data.get("journal")
+
+        if journal.id == 1:
+            self.fields_required(["other_journal_name"])
+
+        return self.cleaned_data
+
+
 
 class PublicationLinkForm(forms.ModelForm):
     class Meta:
@@ -146,10 +161,8 @@ class EditorialBoardForm(forms.ModelForm):
     def clean(self):
         journal = self.cleaned_data.get("journal")
 
-        if journal == "Other":
+        if journal.id == 1:
             self.fields_required(["other_journal_name"])
-        else:
-            self.cleaned_data["other_journal_name"] = ""
 
         return self.cleaned_data
 
@@ -189,6 +202,20 @@ class GrantForm(forms.ModelForm):
             ),
             "comments": forms.Textarea(attrs={"rows": 5}),
         }
+
+    def fields_required(self, fields):
+        for field in fields:
+            if not self.cleaned_data.get(field, ""):
+                msg = forms.ValidationError("This field is required.")
+                self.add_error(field, msg)
+
+    def clean(self):
+        agency = self.cleaned_data.get("agency")
+
+        if agency.id == 1:
+            self.fields_required(["other_grant_agency"])
+
+        return self.cleaned_data
 
 
 class GrantLinkForm(forms.ModelForm):
@@ -311,10 +338,8 @@ class LectureForm(forms.ModelForm):
         lecture_type = self.cleaned_data.get("lecture_type")
         is_series = self.cleaned_data.get("is_series")
 
-        if lecture_type == "Other Lecture":
+        if lecture_type.id == 9:
             self.fields_required(["other_lecture_type"])
-        else:
-            self.cleaned_data["other_lecture_type"] = ""
 
         if is_series:
             self.fields_required(["num_sessions"])
@@ -354,6 +379,20 @@ class ExamForm(forms.ModelForm):
             ),
             "comments": forms.Textarea(attrs={"rows": 5}),
         }
+
+    def fields_required(self, fields):
+        for field in fields:
+            if not self.cleaned_data.get(field, ""):
+                msg = forms.ValidationError("This field is required.")
+                self.add_error(field, msg)
+
+    def clean(self):
+        exam_type = self.cleaned_data.get("exam_type")
+
+        if exam_type.id == 11:
+            self.fields_required(["other_exam_name"])
+
+        return self.cleaned_data
 
 
 class StudentForm(forms.ModelForm):
