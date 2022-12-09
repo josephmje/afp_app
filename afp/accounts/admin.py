@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from afp.accounts.models import Division, Physician, Rank
 
 User = get_user_model()
+
 class CustomUserCreationForm(UserCreationForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
@@ -42,6 +43,20 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = User
+
+    list_display = [
+        "username",
+        "last_login",
+        "is_active",
+        "is_staff",
+        "email",
+        "first_name",
+        "middle_name",
+        "last_name",
+        "division",
+        "rank",
+    ]
+
     fieldsets = (
         (None, {"fields": ("username", "password")}),
         (

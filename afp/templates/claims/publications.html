@@ -21,7 +21,6 @@
         <th style="width: 15%;">Authors</th>
         <th style="width: 5%;">Eligible</th>
         <th style="width: 5%;">Edit</th>
-        <th style="width: 5%;">Delete</th>
       </tr>
     </thead>
     {% for publication in publications %}
@@ -33,11 +32,6 @@
       <td>
         <a href="{% url 'edit_publication' pk=publication.pk %}" class="btn btn-secondary" title="Edit publication">
           <i class="fas fa-pen"></i>
-        </a>
-      </td>
-      <td>
-        <a href="{% url 'delete_publication' pk=publication.pk %}" class="btn btn-secondary" title="Delete publication">
-          <i class="fas fa-trash-alt"></i>
         </a>
       </td>
     </tr>
