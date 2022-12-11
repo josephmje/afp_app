@@ -1,36 +1,16 @@
-from django.contrib import admin
-from django.utils.html import format_html
+from django import forms
+from django.contrib import admin, messages
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import path, reverse
 
-from .models import (
-    ArticleType,
-    Award,
-    AwardLevel,
-    CommitteeWork,
-    Cpa,
-    EditorialBoard,
-    Exam,
-    ExamType,
-    Grant,
-    GrantAgency,
-    GrantAgencyType,
-    GrantCategory,
-    GrantLink,
-    GrantReview,
-    GrantReviewType,
-    GrantRole,
-    Journal,
-    Lecture,
-    LectureType,
-    Promotion,
-    Publication,
-    PublicationLink,
-    PublicationRole,
-    PublicationType,
-    Student,
-    Supervision,
-    SupervisionType,
-    WorkFrequencyType,
-)
+from .models import (ArticleType, Award, AwardLevel, CommitteeWork, Cpa,
+                     EditorialBoard, Exam, ExamType, Grant, GrantAgency,
+                     GrantAgencyType, GrantCategory, GrantLink, GrantReview,
+                     GrantReviewType, GrantRole, Journal, Lecture, LectureType,
+                     Promotion, Publication, PublicationLink, PublicationRole,
+                     PublicationType, Student, Supervision, SupervisionType,
+                     WorkFrequencyType)
 
 admin.site.register(ArticleType)
 admin.site.register(AwardLevel)
@@ -50,6 +30,10 @@ admin.site.register(WorkFrequencyType)
 
 
 admin.site.register(Journal)
+
+
+class CsvImportForm(forms.Form):
+    csv_upload = forms.FileField()
 
 
 @admin.register(Award)
@@ -147,6 +131,7 @@ class PublicationLinkInLineAdmin(admin.TabularInline):
     )
 
 
+@admin.register(Publication)
 class PublicationAdmin(admin.ModelAdmin):
     list_display = [
         "pub_type",
@@ -201,9 +186,6 @@ class PublicationAdmin(admin.ModelAdmin):
     inlines = [PublicationLinkInLineAdmin]
 
 
-admin.site.register(Publication, PublicationAdmin)
-
-
 @admin.register(EditorialBoard)
 class EditorialBoardAdmin(admin.ModelAdmin):
 
@@ -255,6 +237,7 @@ class GrantLinkInLineAdmin(admin.TabularInline):
     )
 
 
+@admin.register(Grant)
 class GrantAdmin(admin.ModelAdmin):
     list_display = [
         "name",
@@ -291,9 +274,6 @@ class GrantAdmin(admin.ModelAdmin):
         ("Admin", {"fields": ("entry_type", "eligible", "decision_comments")}),
     )
     inlines = [GrantLinkInLineAdmin]
-
-
-admin.site.register(Grant, GrantAdmin)
 
 
 @admin.register(GrantReview)
@@ -415,6 +395,45 @@ class LectureAdmin(admin.ModelAdmin):
         ("Admin", {"fields": ("entry_type", "eligible", "decision_comments")}),
     )
 
+    def get_urls(self):
+        urls = super().get_urls()
+        new_urls = [path("upload_csv/", self.upload_csv),]
+        return new_urls + urls
+
+    def upload_csv(self, request):
+
+        if request.method == "POST":
+            csv_file = request.FILES["csv_upload"]
+
+            if not csv_file.name.endswith('.csv'):
+                messages.warning(request, 'The wrong file type was uploaded')
+                return HttpResponseRedirect(request.path_info)
+
+            file_data = csv_file.read().decode("utf-8")
+            csv_data = file_data.split("\n")
+
+            for x in csv_data:
+                fields = x.split(",")
+                created = Lecture.objects.update_or_create(
+                    user_id_id = fields[0],
+                    lecture_type_id = fields[1],
+                    name = fields[2],
+                    course_code = fields[3],
+                    start_date = fields[4],
+                    hours = fields[5],
+                    is_series = fields[6],
+                    num_sessions = fields[7],
+                    end_date = fields[8],
+                    eligible = fields[9],
+                    entry_type = fields[10],
+                    )
+            url = reverse('admin:index')
+            return HttpResponseRedirect(url)
+
+        form = CsvImportForm()
+        data = {"form": form}
+        return render(request, "admin/claims/csv_upload.html", data)
+
 
 @admin.register(Exam)
 class ExamAdmin(admin.ModelAdmin):
@@ -451,6 +470,41 @@ class ExamAdmin(admin.ModelAdmin):
         ),
         ("Admin", {"fields": ("entry_type", "eligible", "decision_comments")}),
     )
+
+    def get_urls(self):
+        urls = super().get_urls()
+        new_urls = [path("upload_csv/", self.upload_csv),]
+        return new_urls + urls
+
+    def upload_csv(self, request):
+
+        if request.method == "POST":
+            csv_file = request.FILES["csv_upload"]
+
+            if not csv_file.name.endswith('.csv'):
+                messages.warning(request, 'The wrong file type was uploaded')
+                return HttpResponseRedirect(request.path_info)
+
+            file_data = csv_file.read().decode("utf-8")
+            csv_data = file_data.split("\n")
+
+            for x in csv_data:
+                fields = x.split(",")
+                created = Exam.objects.update_or_create(
+                    user_id_id = fields[0],
+                    exam_type_id = fields[1],
+                    student_name = fields[2],
+                    date = fields[3],
+                    hours = fields[4],
+                    eligible = fields[5],
+                    entry_type = fields[6],
+                    )
+            url = reverse('admin:index')
+            return HttpResponseRedirect(url)
+
+        form = CsvImportForm()
+        data = {"form": form}
+        return render(request, "admin/claims/csv_upload.html", data)
 
 
 @admin.register(Student)
@@ -515,6 +569,41 @@ class SupervisionAdmin(admin.ModelAdmin):
         ),
         ("Admin", {"fields": ("entry_type", "eligible", "decision_comments")}),
     )
+
+    def get_urls(self):
+        urls = super().get_urls()
+        new_urls = [path("upload_csv/", self.upload_csv),]
+        return new_urls + urls
+
+    def upload_csv(self, request):
+
+        if request.method == "POST":
+            csv_file = request.FILES["csv_upload"]
+
+            if not csv_file.name.endswith('.csv'):
+                messages.warning(request, 'The wrong file type was uploaded')
+                return HttpResponseRedirect(request.path_info)
+
+            file_data = csv_file.read().decode("utf-8")
+            csv_data = file_data.split("\n")
+
+            for x in csv_data:
+                fields = x.split(",")
+                created = Supervision.objects.update_or_create(
+                    user_id_id = fields[0],
+                    supervision_type_id = fields[1],
+                    student_name = fields[2],
+                    duration = fields[3],
+                    frequency_id = fields[4],
+                    eligible = fields[5],
+                    entry_type = fields[6],
+                    )
+            url = reverse('admin:index')
+            return HttpResponseRedirect(url)
+
+        form = CsvImportForm()
+        data = {"form": form}
+        return render(request, "admin/claims/csv_upload.html", data)
 
 
 @admin.register(Cpa)
