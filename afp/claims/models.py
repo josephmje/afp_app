@@ -162,6 +162,20 @@ class Grant(BaseModel):
     start_date = models.DateField()
     end_date = models.DateField()
     at_camh = models.BooleanField("Grant administered at CAMH?", default=False)
+    ver_file = ContentTypeRestrictedFileField(
+        "Verification File",
+        upload_to="uploads/Grant/",
+        content_types=[
+            "application/pdf",
+            "application/msword",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "image/jpeg",
+            "image/png",
+        ],
+        max_upload_size=2621440,
+        blank=True,
+        null=True,
+    )
 
     def get_absolute_url(self):
         return reverse("view_grant", kwargs={"pk": self.pk})
@@ -353,6 +367,20 @@ class Publication(BaseModel):
         "Conference Name", max_length=STR_LONGEST, blank=True, null=True
     )
     conf_date = models.DateField("Conference Date", blank=True, null=True)
+    ver_file = ContentTypeRestrictedFileField(
+        "Verification File",
+        upload_to="uploads/Publication/",
+        content_types=[
+            "application/pdf",
+            "application/msword",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "image/jpeg",
+            "image/png",
+        ],
+        max_upload_size=2621440,
+        blank=True,
+        null=True,
+    )
 
     class Meta:
         ordering = ["pub_type", "title"]
