@@ -30,7 +30,7 @@
     {% for supervision in supervisions %}
     <tr id="supervision-{{ supervision.pk }}" class="editorialboard-row">
       <td>{{ supervision.supervision_type }}</td>
-      <td>{{ supervision.student_id }}</td>
+      <td>{{ supervision.student_name }}</td>
       <td>{{ supervision.hours }}</td>
       <td>{{ supervision.duration }}</td>
       <td>{{ supervision.frequency }}</td>
