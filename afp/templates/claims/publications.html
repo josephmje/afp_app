@@ -10,43 +10,99 @@
 </div>
 
 <div class="container text-center mt-5">
-  <a href="{% url 'add_publication' %}" class="btn btn-secondary" style="width: 200px;" title="Add publication">Add a
-    publication</a>
-  {% if publications %}
-  <table class="table table-condensed table-hover" id="tbl_publication">
-    <thead>
-      <tr>
-        <th style="width: 20%;">Type</th>
-        <th style="width: 20%;">Title</th>
-        <th style="width: 15%;">Authors</th>
-        <th style="width: 5%;">Eligible</th>
-        <th style="width: 5%;">Edit</th>
-      </tr>
-    </thead>
-    {% for publication in publications %}
-    <tr id="publication-{{ publication.pk }}" class="publication-row">
-      <td>{{ publication.pub_type }}</td>
-      <td>{{ publication.title }}</td>
-      <td>{{ publication.authors }}</td>
-      <td>{{ publication.get_eligible_display }}</td>
-      <td>
-        <a href="{% url 'edit_publication' pk=publication.pk %}" class="btn btn-secondary" title="Edit publication">
-          <i class="fas fa-pen"></i>
-        </a>
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
-  {% else %}
-  <br><br>
-  <p>No publications entered yet.</p>
-  {% endif %}
+  <a href="{% url 'add_publication' %}" class="btn btn-secondary" style="width: 200px;" title="Add publication">
+    Add a publication
+  </a>
 </div>
 
-<!-- Turns on the DataTables plugin for the awards table -->
+<br>
+
+<div class="container text-center mt-5">
+  <nav>
+    <div class="nav nav-tabs" id="pubs" role="tablist">
+      <button class="nav-link active" id="my-pub-tab" data-bs-toggle="tab" data-bs-target="#mine" type="button"
+        role="tab" aria-controls="mine" aria-selected="true">My Publications</button>
+      <button class="nav-link" id="all-pub-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab"
+        aria-controls="all" aria-selected="false">All Publications</button>
+    </div>
+  </nav>
+  <div class="tab-content" id="pub-content">
+    <div class="tab-pane fade active show" id="mine" role="tabpanel" aria-labelledby="my-pubs-tab">
+      {% if publications.my_pubs %}
+      <table class="table table-condensed table-hover" id="tbl_my_pubs">
+        <thead>
+          <tr>
+            <th style="width: 20%;">Type</th>
+            <th style="width: 20%;">Title</th>
+            <th style="width: 15%;">Authors</th>
+            <th style="width: 5%;">Eligible</th>
+            <th style="width: 5%;">Edit</th>
+          </tr>
+        </thead>
+        {% for publication in publications.my_pubs %}
+        <tr id="publication-{{ publication.publication.pk }}" class="publication-row">
+          <td>{{ publication.publication.pub_type }}</td>
+          <td>{{ publication.publication.title }}</td>
+          <td>{{ publication.publication.authors }}</td>
+          <td>{{ publication.publication.get_eligible_display }}</td>
+          <td>
+            <a href="{% url 'edit_publication' pk=publication.publication.pk %}" class="btn btn-secondary"
+              title="Edit publication">
+              <i class="fas fa-pen"></i>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% else %}
+      <br><br>
+      <p>No publications entered yet.</p>
+      {% endif %}
+    </div>
+    <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-pubs-tab">
+      {% if publications.all_pubs %}
+      <table class="table table-condensed table-hover" id="tbl_all_pubs">
+        <thead>
+          <tr>
+            <th style="width: 20%;">Type</th>
+            <th style="width: 20%;">Title</th>
+            <th style="width: 15%;">Authors</th>
+            <th style="width: 5%;">Eligible</th>
+            <th style="width: 5%;">Edit</th>
+          </tr>
+        </thead>
+        {% for publication in publications.all_pubs %}
+        <tr id="publication-{{ publication.publication.pk }}" class="publication-row">
+          <td>{{ publication.publication.pub_type }}</td>
+          <td>{{ publication.publication.title }}</td>
+          <td>{{ publication.publication.authors }}</td>
+          <td>{{ publication.publication.get_eligible_display }}</td>
+          <td>
+            <a href="{% url 'edit_publication' pk=publication.publication.pk %}" class="btn btn-secondary"
+              title="Edit publication">
+              <i class="fas fa-pen"></i>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% else %}
+      <br><br>
+      <p>No publications entered yet.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
 <script>
   $(document).ready(function () {
-    $("#tbl_publication").DataTable();
+    $("#tbl_my_pubs").DataTable();
+  })
+</script>
+
+<script>
+  $(document).ready(function () {
+    $("#tbl_all_pubs").DataTable();
   })
 </script>
 

@@ -124,9 +124,20 @@ class PromotionDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class PublicationListView(LoginRequiredMixin, ListView):
-    model = Publication
+    model = PublicationLink
     template_name = "claims/publications.html"
     context_object_name = "publications"
+
+    def get_queryset(self):
+        queryset = {
+            "my_pubs": PublicationLink.objects.filter(
+                user_id=self.request.user
+            ).select_related("publication"),
+            "all_pubs": PublicationLink.objects.all()
+            .distinct("publication")
+            .select_related("publication"),
+        }
+        return queryset
 
 
 class PublicationInline:
