@@ -85,7 +85,6 @@ all = [
     "afp_app[style]",
     "afp_app[develop]",
     "afp_app[production]",
-    "afp_app["style]",
 ]
 
 [tool.flake8]

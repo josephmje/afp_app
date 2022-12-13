@@ -1,7 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, ListView, TemplateView, UpdateView
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    ListView,
+    TemplateView,
+    UpdateView,
+)
 
 from .forms import (
     AwardForm,
@@ -191,7 +197,6 @@ class PublicationUpdateView(LoginRequiredMixin, PublicationInline, UpdateView):
         }
 
 
-
 class PublicationDeleteView(LoginRequiredMixin, DeleteView):
     model = Publication
     queryset = Publication.objects.all()
@@ -199,12 +204,15 @@ class PublicationDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("publication_list")
 
 
-
-
 class GrantListView(LoginRequiredMixin, ListView):
-    model = Grant
+    model = GrantLink
     template_name = "claims/grants.html"
     context_object_name = "grants"
+
+    def get_queryset(self):
+        queryset = {"my_grants": GrantLink.objects.filter(user_id=self.request.user).select_related("grant"),
+                    "all_grants": GrantLink.objects.all().select_related("grant")}
+        return queryset
 
 
 class GrantInline:
@@ -275,14 +283,11 @@ class GrantUpdateView(LoginRequiredMixin, GrantInline, UpdateView):
         }
 
 
-
 class GrantDeleteView(LoginRequiredMixin, DeleteView):
     model = Grant
     queryset = Grant.objects.all()
     template_name = "claims/confirm_delete.html"
     success_url = reverse_lazy("grant_list")
-
-
 
 
 class GrantReviewListView(LoginRequiredMixin, ListView):

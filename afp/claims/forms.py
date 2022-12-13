@@ -107,15 +107,6 @@ class PublicationForm(forms.ModelForm):
                 msg = forms.ValidationError("This field is required.")
                 self.add_error(field, msg)
 
-    #def clean(self):
-    #    journal = self.cleaned_data.get("journal")
-    #
-    #    if journal.id == 1:
-    #        self.fields_required(["other_journal_name"])
-    #
-    #    return self.cleaned_data
-
-
 
 class PublicationLinkForm(forms.ModelForm):
     class Meta:

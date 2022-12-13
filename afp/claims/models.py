@@ -293,6 +293,7 @@ class Journal(models.Model):
         blank=True,
         null=True,
     )
+
     class Meta:
         ordering = ["name"]
 
@@ -489,8 +490,10 @@ class Student(models.Model):
     student_type = models.IntegerField(choices=StudentType.choices)
     other_student_type = models.CharField(max_length=STR_MED)
     resident_year = models.IntegerField(
-        choices=ResidentYear.choices, blank=True, null=True,
-        verbose_name="Resident Year"
+        choices=ResidentYear.choices,
+        blank=True,
+        null=True,
+        verbose_name="Resident Year",
     )
 
     def __str__(self):
@@ -582,8 +585,10 @@ class Supervision(UserBaseModel):
     )
     student_name = models.CharField("Student Name", max_length=STR_MED)
     resident_year = models.IntegerField(
-        choices=ResidentYear.choices, blank=True, null=True,
-        verbose_name="Resident Year"
+        choices=ResidentYear.choices,
+        blank=True,
+        null=True,
+        verbose_name="Resident Year",
     )
     duration = models.DecimalField(
         verbose_name="# of Months",
@@ -593,8 +598,11 @@ class Supervision(UserBaseModel):
         null=True,
     )
     frequency = models.ForeignKey(
-        WorkFrequencyType, on_delete=models.PROTECT, blank=True, null=True,
-        verbose_name="# of days per week student devotes to work"
+        WorkFrequencyType,
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+        verbose_name="# of days per week student devotes to work",
     )
     hours = models.DecimalField(
         max_digits=5,
