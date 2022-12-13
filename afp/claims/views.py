@@ -210,8 +210,14 @@ class GrantListView(LoginRequiredMixin, ListView):
     context_object_name = "grants"
 
     def get_queryset(self):
-        queryset = {"my_grants": GrantLink.objects.filter(user_id=self.request.user).select_related("grant"),
-                    "all_grants": GrantLink.objects.all().select_related("grant")}
+        queryset = {
+            "my_grants": GrantLink.objects.filter(
+                user_id=self.request.user
+            ).select_related("grant"),
+            "all_grants": GrantLink.objects.all()
+            .distinct("grant")
+            .select_related("grant"),
+        }
         return queryset
 
 

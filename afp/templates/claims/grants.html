@@ -29,72 +29,72 @@
   <div class="tab-content" id="grant-content">
     <div class="tab-pane fade active show" id="mine" role="tabpanel" aria-labelledby="my-grant-tab">
       {% if grants.my_grants %}
-      <table class="table table-condensed table-hover" id="tbl_my_grants">
-        <thead>
-          <tr>
-            <th style="width: 20%;">Name</th>
-            <th style="width: 20%;">PI List</th>
-            <th style="width: 15%;">Co-I List</th>
-            <th style="width: 5%;">Granting Agency</th>
-            <th style="width: 25%;">Amount</th>
-            <th style="width: 5%;">Eligible</th>
-            <th style="width: 5%;">Edit</th>
-          </tr>
-        </thead>
-        {% for grant in grants.my_grants %}
-        <tr id="grant-{{ grant.grant.pk }}" class="grant-row">
-          <td>{{ grant.grant.name }}</td>
-          <td>{{ grant.grant.pi_list }}</td>
-          <td>{{ grant.grant.coi_list }}</td>
-          <td>{{ grant.grant.agency }}</td>
-          <td>{{ grant.grant.amount }}</td>
-          <td>{{ grant.grant.get_eligible_display }}</td>
-          <td>
-            <a href="{% url 'edit_grant' pk=grant.grant.pk %}" class="btn btn-secondary" title="Edit grant">
-              <i class="fas fa-pen"></i>
-            </a>
-          </td>
-        </tr>
-        {% endfor %}
-      </table>
+        <table class="table table-condensed table-hover" id="tbl_my_grants">
+          <thead>
+            <tr>
+              <th style="width: 20%;">Name</th>
+              <th style="width: 20%;">PI List</th>
+              <th style="width: 15%;">Co-I List</th>
+              <th style="width: 5%;">Granting Agency</th>
+              <th style="width: 25%;">Amount</th>
+              <th style="width: 5%;">Eligible</th>
+              <th style="width: 5%;">Edit</th>
+            </tr>
+          </thead>
+          {% for grant in grants.my_grants %}
+            <tr id="grant-{{ grant.grant.pk }}" class="grant-row">
+              <td>{{ grant.grant.name }}</td>
+              <td>{{ grant.grant.pi_list }}</td>
+              <td>{{ grant.grant.coi_list }}</td>
+              <td>{{ grant.grant.agency }}</td>
+              <td>{{ grant.grant.amount }}</td>
+              <td>{{ grant.grant.get_eligible_display }}</td>
+              <td>
+                <a href="{% url 'edit_grant' pk=grant.grant.pk %}" class="btn btn-secondary" title="Edit grant">
+                  <i class="fas fa-pen"></i>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
       {% else %}
-      <br><br>
-      <p>No grants entered yet.</p>
+        <br><br>
+        <p>No grants entered yet.</p>
       {% endif %}
     </div>
     <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-grant-tab">
       {% if grants.all_grants %}
-      <table class="table table-condensed table-hover" id="tbl_all_grants">
-        <thead>
-          <tr>
-            <th style="width: 20%;">Name</th>
-            <th style="width: 20%;">PI List</th>
-            <th style="width: 15%;">Co-I List</th>
-            <th style="width: 5%;">Granting Agency</th>
-            <th style="width: 25%;">Amount</th>
-            <th style="width: 5%;">Eligible</th>
-            <th style="width: 5%;">Edit</th>
-          </tr>
-        </thead>
-        {% for grant in grants.all_grants %}
-        <tr id="grant-{{ grant.grant.pk }}" class="grant-row">
-          <td>{{ grant.grant.name }}</td>
-          <td>{{ grant.grant.pi_list }}</td>
-          <td>{{ grant.grant.coi_list }}</td>
-          <td>{{ grant.grant.agency }}</td>
-          <td>{{ grant.grant.amount }}</td>
-          <td>{{ grant.grant.get_eligible_display }}</td>
-          <td>
-            <a href="{% url 'edit_grant' pk=grant.grant.pk %}" class="btn btn-secondary" title="Edit grant">
-              <i class="fas fa-pen"></i>
-            </a>
-          </td>
-        </tr>
-        {% endfor %}
-      </table>
+        <table class="table table-condensed table-hover" id="tbl_all_grants">
+          <thead>
+            <tr>
+              <th style="width: 20%;">Name</th>
+              <th style="width: 20%;">PI List</th>
+              <th style="width: 15%;">Co-I List</th>
+              <th style="width: 5%;">Granting Agency</th>
+              <th style="width: 25%;">Amount</th>
+              <th style="width: 5%;">Eligible</th>
+              <th style="width: 5%;">Edit</th>
+            </tr>
+          </thead>
+          {% for grant in grants.all_grants %}
+            <tr id="grant-{{ grant.grant.pk }}" class="grant-row">
+              <td>{{ grant.grant.name }}</td>
+              <td>{{ grant.grant.pi_list }}</td>
+              <td>{{ grant.grant.coi_list }}</td>
+              <td>{{ grant.grant.agency }}</td>
+              <td>{{ grant.grant.amount }}</td>
+              <td>{{ grant.grant.get_eligible_display }}</td>
+              <td>
+                <a href="{% url 'edit_grant' pk=grant.grant.pk %}" class="btn btn-secondary" title="Edit grant">
+                  <i class="fas fa-pen"></i>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
       {% else %}
-      <br><br>
-      <p>No grants entered yet.</p>
+        <br><br>
+        <p>No grants entered yet.</p>
       {% endif %}
     </div>
   </div>
