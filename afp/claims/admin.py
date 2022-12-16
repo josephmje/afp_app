@@ -155,13 +155,14 @@ class JournalAdmin(admin.ModelAdmin):
 
             for x in csv_data:
                 fields = x.split(",")
-                created = Lecture.objects.update_or_create(
-                    name=fields[0],
-                    full_name=fields[1],
-                    isi_listed=fields[2],
+                created = Journal.objects.update_or_create(
+                    id=fields[0],
+                    name=fields[1],
+                    full_name=fields[2],
                     issn=fields[3],
                     eissn=fields[4],
                     impact_factor=fields[5],
+                    isi_listed=fields[6].rstrip(),
                 )
             url = reverse("admin:index")
             return HttpResponseRedirect(url)
