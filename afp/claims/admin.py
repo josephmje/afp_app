@@ -245,6 +245,52 @@ class PublicationAdmin(admin.ModelAdmin):
     )
     inlines = [PublicationLinkInLineAdmin]
 
+    def get_urls(self):
+        urls = super().get_urls()
+        new_urls = [
+            path("upload_csv/", self.upload_csv),
+        ]
+        return new_urls + urls
+
+    def upload_csv(self, request):
+
+        if request.method == "POST":
+            csv_file = request.FILES["csv_upload"]
+
+            if not csv_file.name.endswith(".csv"):
+                messages.warning(request, "The wrong file type was uploaded")
+                return HttpResponseRedirect(request.path_info)
+
+            file_data = csv_file.read().decode("utf-8")
+            csv_data = file_data.split("\n")
+
+            for x in csv_data:
+                fields = x.split(",")
+                created = Publication.objects.update_or_create(
+                    pmid=fields[0],
+                    pub_type_id=fields[1],
+                    title=fields[2],
+                    authors=fields[3],
+                    article_type_id=fields[4],
+                    journal_id=fields[5],
+                    other_journal_name=fields[6],
+                    volume=fields[7],
+                    issue=fields[8],
+                    start_page=fields[9],
+                    end_page=fields[10],
+                    pub_year=fields[11],
+                    pub_month=fields[12],
+                    is_epub=fields[13],
+                    ver_url=fields[14],
+                    entry_type=fields[15].rstrip(),
+                )
+            url = reverse("admin:index")
+            return HttpResponseRedirect(url)
+
+        form = CsvImportForm()
+        data = {"form": form}
+        return render(request, "admin/claims/csv_upload.html", data)
+
 
 @admin.register(EditorialBoard)
 class EditorialBoardAdmin(admin.ModelAdmin):
