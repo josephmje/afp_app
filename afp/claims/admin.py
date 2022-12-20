@@ -194,17 +194,8 @@ class PublicationLinkInLineAdmin(admin.TabularInline):
 @admin.register(Publication)
 class PublicationAdmin(admin.ModelAdmin):
     list_display = [
-        "pub_type",
         "title",
-        "chapter_title",
         "authors",
-        "chapter_authors",
-        "publisher",
-        "city",
-        "isbn",
-        "article_type",
-        "journal",
-        "other_journal_name",
         "volume",
         "issue",
         "start_page",
@@ -213,14 +204,21 @@ class PublicationAdmin(admin.ModelAdmin):
         "pub_year",
         "pmid",
         "is_epub",
-        "conf_name",
-        "conf_date",
-        "comments",
-        "ver_file",
         "ver_url",
-        "entry_type",
         "eligible",
         "decision_comments",
+    ]
+    list_editable = [
+        "is_epub",
+        "eligible",
+        "decision_comments",
+    ]
+    list_filter = [
+        "entry_type",
+        "pub_type",
+        "article_type",
+        "is_epub",
+        "eligible",
     ]
     fieldsets = (
         (
