@@ -11,6 +11,9 @@
 </div>
 
 <div class="container text-center mt-5">
+  <a href="{% url 'add_cpa' %}" class="btn btn-secondary" style="width: 200px;" title="Add CPA">Add a
+    CPA</a>
+  <br><br>
   {% if cpa_list %}
   <table class="table table-condensed table-hover" id="tbl_cpa">
     <thead>
@@ -23,7 +26,7 @@
     </thead>
     {% for cpa in cpa_list %}
     <tr id="cpa-{{ cpa.pk }}" class="cpa-row">
-      <td><a href="{{ cpa.cpa_file.url }}">{{ cpa.cpa_file }}</a></td>
+      <td><a href="{{ cpa.cpa_file }}">{{ cpa.cpa_file }}</a></td>
       <td>{{ cpa.get_eligible_display }}</td>
       <td>
         <a href="{% url 'edit_cpa' pk=cpa.pk %}" class="btn btn-secondary" title="Edit CPA">
@@ -39,9 +42,6 @@
     {% endfor %}
   </table>
   {% else%}
-  <a href="{% url 'add_cpa' %}" class="btn btn-secondary" style="width: 200px;" title="Add CPA">Add a
-    CPA</a>
-  <br><br>
   <p>No CPA uploaded yet.</p>
   {% endif %}
 </div>
