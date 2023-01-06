@@ -342,7 +342,11 @@ class Publication(BaseModel):
         verbose_name="Article Type",
     )
     journal = models.ForeignKey(
-        Journal, on_delete=models.PROTECT, blank=True, null=True
+        Journal,
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+        help_text="If journal not in list, select 'Other'.",
     )
     other_journal_name = models.CharField(
         "Other Journal Name", max_length=STR_LONGEST, blank=True, null=True
@@ -422,7 +426,11 @@ class PublicationLink(AdminMixin, CreatedUpdatedMixin):
 
 
 class EditorialBoard(UserBaseModel):
-    journal = models.ForeignKey(Journal, on_delete=models.PROTECT)
+    journal = models.ForeignKey(
+        Journal,
+        on_delete=models.PROTECT,
+        help_text="If journal not in list, select 'Other'.",
+    )
     other_journal_name = models.CharField(
         "Other Journal Name",
         max_length=STR_LONGEST,
