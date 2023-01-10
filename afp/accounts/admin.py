@@ -7,6 +7,7 @@ from afp.accounts.models import Division, Physician, Rank
 
 User = get_user_model()
 
+
 class CustomUserCreationForm(UserCreationForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
@@ -56,6 +57,7 @@ class CustomUserAdmin(UserAdmin):
         "division",
         "rank",
     ]
+    list_editable = ["is_active"]
 
     fieldsets = (
         (None, {"fields": ("username", "password")}),
