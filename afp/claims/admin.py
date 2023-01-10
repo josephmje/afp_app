@@ -69,12 +69,10 @@ class AwardAdmin(admin.ModelAdmin):
         "user_id",
         "name",
         "organization",
-        "award_level",
         "cash_prize",
         "comments",
         "ver_file",
         "ver_url",
-        "entry_type",
         "eligible",
         "decision_comments",
     ]
@@ -109,7 +107,6 @@ class PromotionAdmin(admin.ModelAdmin):
         "comments",
         "ver_file",
         "ver_url",
-        "entry_type",
         "eligible",
         "decision_comments",
     ]
@@ -215,10 +212,10 @@ class PublicationAdmin(admin.ModelAdmin):
     ]
     list_filter = [
         "entry_type",
+        "eligible",
         "pub_type",
         "article_type",
         "is_epub",
-        "eligible",
     ]
     fieldsets = (
         (
@@ -300,11 +297,11 @@ class EditorialBoardAdmin(admin.ModelAdmin):
         "comments",
         "ver_file",
         "ver_url",
-        "entry_type",
         "eligible",
         "decision_comments",
     ]
     list_filter = ["eligible"]
+    list_editable = ["eligible", "decision_comments"]
 
     fieldsets = (
         (
@@ -352,14 +349,14 @@ class GrantAdmin(admin.ModelAdmin):
         "amount",
         "start_date",
         "end_date",
-        "at_camh",
         "comments",
         "ver_file",
         "ver_url",
-        "entry_type",
         "eligible",
         "decision_comments",
     ]
+    list_filter = ["eligible", "at_camh"]
+    list_editable = ["eligible", "decision_comments"]
     fieldsets = (
         (
             None,
@@ -434,11 +431,11 @@ class GrantReviewAdmin(admin.ModelAdmin):
         "comments",
         "ver_file",
         "ver_url",
-        "entry_type",
         "eligible",
         "decision_comments",
     ]
-    list_filter = ["eligible"]
+    list_filter = ["entry_type", "eligible", "type"]
+    list_editable = ["eligible", "decision_comments"]
 
     fieldsets = (
         (
@@ -472,11 +469,11 @@ class CommitteeWorkAdmin(admin.ModelAdmin):
         "comments",
         "ver_file",
         "ver_url",
-        "entry_type",
         "eligible",
         "decision_comments",
     ]
-    list_filter = ["eligible"]
+    list_filter = ["entry_type", "eligible"]
+    list_editable = ["eligible", "decision_comments"]
 
     fieldsets = (
         (
@@ -506,18 +503,16 @@ class LectureAdmin(admin.ModelAdmin):
         "course_code",
         "start_date",
         "hours",
-        "is_cash",
-        "is_series",
         "end_date",
         "num_sessions",
         "comments",
         "ver_file",
         "ver_url",
-        "entry_type",
         "eligible",
         "decision_comments",
     ]
-    list_filter = ["eligible"]
+    list_filter = ["entry_type", "eligible", "lecture_type", "is_cash"]
+    list_editable = ["eligible", "decision_comments"]
 
     fieldsets = (
         (
@@ -593,11 +588,11 @@ class ExamAdmin(admin.ModelAdmin):
         "comments",
         "ver_file",
         "ver_url",
-        "entry_type",
         "eligible",
         "decision_comments",
     ]
-    list_filter = ["eligible"]
+    list_filter = ["entry_type", "eligible", "exam_type"]
+    list_editable = ["eligible", "decision_comments"]
 
     fieldsets = (
         (
@@ -687,18 +682,17 @@ class SupervisionAdmin(admin.ModelAdmin):
         "user_id",
         "supervision_type",
         "student_name",
-        "resident_year",
         "hours",
         "duration",
         "frequency",
         "comments",
         "ver_file",
         "ver_url",
-        "entry_type",
         "eligible",
         "decision_comments",
     ]
-    list_filter = ["eligible"]
+    list_filter = ["entry_type", "eligible", "supervision_type"]
+    list_editable = ["eligible", "decision_comments"]
 
     fieldsets = (
         (
@@ -767,6 +761,7 @@ class CpaAdmin(admin.ModelAdmin):
         "decision_comments",
     ]
     list_filter = ["eligible"]
+    list_editable = ["eligible", "decision_comments"]
 
     fieldsets = (
         (
