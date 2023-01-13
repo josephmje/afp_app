@@ -368,8 +368,10 @@ class GrantLinkInLineAdmin(admin.TabularInline):
 class GrantAdmin(admin.ModelAdmin):
     list_display = [
         "name",
+        "eligible",
         "pi_list",
         "coi_list",
+        "at_camh",
         "agency",
         "other_grant_agency",
         "amount",
@@ -378,11 +380,10 @@ class GrantAdmin(admin.ModelAdmin):
         "comments",
         "ver_file",
         "ver_url",
-        "eligible",
         "decision_comments",
     ]
     list_filter = ["eligible", "at_camh"]
-    list_editable = ["eligible", "decision_comments"]
+    list_editable = ["at_camh", "eligible", "decision_comments"]
     fieldsets = (
         (
             None,
