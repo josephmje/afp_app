@@ -801,5 +801,5 @@ class CpaAdmin(admin.ModelAdmin):
                 )
             },
         ),
-        ("Admin", {"fields": ("eligible", "decision_comments")}),
+        ("Admin", {"fields": ("eligible", "cpa_value", "decision_comments")}),
     )
