@@ -75,7 +75,7 @@ class AwardAdmin(admin.ModelAdmin):
         "decision_comments",
     ]
     list_filter = ["eligible", "award_level"]
-    list_editable = ["eligible", "decision_comments"]
+    list_editable = ["cash_prize", "eligible", "decision_comments"]
 
     fieldsets = (
         (
@@ -461,7 +461,7 @@ class GrantReviewAdmin(admin.ModelAdmin):
         "decision_comments",
     ]
     list_filter = ["entry_type", "eligible", "type"]
-    list_editable = ["eligible", "decision_comments"]
+    list_editable = ["is_member", "eligible", "decision_comments"]
 
     fieldsets = (
         (
