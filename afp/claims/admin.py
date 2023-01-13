@@ -42,10 +42,8 @@ admin.site.register(GrantAgency)
 admin.site.register(GrantAgencyType)
 admin.site.register(GrantCategory)
 admin.site.register(GrantReviewType)
-admin.site.register(GrantLink)
 admin.site.register(GrantRole)
 admin.site.register(LectureType)
-admin.site.register(PublicationLink)
 admin.site.register(PublicationType)
 admin.site.register(PublicationRole)
 admin.site.register(SupervisionType)
@@ -167,6 +165,20 @@ class JournalAdmin(admin.ModelAdmin):
         form = CsvImportForm()
         data = {"form": form}
         return render(request, "admin/claims/csv_upload.html", data)
+
+
+@admin.register(PublicationLink)
+class PublicationLinkAdmin(admin.ModelAdmin):
+
+    list_display = [
+        "publication",
+        "user_id",
+        "role",
+        "eligible",
+        "decision_comments",
+    ]
+    list_filter = ["eligible"]
+    list_editable = ["eligible", "decision_comments"]
 
 
 class PublicationLinkInLineAdmin(admin.TabularInline):
@@ -318,6 +330,20 @@ class EditorialBoardAdmin(admin.ModelAdmin):
         ),
         ("Admin", {"fields": ("entry_type", "eligible", "decision_comments")}),
     )
+
+
+@admin.register(GrantLink)
+class GrantLinkAdmin(admin.ModelAdmin):
+
+    list_display = [
+        "grant",
+        "user_id",
+        "role",
+        "eligible",
+        "decision_comments",
+    ]
+    list_filter = ["eligible"]
+    list_editable = ["eligible", "decision_comments"]
 
 
 class GrantLinkInLineAdmin(admin.TabularInline):

@@ -80,6 +80,7 @@ class CustomUserAdmin(UserAdmin):
                     "is_staff",
                     "is_physician",
                     "is_scientist",
+                    "groups",
                 )
             },
         ),
