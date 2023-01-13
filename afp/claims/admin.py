@@ -65,13 +65,13 @@ class AwardAdmin(admin.ModelAdmin):
 
     list_display = [
         "user_id",
+        "eligible",
         "name",
         "organization",
         "cash_prize",
         "comments",
         "ver_file",
         "ver_url",
-        "eligible",
         "decision_comments",
     ]
     list_filter = ["eligible", "award_level"]
@@ -101,11 +101,11 @@ class PromotionAdmin(admin.ModelAdmin):
 
     list_display = [
         "user_id",
+        "eligible",
         "promoted_to",
         "comments",
         "ver_file",
         "ver_url",
-        "eligible",
         "decision_comments",
     ]
     list_filter = ["eligible", "promoted_to"]
@@ -172,9 +172,9 @@ class PublicationLinkAdmin(admin.ModelAdmin):
 
     list_display = [
         "publication",
+        "eligible",
         "user_id",
         "role",
-        "eligible",
         "decision_comments",
     ]
     list_filter = ["eligible"]
@@ -204,6 +204,7 @@ class PublicationLinkInLineAdmin(admin.TabularInline):
 class PublicationAdmin(admin.ModelAdmin):
     list_display = [
         "title",
+        "eligible",
         "authors",
         "volume",
         "issue",
@@ -214,7 +215,6 @@ class PublicationAdmin(admin.ModelAdmin):
         "pmid",
         "is_epub",
         "ver_url",
-        "eligible",
         "decision_comments",
     ]
     list_editable = [
@@ -304,12 +304,12 @@ class EditorialBoardAdmin(admin.ModelAdmin):
 
     list_display = [
         "user_id",
+        "eligible",
         "journal",
         "other_journal_name",
         "comments",
         "ver_file",
         "ver_url",
-        "eligible",
         "decision_comments",
     ]
     list_filter = ["eligible"]
@@ -337,9 +337,9 @@ class GrantLinkAdmin(admin.ModelAdmin):
 
     list_display = [
         "grant",
+        "eligible",
         "user_id",
         "role",
-        "eligible",
         "decision_comments",
     ]
     list_filter = ["eligible"]
@@ -351,8 +351,8 @@ class GrantLinkInLineAdmin(admin.TabularInline):
     extra = 1
     list_display = [
         "user_id",
-        "role",
         "eligible",
+        "role",
         "decision_comments",
     ]
     fieldsets = (
@@ -447,6 +447,7 @@ class GrantReviewAdmin(admin.ModelAdmin):
 
     list_display = [
         "user_id",
+        "eligible",
         "type",
         "agency",
         "date",
@@ -457,7 +458,6 @@ class GrantReviewAdmin(admin.ModelAdmin):
         "comments",
         "ver_file",
         "ver_url",
-        "eligible",
         "decision_comments",
     ]
     list_filter = ["entry_type", "eligible", "type"]
@@ -490,12 +490,12 @@ class CommitteeWorkAdmin(admin.ModelAdmin):
 
     list_display = [
         "user_id",
+        "eligible",
         "name",
         "hours",
         "comments",
         "ver_file",
         "ver_url",
-        "eligible",
         "decision_comments",
     ]
     list_filter = ["entry_type", "eligible"]
@@ -523,6 +523,7 @@ class LectureAdmin(admin.ModelAdmin):
 
     list_display = [
         "user_id",
+        "eligible",
         "lecture_type",
         "other_lecture_type",
         "name",
@@ -534,7 +535,6 @@ class LectureAdmin(admin.ModelAdmin):
         "comments",
         "ver_file",
         "ver_url",
-        "eligible",
         "decision_comments",
     ]
     list_filter = ["entry_type", "eligible", "lecture_type", "is_cash"]
@@ -606,6 +606,7 @@ class ExamAdmin(admin.ModelAdmin):
 
     list_display = [
         "user_id",
+        "eligible",
         "exam_type",
         "other_exam_name",
         "student_name",
@@ -614,7 +615,6 @@ class ExamAdmin(admin.ModelAdmin):
         "comments",
         "ver_file",
         "ver_url",
-        "eligible",
         "decision_comments",
     ]
     list_filter = ["entry_type", "eligible", "exam_type"]
@@ -706,6 +706,7 @@ class SupervisionAdmin(admin.ModelAdmin):
 
     list_display = [
         "user_id",
+        "eligible",
         "supervision_type",
         "student_name",
         "hours",
@@ -714,7 +715,6 @@ class SupervisionAdmin(admin.ModelAdmin):
         "comments",
         "ver_file",
         "ver_url",
-        "eligible",
         "decision_comments",
     ]
     list_filter = ["entry_type", "eligible", "supervision_type"]
@@ -780,10 +780,10 @@ class CpaAdmin(admin.ModelAdmin):
 
     list_display = [
         "user_id",
+        "eligible",
         "cpa_file",
         "ver_file",
         "comments",
-        "eligible",
         "decision_comments",
     ]
     list_filter = ["eligible"]
