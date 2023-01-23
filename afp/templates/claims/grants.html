@@ -33,8 +33,7 @@
           <thead>
             <tr>
               <th style="width: 20%;">Name</th>
-              <th style="width: 20%;">PI List</th>
-              <th style="width: 15%;">Co-I List</th>
+              <th style="width: 20%;">Role</th>
               <th style="width: 5%;">Granting Agency</th>
               <th style="width: 25%;">Amount</th>
               <th style="width: 5%;">Eligible</th>
@@ -45,8 +44,7 @@
           {% for grant in grants.my_grants %}
             <tr id="grant-{{ grant.grant.pk }}" class="grant-row">
               <td>{{ grant.grant.name }}</td>
-              <td>{{ grant.grant.pi_list }}</td>
-              <td>{{ grant.grant.coi_list }}</td>
+              <td>{{ grant.role }}</td>
               <td>{{ grant.grant.agency }}</td>
               <td>{{ grant.grant.amount }}</td>
               <td>{{ grant.grant.get_eligible_display }}</td>

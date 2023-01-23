@@ -32,9 +32,12 @@
       <table class="table table-condensed table-hover" id="tbl_my_pubs">
         <thead>
           <tr>
-            <th style="width: 20%;">Type</th>
-            <th style="width: 20%;">Title</th>
+            <th style="width: 10%;">Type</th>
+            <th style="width: 10%;">Role</th>
+            <th style="width: 5%;">Corresponding?</th>
+            <th style="width: 15%;">Title</th>
             <th style="width: 15%;">Authors</th>
+            <th style="width: 15%;">Journal</th>
             <th style="width: 5%;">Eligible</th>
             <th style="width: 25%;">Decision Comments</th>
             <th style="width: 5%;">Edit</th>
@@ -43,8 +46,11 @@
         {% for publication in publications.my_pubs %}
         <tr id="publication-{{ publication.publication.pk }}" class="publication-row">
           <td>{{ publication.publication.pub_type }}</td>
+          <td>{{ publication.role }}</td>
+          <td>{{ publication.is_corresponding }}</td>
           <td>{{ publication.publication.title }}</td>
           <td>{{ publication.publication.authors }}</td>
+          <td>{{ publication.publication.journal }}</td>
           <td>{{ publication.publication.get_eligible_display }}</td>
           <td>{{ publication.decision_comments }}</td>
           <td>
