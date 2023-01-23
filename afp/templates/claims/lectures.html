@@ -23,6 +23,7 @@
         <th style="width: 25%;">Is Cash?</th>
         <th style="width: 5%;"># Sessions</th>
         <th style="width: 5%;">Eligible</th>
+        <th style="width: 25%;">Decision Comments</th>
         <th style="width: 5%;">Edit</th>
         <th style="width: 5%;">Delete</th>
       </tr>
@@ -36,6 +37,7 @@
       <td>{{ lecture.is_cash }}</td>
       <td>{{ lecture.num_sessions }}</td>
       <td>{{ lecture.get_eligible_display }}</td>
+      <td>{{ lecture.decision_comments }}</td>
       <td>
         <a href="{% url 'edit_lecture' pk=lecture.pk %}" class="btn btn-secondary" title="Edit lecture">
           <i class="fas fa-pen"></i>

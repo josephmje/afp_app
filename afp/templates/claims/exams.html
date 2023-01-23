@@ -23,6 +23,7 @@
         <th style="width: 40%;">Date</th>
         <th style="width: 40%;">Hours</th>
         <th style="width: 10%;">Eligible</th>
+        <th style="width: 25%;">Decision Comments</th>
         <th style="width: 5%;">Edit</th>
         <th style="width: 5%;">Delete</th>
       </tr>
@@ -35,6 +36,7 @@
       <td>{{ exam.date }}</td>
       <td>{{ exam.hours }}</td>
       <td>{{ exam.get_eligible_display }}</td>
+      <td>{{ exam.decision_comments }}</td>
       <td>
         <a href="{% url 'edit_exam' pk=exam.pk %}" class="btn btn-secondary"
           title="Edit exam">

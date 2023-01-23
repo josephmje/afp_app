@@ -19,6 +19,7 @@
           <th style="width: 40%;">Journal</th>
           <th style="width: 40%;">Other Journal Name</th>
           <th style="width: 10%;">Eligible</th>
+          <th style="width: 25%;">Decision Comments</th>
           <th style="width: 5%;">Edit</th>
           <th style="width: 5%;">Delete</th>
         </tr>
@@ -28,6 +29,7 @@
         <td>{{ editorial_board.journal }}</td>
         <td>{{ editorial_board.other_journal_name }}</td>
         <td>{{ editorial_board.get_eligible_display }}</td>
+        <td>{{ editorial_board.decision_comments }}</td>
         <td>
           <a href="{% url 'edit_editorial_board' pk=editorial_board.pk %}" class="btn btn-secondary" title="Edit editorial board">
             <i class="fas fa-pen"></i>

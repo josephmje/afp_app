@@ -21,6 +21,8 @@
         <th style="width: 40%;">CPA</th>
         <th style="width: 45%;">Comments</th>
         <th style="width: 5%;">Eligible</th>
+        <th style="width: 5%;">Value</th>
+        <th style="width: 25%;">Decision Comments</th>
         <th style="width: 5%;">Edit</th>
         <th style="width: 5%;">Delete</th>
       </tr>
@@ -30,6 +32,8 @@
       <td><a href="{{ cpa.cpa_file }}">{{ cpa.cpa_file }}</a></td>
       <td>{{ cpa.comments }}</td>
       <td>{{ cpa.get_eligible_display }}</td>
+      <td>{{ cpa.cpa_value }}</td>
+      <td>{{ cpa.decision_comments }}</td>
       <td>
         <a href="{% url 'edit_cpa' pk=cpa.pk %}" class="btn btn-secondary" title="Edit CPA">
           <i class="fas fa-pen"></i>

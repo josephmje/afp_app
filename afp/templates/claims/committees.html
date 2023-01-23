@@ -23,6 +23,7 @@
         <th style="width: 20%;">Name</th>
         <th style="width: 20%;">Hours</th>
         <th style="width: 25%;">Eligible</th>
+        <th style="width: 25%;">Decision Comments</th>
         <th style="width: 5%;">Edit</th>
         <th style="width: 5%;">Delete</th>
       </tr>
@@ -32,6 +33,7 @@
       <td>{{ committee.name }}</td>
       <td>{{ committee.hours }}</td>
       <td>{{ committee.get_eligible_display }}</td>
+      <td>{{ committee.decision_comments }}</td>
       <td>
         <a href="{% url 'edit_committee' pk=committee.pk %}" class="btn btn-secondary" title="Edit commitee">
           <i class="fas fa-pen"></i>

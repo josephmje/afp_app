@@ -23,6 +23,7 @@
         <th style="width: 25%;">Is Member?</th>
         <th style="width: 25%;"># of Days</th>
         <th style="width: 25%;">Eligible</th>
+        <th style="width: 25%;">Decision Comments</th>
         <th style="width: 5%;">Edit</th>
         <th style="width: 5%;">Delete</th>
       </tr>
@@ -36,6 +37,7 @@
       <td>{{ grantreview.is_member }}</td>
       <td>{{ grantreview.num_days }}</td>
       <td>{{ grantreview.get_eligible_display }}</td>
+      <td>{{ grantreview.decision_comments }}</td>
       <td>
         <a href="{% url 'edit_grantreview' pk=grantreview.pk %}" class="btn btn-secondary" title="Edit grant review">
           <i class="fas fa-pen"></i>

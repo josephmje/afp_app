@@ -38,6 +38,7 @@
               <th style="width: 5%;">Granting Agency</th>
               <th style="width: 25%;">Amount</th>
               <th style="width: 5%;">Eligible</th>
+              <th style="width: 25%;">Decision Comments</th>
               <th style="width: 5%;">Edit</th>
             </tr>
           </thead>
@@ -49,6 +50,7 @@
               <td>{{ grant.grant.agency }}</td>
               <td>{{ grant.grant.amount }}</td>
               <td>{{ grant.grant.get_eligible_display }}</td>
+              <td>{{ grant.decision_comments }}</td>
               <td>
                 <a href="{% url 'edit_grant' pk=grant.grant.pk %}" class="btn btn-secondary" title="Edit grant">
                   <i class="fas fa-pen"></i>

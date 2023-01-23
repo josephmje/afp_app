@@ -23,6 +23,7 @@
         <th style="width: 40%;">Duration</th>
         <th style="width: 40%;">Frequency</th>
         <th style="width: 10%;">Eligible</th>
+        <th style="width: 25%;">Decision Comments</th>
         <th style="width: 5%;">Edit</th>
         <th style="width: 5%;">Delete</th>
       </tr>
@@ -35,6 +36,7 @@
       <td>{{ supervision.duration }}</td>
       <td>{{ supervision.frequency }}</td>
       <td>{{ supervision.get_eligible_display }}</td>
+      <td>{{ supervision.decision_comments }}</td>
       <td>
         <a href="{% url 'edit_supervision' pk=supervision.pk %}" class="btn btn-secondary"
           title="Edit supervision">
