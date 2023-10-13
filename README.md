@@ -2,6 +2,21 @@
 
 ## Setting up environment
 
+### Download code from GitHub
+
+1. [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) the `afp_app` repository with your GitHub user.
+This is now your own unique copy of the `afp_app` code. Changes here won't affect anyone else's work, so it's a safe space to explore edits to the code!
+   
+2. [Clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) your forked repository to your machine/computer.
+While you can edit files [directly on GitHub](https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files), sometimes the changes you want to make will be complex and you will want to use a text editor that you have installed on your local machine/computer (one great text editor is [VSCode](https://code.visualstudio.com/)).
+In order to work on the code locally, you must clone your forked repository.
+
+### Database
+
+Install [PostgreSQL](https://www.postgresql.org/download/) and create a new database called "afp".
+
+A walkthrough can be found [here](https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-20-04).
+
 ### Python
 
 ```bash
@@ -11,11 +26,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### Database
 
-Install [PostgreSQL](https://www.postgresql.org/download/) and create a new database called "afp".
-
-A walkthrough can be found [here](https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-20-04).
 
 ### Node, Sass, autoprefixer
 
