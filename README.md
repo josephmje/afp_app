@@ -26,7 +26,17 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+### Secrets
 
+Create a new text file called `.env`. This will be used by the `django-environ` package to configure some Django environment variables that shouldn't be shared publicly. In this text file, paste the following lines:
+
+```
+DJANGO_SETTINGS_MODULE=config.settings.local
+DJANGO_DEBUG=True
+DATABASE_URL=postgres://<username>@localhost:5432/afp
+```
+
+Replace `<username>` with your computer's username.
 
 ### Node, Sass, autoprefixer
 
