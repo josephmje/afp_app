@@ -54,15 +54,6 @@ sass bootstrap.scss bootstrap.css
 
 ## Basic Commands
 
-The configuration files for running the web app can be found in `config/settings`.
-
-To run the web app locally, use the settings found in the `local.py` file:
-
-```bash
-export DJANGO_SETTINGS_MODULE=config.settings.local
-python manage.py runserver
-```
-
 Set up the database:
 
 ```bash
@@ -80,6 +71,15 @@ Create admin user:
 
 ```bash
 python manage.py createsuperuser
+```
+
+The configuration files for running the web app can be found in `config/settings`.
+
+To run the web app locally, use the settings found in the `local.py` file:
+
+```bash
+export DJANGO_SETTINGS_MODULE=config.settings.local
+python manage.py runserver
 ```
 
 For a quick description of the files present in a Django web app, see the video [here](https://realpython.com/lessons/django-files/).
